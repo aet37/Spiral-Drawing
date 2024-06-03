@@ -53,7 +53,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		###########################################################################################
 
 		# Case Setup variables
-		self.basePath = '/Users/andrew/Documents/research_papers/ohsu/cases'
+
+		tmpdir = os.getcwd()
+		tmpdir = tmpdir.split('/')
+		print(tmpdir)
+
+		# If the base directory doesnt exist, make it
+		if not os.path.exists(self.basePath):
+			os.mkdir(self.basePath)
+
 		self.pt_id = ''
 		self.data_save_path = ''
 		self.current_trial = ''
