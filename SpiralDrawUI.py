@@ -56,7 +56,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		tmpdir = os.getcwd()
 		tmpdir = tmpdir.split('/')
-		print(tmpdir)
 		self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
 
 		# If the base directory doesnt exist, make it
