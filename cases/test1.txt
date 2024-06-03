@@ -1,8 +1,0 @@
-test1
-/Users/andrew/Desktop/Spiral-Drawing/cases/test1/
-06/03/2024, 12:48:18
-
-preop
-io1
-20240603-p1-io2
-20240603-p1-io3

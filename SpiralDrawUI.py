@@ -53,7 +53,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		###########################################################################################
 
 		# Case Setup variables
-		self.basePath = '/Users/andrew/Desktop/Spiral-Drawing/cases/'
+		self.basePath = '/Users/andrew/Documents/research_papers/ohsu/cases'
 		self.pt_id = ''
 		self.data_save_path = ''
 		self.current_trial = ''
