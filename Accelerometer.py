@@ -13,10 +13,6 @@ class Accelerometer:
 		self.signal = []
 		self.logger = []
 
-		# Make the file to print out to
-		self.f = open(fpath, 'w+')
-		self.f.truncate()
-
 		# Parsing + logging variables
 		self.firstParse = True
 		self.time_original = 0
@@ -82,6 +78,10 @@ class Accelerometer:
 	# Stop logging and save to file
 	def stop_log(self, fpath=''):
 		try:
+			# Make the file to print out to
+			self.f = open(fpath, 'w+')
+			self.f.truncate()
+
 			# Setop acc
 			libmetawear.mbl_mw_acc_stop(self.device.board)
 			libmetawear.mbl_mw_acc_disable_acceleration_sampling(self.device.board)
