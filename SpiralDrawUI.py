@@ -196,7 +196,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			self.current_trial = tmp_str
 
-		self.accelDevice(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
+		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
 
 		isConnected = self.accelDevice.connect()
 		if isConnected:

@@ -12,6 +12,8 @@ class Accelerometer:
 		self.device = MetaWear(address)
 		self.signal = []
 		self.logger = []
+		self.fpath_write = fpath
+		self.f = []
 
 		# Parsing + logging variables
 		self.firstParse = True
@@ -79,7 +81,7 @@ class Accelerometer:
 	def stop_log(self, fpath=''):
 		try:
 			# Make the file to print out to
-			self.f = open(fpath, 'w+')
+			self.f = open(self.fpath_write, 'w+')
 			self.f.truncate()
 
 			# Setop acc
