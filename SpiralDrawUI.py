@@ -1,3 +1,4 @@
+from Accelerometer import *
 import os
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
