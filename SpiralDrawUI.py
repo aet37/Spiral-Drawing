@@ -200,7 +200,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		isConnected = self.accelDevice.connect()
 		if isConnected:
-			print("Connected successfuly to " + accelDevice.device.address)
+			print("Connected successfuly to " + self.accelDevice.device.address)
 		else:
 			print('Could not connect to BT')
 
