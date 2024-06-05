@@ -204,7 +204,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			print('Could not connect to BT')
 
-		isRecording = accelDevice.log()
+		isRecording = self.accelDevice.log()
 		if isRecording:
 			print("Recording...")
 
