@@ -132,3 +132,25 @@ class Accelerometer:
 		self.firstParse = True
 		self.f.close()
 		return True
+
+	# Cancel the recordong on the device
+	def cancel_record(self):
+		try:
+			# Setop acc
+			libmetawear.mbl_mw_acc_stop(self.device.board)
+			libmetawear.mbl_mw_acc_disable_acceleration_sampling(self.device.board)
+
+			# Stop logging
+			libmetawear.mbl_mw_logging_stop(self.device.board)
+
+			# Flush cache if MMS
+			libmetawear.mbl_mw_logging_flush_page(self.device.board)
+
+			# Reset theboard after this
+			self.reset()
+
+			return True
+
+		except RuntimeError as err:
+			print(err)
+			return False

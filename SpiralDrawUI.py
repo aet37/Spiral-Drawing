@@ -69,6 +69,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.prev_pt_lists = next(os.walk(self.basePath))[1]
 		self.accel_files = []
 
+		# Acclerometer
+		self.accel_address = 'C5:02:6A:76:E4:5D'
+		self.accelDevice = Accelerometer(self.accel_address, '')
+
 		# New or loaded case flag
 		self.isNewCase = False
 
@@ -184,7 +188,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to start the accelerometer recording
 	def record_accel(self):
-
 		# Check that two trials are not named the same
 		tmp_str = self.trialNameAccelerom.text()
 		tmp_str.replace(' ', '')
@@ -193,45 +196,68 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			self.current_trial = tmp_str
 
-		# Save file name and disable record button (only allow download)
-		self.trialNameAccelerom.setEnabled(False)
-		self.recordAccelButton.setEnabled(False)
-		self.downloadAccelButton.setEnabled(True)
-		self.cancelRecordButton.setEnabled(True)
+		self.accelDevice(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
+
+		isConnected = self.accelDevice.connect()
+		if isConnected:
+			print("Connected successfuly to " + accelDevice.device.address)
+		else:
+			print('Could not connect to BT')
+
+		isRecording = accelDevice.log()
+		if isRecording:
+			print("Recording...")
+
+			# Save file name and disable record button (only allow download)
+			self.trialNameAccelerom.setEnabled(False)
+			self.recordAccelButton.setEnabled(False)
+			self.downloadAccelButton.setEnabled(True)
+			self.cancelRecordButton.setEnabled(True)
+		else:
+			print('Error in BT setup... try again')
 
 	# Fuction to download the acclerometer recording after spiral is done
 	def download_accel(self):
 
-		# Get the accelerometer data and write it to file
-		fl = open(self.basePath + self.pt_id + '.txt', 'a')
-		fl.write(self.current_trial + '\n')
-		fl.close()
+		print('Downloading data...')
+		isDownloaded = self.accelDevice.stop_log()
 
-		# Add accel filename to case file
-		fl = open(self.basePath + self.pt_id + '/' + self.current_trial + '.txt', 'w')
-		fl.write('Accel data written')
-		fl.close()
+		if isDownloaded:
+			# Get the accelerometer data and write it to file
+			fl = open(self.basePath + self.pt_id + '.txt', 'a')
+			fl.write(self.current_trial + '\n')
+			fl.close()
 
-		# Add to the list view
-		self.accelCasesList.addItem(self.current_trial)
+			# Add to the list view
+			self.accelCasesList.addItem(self.current_trial)
 
-		# Disable buttons and add trial to list
-		self.accel_files.append(self.current_trial)
-		self.trialNameAccelerom.setEnabled(True)
-		self.recordAccelButton.setEnabled(True)
-		self.downloadAccelButton.setEnabled(False)
-		self.cancelRecordButton.setEnabled(False)
-		self.current_trial = ''
+			# Disable buttons and add trial to list
+			self.accel_files.append(self.current_trial)
+			self.trialNameAccelerom.setEnabled(True)
+			self.recordAccelButton.setEnabled(True)
+			self.downloadAccelButton.setEnabled(False)
+			self.cancelRecordButton.setEnabled(False)
+			self.current_trial = ''
+			self.accelDevice.reset()
+			print('. Done.... Ready for next trial')
+		else:
+			print('Error in downloading ... try again')
 
 	# Function to cancel the accelerometer recording button
 	def cancel_accel_record(self):
 
-		# Disable buttons and add trial to list
-		self.trialNameAccelerom.setEnabled(True)
-		self.recordAccelButton.setEnabled(True)
-		self.downloadAccelButton.setEnabled(False)
-		self.cancelRecordButton.setEnabled(False)
-		self.current_trial = ''
+		isCanceled = self.accelDevice.cancel_record()
+
+		if isCanceled:
+			# Disable buttons and add trial to list
+			self.trialNameAccelerom.setEnabled(True)
+			self.recordAccelButton.setEnabled(True)
+			self.downloadAccelButton.setEnabled(False)
+			self.cancelRecordButton.setEnabled(False)
+			self.current_trial = ''
+			print('Canceled')
+		else:
+			print('Could not cancel. Try again.')
 
 # UI Setup
 app = QtWidgets.QApplication(sys.argv)
