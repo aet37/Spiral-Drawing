@@ -179,7 +179,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.patientIdEnter.setEnabled(False)
 		self.trialNameAccelerom.setEnabled(True)
 		self.downloadAccelButton.setEnabled(False)
-		self.cancelRecordButton.setEnabled(False)
+		self.cancelRecordButton.setEnabled(True)
 
 		# Add any accel trials to the case
 		for item in self.accel_files:
