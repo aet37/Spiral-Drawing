@@ -22,6 +22,7 @@ class Accelerometer:
 		# Parsing + logging variables
 		self.firstParse = True
 		self.time_original = 0
+		self.write_ind = 0
 		self.time_data = []
 		self.data_x = []
 		self.data_y = []
@@ -75,6 +76,10 @@ class Accelerometer:
 		if self.firstParse:
 			self.time_original = int(p.contents.epoch)
 			self.firstParse = False
+			print('Writing value ' + str(self.write_ind), end='')
+		else:
+			print('\r', end='')
+			print('Writing value ' + str(self.write_ind), end='')
 
 		self.f.write(str((int(p.contents.epoch) - self.time_original) / 1000))
 		self.time_data.append((int(p.contents.epoch) - self.time_original) / 1000)
@@ -95,6 +100,8 @@ class Accelerometer:
 		self.data_z.append(float(parsed_val[5]))
 		self.f.write(parsed_val[5])
 		self.f.write('\n')
+
+		self.write_ind +=1
 
 	# Stop logging and save to file
 	def stop_log(self, fpath=''):
@@ -123,6 +130,7 @@ class Accelerometer:
 				if (entries_left == 0):
 					self.f.close()
 					e.set()
+					print('\n')
 
 			fn_wrapper = FnVoid_VoidP_UInt_UInt(progress_update_handler)
 			download_handler = LogDownloadHandler(context = None, received_progress_update = fn_wrapper, received_unknown_entry = cast(None, FnVoid_VoidP_UByte_Long_UByteP_UByte), received_unhandled_entry = cast(None, FnVoid_VoidP_DataP))
@@ -152,6 +160,7 @@ class Accelerometer:
 
 		# Set the flag to set the right time when downloading
 		self.firstParse = True
+		self.write_ind = 0
 		return True
 
 	# Cancel the recordong on the device
