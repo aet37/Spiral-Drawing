@@ -179,7 +179,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.patientIdEnter.setEnabled(False)
 		self.trialNameAccelerom.setEnabled(True)
 		self.downloadAccelButton.setEnabled(False)
-		self.cancelRecordButton.setEnabled(True)
+		self.cancelRecordButton.setEnabled(False)
 
 		# Add any accel trials to the case
 		for item in self.accel_files:
@@ -198,15 +198,18 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
 
-		isConnected = self.accelDevice.connect()
-		if isConnected:
-			print("Connected successfuly to " + self.accelDevice.device.address)
-		else:
-			print('Could not connect to BT')
+		connected = False
+		for i in range(5):
+			connected = self.accelDevice.connect()
+			if connected:
+				break
+			else:
+				print('Trying to establish connection again...')
+				sleep(1)
 
 		isRecording = self.accelDevice.log()
 		if isRecording:
-			print("Recording...")
+			#print("Recording...")
 
 			# Save file name and disable record button (only allow download)
 			self.trialNameAccelerom.setEnabled(False)
@@ -220,7 +223,20 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def download_accel(self):
 
 		print('Downloading data...')
-		isDownloaded = self.accelDevice.stop_log()
+
+		# Check to make sure device did not loose connection
+		if self.accelDevice.isConnected
+			isDownloaded = self.accelDevice.stop_log()
+		else:
+			print('Connecton lost during recording... Trying to reestablish...')
+			connected = False
+			for i in range(5):
+				connected = self.accelDevice.connect()
+				if connected:
+					break
+				else:
+					print('Trying to establish connection again...')
+					sleep(1)
 
 		if isDownloaded:
 			# Get the accelerometer data and write it to file

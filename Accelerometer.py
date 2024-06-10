@@ -1,6 +1,7 @@
 from mbientlab.metawear import MetaWear, libmetawear, parse_value, create_voidp, create_voidp_int
 from mbientlab.metawear.cbindings import *
 from threading import Event
+from mbientlab.warble import *
 from time import sleep
 
 class Accelerometer:
@@ -12,8 +13,11 @@ class Accelerometer:
 		self.device = MetaWear(address)
 		self.signal = []
 		self.logger = []
-		self.fpath_write = fpath
 		self.f = []
+
+		# Function to handle disconnect every time device disconnected
+		self.device.on_disconnect = lambda status: self.disconnect_handler()
+		self.isConnected = False
 
 		# Parsing + logging variables
 		self.firstParse = True
@@ -25,8 +29,22 @@ class Accelerometer:
 
 	# Function to connect
 	def connect(self):
-		self.device.connect()
-		return True
+		try:
+			self.device.connect()
+			self.isConnected = True
+			print('Connected.')
+
+		except:
+			self.isConnected = False
+			print('Could not connect to ' + self.device.address)
+
+		return self.isConnected
+
+	# Function to handle disconnects
+	def disconnect_handler(self):
+		print('DISCONNECTED... Flag set.')
+		self.isConnected = False
+
 
 	# Start logging the acceleration
 	def log(self):
@@ -45,10 +63,11 @@ class Accelerometer:
 			libmetawear.mbl_mw_acc_enable_acceleration_sampling(self.device.board)
 			libmetawear.mbl_mw_acc_start(self.device.board)
 
+			print('Recording ...')
 			return True # If run sucessful
 
-		except RuntimeError as err:
-			print(err)
+		except:
+			print('Could not set up logger. Reset device and/or try again.')
 			return False
 
 	# Function to parse the data into a .csv file
@@ -81,7 +100,7 @@ class Accelerometer:
 	def stop_log(self, fpath=''):
 		try:
 			# Make the file to print out to
-			self.f = open(self.fpath_write, 'w+')
+			self.f = open(fpath, 'w+')
 			self.f.truncate()
 
 			# Setop acc
