@@ -226,7 +226,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
-			isDownloaded = self.accelDevice.stop_log()
+			isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.trialNameAccelerom)
 		else:
 			print('Connecton lost during recording... Trying to reestablish...')
 			connected = False
