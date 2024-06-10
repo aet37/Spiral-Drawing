@@ -121,6 +121,7 @@ class Accelerometer:
 			e = Event()
 			def progress_update_handler(context, entries_left, total_entries):
 				if (entries_left == 0):
+					self.f.close()
 					e.set()
 
 			fn_wrapper = FnVoid_VoidP_UInt_UInt(progress_update_handler)
@@ -151,7 +152,6 @@ class Accelerometer:
 
 		# Set the flag to set the right time when downloading
 		self.firstParse = True
-		self.f.close()
 		return True
 
 	# Cancel the recordong on the device
