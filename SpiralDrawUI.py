@@ -286,22 +286,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print('  Done')
 
 			# Get the accelerometer data and write it to file
-			fl = open(self.basePath + self.pt_id + '.txt', 'a')
-			fl.write(self.current_trial + '\n')
-			fl.close()
+			if self.current_trial != 'test'
+				fl = open(self.basePath + self.pt_id + '.txt', 'a')
+				fl.write(self.current_trial + '\n')
+				fl.close()
 
 			# Add to the list view
 			self.accelCasesList.addItem(self.current_trial)
 
 			# Disable buttons and add trial to list
-			self.accel_files.append(self.current_trial)
+			if self.current_trial != 'test':
+				self.accel_files.append(self.current_trial)
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
 			self.trialNameSelect.setEnabled(True)
-			self.intraop_current += 1
-			self.intraopValueFeild.setValue(self.intraop_current)
+			if intraopRadioButton.isChecked():
+				self.intraop_current += 1
+				self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
 
 			print('Reseting ...')
