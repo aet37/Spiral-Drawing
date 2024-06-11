@@ -238,7 +238,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					print('Trying to establish connection again...')
 					sleep(1)
 
+			# After connection, call is_downloaded function
+			if self.accelDevice.isConnected:
+				isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
+			else:
+				isDownloaded = False
+
 		if isDownloaded:
+			# Signal that downloading is complete
+			print('  Done')
+
 			# Get the accelerometer data and write it to file
 			fl = open(self.basePath + self.pt_id + '.txt', 'a')
 			fl.write(self.current_trial + '\n')
@@ -254,6 +263,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
 			self.current_trial = ''
+
+			print('Reseting ...')
 			self.accelDevice.reset()
 			print('. Done.... Ready for next trial')
 		else:
