@@ -299,7 +299,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
-			isReset = self.accelDevice.eset()
+			isReset = self.accelDevice.reset()
 		else:
 			print('Connecton lost ... Trying to reestablish...')
 			connected = False
