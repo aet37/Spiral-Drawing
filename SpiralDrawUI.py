@@ -291,11 +291,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				fl.write(self.current_trial + '\n')
 				fl.close()
 
-			# Add to the list view
-			self.accelCasesList.addItem(self.current_trial)
-
 			# Disable buttons and add trial to list
 			if self.current_trial != 'test':
+				self.accelCasesList.addItem(self.current_trial)
 				self.accel_files.append(self.current_trial)
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
