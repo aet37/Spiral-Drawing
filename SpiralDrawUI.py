@@ -20,9 +20,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		## Buttons / Screen Items
 		###########################################################################################
 
+		# Group Boxes
+		self.trialNameSelect = self.findChild(QtWidgets.QGroupBox, 'accel_trial_sel')
+
 		# Line Edits
 		self.patientIdEnter = self.findChild(QtWidgets.QLineEdit, 'patientIdEnter')
 		self.trialNameAccelerom = self.findChild(QtWidgets.QLineEdit, 'trialNameAccel')
+
+		# Spin box
+		self.intraopValueFeild = self.findChild(QtWidgets.QSpinBox, 'intraopValue')
 
 		# Push Buttons
 		self.startCaseButton = self.findChild(QtWidgets.QPushButton, 'startCase')
@@ -40,6 +46,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.downloadAccelButton.clicked.connect(self.download_accel)
 		self.cancelRecordButton = self.findChild(QtWidgets.QPushButton, 'cancelRecord')
 		self.cancelRecordButton.clicked.connect(self.cancel_accel_record)
+
+		# Radio Button
+		self.preopRadioButton = self.findChild(QtWidgets.QRadioButton, 'preopRaio')
+		self.intraopRadioButton = self.findChild(QtWidgets.QRadioButton, 'intraopRadio')
+		self.postopRadioButton = self.findChild(QtWidgets.QRadioButton, 'postopRadio')
+		self.otherRadioButton = self.findChild(QtWidgets.QRadioButton, 'otherRadio')
+		self.testRadioButton = self.findChild(QtWidgets.QRadioButton, 'testRadio')
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
@@ -70,6 +83,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.current_trial = ''
 		self.prev_pt_lists = next(os.walk(self.basePath))[1]
 		self.accel_files = []
+		self.intraop_current = 1
 
 		# Acclerometer
 		self.accel_address = 'C5:02:6A:76:E4:5D'
@@ -182,6 +196,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.trialNameAccelerom.setEnabled(True)
 		self.downloadAccelButton.setEnabled(False)
 		self.cancelRecordButton.setEnabled(False)
+		self.resetBoardButton.setEnabled(False)
 
 		# Add any accel trials to the case
 		for item in self.accel_files:
@@ -190,9 +205,24 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to start the accelerometer recording
 	def record_accel(self):
-		# Check that two trials are not named the same
-		tmp_str = self.trialNameAccelerom.text()
-		tmp_str.replace(' ', '')
+
+		if self.preopRadioButton.isChecked():
+			tmp_str= 'preop'
+
+		elif self.intraopRadioButton.isChecked():
+			tmp_str = 'intraop' + str(self.intraop_current)
+
+		elif self.postopRadioButton.isChecked():
+			tmp_str = 'postop'
+
+		elif self.otherRadioButton.isChecked():
+			# Check that two trials are not named the same
+			tmp_str = self.trialNameAccelerom.text()
+			tmp_str.replace(' ', '')
+
+		elif self.testRadioButton.isChecked():
+			tmp_str = 'test'
+
 		if tmp_str == '' or (tmp_str in self.accel_files):
 			return
 		else:
@@ -219,16 +249,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.recordAccelButton.setEnabled(False)
 			self.downloadAccelButton.setEnabled(True)
 			self.cancelRecordButton.setEnabled(True)
+			self.trialNameSelect.setEnabled(False)
 		else:
 			print('Error in BT setup... try again')
 
 	# Fuction to download the acclerometer recording after spiral is done
 	def download_accel(self):
 
-		print('Downloading data...')
-
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
+			print('Downloading data...')
 			#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 			isDownloaded = self.accelDevice.stop_log()
 		else:
@@ -269,6 +299,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.recordAccelButton.setEnabled(True)
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
+			self.trialNameSelect.setEnabled(True)
+			self.intraop_current += 1
+			self.intraopValueFeild.setText(str(self.intraop_current))
 			self.current_trial = ''
 
 			print('Reseting ...')
@@ -279,7 +312,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to cancel the accelerometer recording button
 	def cancel_accel_record(self):
-
+		'''
 		isCanceled = self.accelDevice.cancel_record()
 
 		if isCanceled:
@@ -292,6 +325,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print('Canceled')
 		else:
 			print('Could not cancel. Try again.')
+		'''
+		return
 
 	# Function to handle reset request from user
 	def handle_reset(self):
