@@ -286,7 +286,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print('  Done')
 
 			# Get the accelerometer data and write it to file
-			if self.current_trial != 'test'
+			if self.current_trial != 'test':
 				fl = open(self.basePath + self.pt_id + '.txt', 'a')
 				fl.write(self.current_trial + '\n')
 				fl.close()
