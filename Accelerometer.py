@@ -163,6 +163,23 @@ class Accelerometer:
 		self.write_ind = 0
 		return True
 
+	def full_reset(self):
+		try:
+			# Stop acclerometer
+			libmetawear.mbl_mw_acc_stop(self.device.board)
+			libmetawear.mbl_mw_acc_disable_acceleration_sampling(self.device.board)
+
+			# Stop logging
+			libmetawear.mbl_mw_logging_stop(self.device.board)
+
+			# Flush cache if MMS
+			libmetawear.mbl_mw_logging_flush_page(self.device.board)
+
+			# Reset theboard after this
+			self.reset()
+		except:
+			print('  Error reseting ... try again.')
+
 	# Cancel the recordong on the device
 	def cancel_record(self):
 		try:
