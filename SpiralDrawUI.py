@@ -302,7 +302,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
 			self.trialNameSelect.setEnabled(True)
-			if intraopRadioButton.isChecked():
+			if self.intraopRadioButton.isChecked():
 				self.intraop_current += 1
 				self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
