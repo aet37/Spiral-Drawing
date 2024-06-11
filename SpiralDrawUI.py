@@ -48,7 +48,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.cancelRecordButton.clicked.connect(self.cancel_accel_record)
 
 		# Radio Button
-		self.preopRadioButton = self.findChild(QtWidgets.QRadioButton, 'preopRaio')
+		self.preopRadioButton = self.findChild(QtWidgets.QRadioButton, 'preopRadio')
 		self.intraopRadioButton = self.findChild(QtWidgets.QRadioButton, 'intraopRadio')
 		self.postopRadioButton = self.findChild(QtWidgets.QRadioButton, 'postopRadio')
 		self.otherRadioButton = self.findChild(QtWidgets.QRadioButton, 'otherRadio')
