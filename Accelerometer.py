@@ -184,7 +184,7 @@ class Accelerometer:
 
 			libmetawear.mbl_mw_debug_disconnect(self.device.board)
 
-			device.disconnect()
+			self.device.disconnect()
 			return True
 
 		except RuntimeError as err:
