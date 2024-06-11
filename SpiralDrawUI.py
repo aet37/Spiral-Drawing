@@ -301,7 +301,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.cancelRecordButton.setEnabled(False)
 			self.trialNameSelect.setEnabled(True)
 			self.intraop_current += 1
-			self.intraopValueFeild.setText(str(self.intraop_current))
+			self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
 
 			print('Reseting ...')
