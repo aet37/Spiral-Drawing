@@ -159,11 +159,14 @@ class Accelerometer:
 
 	# Reset the device
 	def reset(self):
+		e = Event()
+		self.device.on_disconnect = lambda status: e.set()
 		libmetawear.mbl_mw_debug_reset(self.device.board)
-		self.reset_disconnect_event.wait()
+		e.wait()
 
 		# Set the flag to set the right time when downloading
 		self.firstParse = True
+		self.device.on_disconnect = lambda status: self.disconnect_handler()
 		self.write_ind = 0
 		return True
 
