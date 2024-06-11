@@ -16,3 +16,6 @@ print('Reseting...')
 isReset = accelDevice.full_reset()
 if isReset:
 	print('  Done.')
+
+accelDevice.connect()
+print('Connected')

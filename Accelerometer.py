@@ -187,9 +187,8 @@ class Accelerometer:
 			self.device.disconnect()
 			return True
 
-		except RuntimeError as err:
+		except:
 			print('  Error reseting ... try again.')
-			print(err)
 			return False
 
 	# Cancel the recordong on the device
