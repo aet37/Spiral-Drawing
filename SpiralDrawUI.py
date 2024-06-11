@@ -229,6 +229,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
+			#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 			isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 		else:
 			print('Connecton lost during recording... Trying to reestablish...')
@@ -244,7 +245,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# After connection, call is_downloaded function
 			if self.accelDevice.isConnected:
 				print('Downloading...')
-				isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
+				#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
+				isDownloaded = self.accelDevice.stop_log()
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
