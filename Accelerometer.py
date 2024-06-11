@@ -14,10 +14,12 @@ class Accelerometer:
 		self.signal = []
 		self.logger = []
 		self.f = []
+		self.fpath = fpath
 
 		# Function to handle disconnect every time device disconnected
 		self.device.on_disconnect = lambda status: self.disconnect_handler()
 		self.isConnected = False
+		self.reset_disconnect_event = Event()
 
 		# Parsing + logging variables
 		self.firstParse = True
@@ -33,6 +35,7 @@ class Accelerometer:
 		try:
 			self.device.connect()
 			self.isConnected = True
+			self.reset_disconnect_event.clear()
 			print('Connected.')
 
 		except:
@@ -45,11 +48,15 @@ class Accelerometer:
 	def disconnect_handler(self):
 		print('DISCONNECTED... Flag set.')
 		self.isConnected = False
+		self.reset_disconnect_event.set()
 
 
 	# Start logging the acceleration
 	def log(self):
 		try:
+			print('Preparing Board ...')
+			self.full_reset()
+
 			# Configure the board with the right frequency and g
 			libmetawear.mbl_mw_acc_set_odr(self.device.board, self.fs)	# Start the accelerometer
 			libmetawear.mbl_mw_acc_set_range(self.device.board, 16)	# Set range to +/-16g or closest valid range
@@ -101,13 +108,13 @@ class Accelerometer:
 		self.f.write(parsed_val[5])
 		self.f.write('\n')
 
-		self.write_ind +=1
+		self.write_ind += 1
 
 	# Stop logging and save to file
-	def stop_log(self, fpath=''):
+	def stop_log(self):
 		try:
 			# Make the file to print out to
-			self.f = open(fpath, 'w+')
+			self.f = open(self.fpath, 'w+')
 			self.f.truncate()
 
 			# Setop acc
@@ -153,10 +160,8 @@ class Accelerometer:
 
 	# Reset the device
 	def reset(self):
-		e = Event()
-		self.device.on_disconnect = lambda status: e.set()
 		libmetawear.mbl_mw_debug_reset(self.device.board)
-		e.wait()
+		self.reset_disconnect_event.wait()
 
 		# Set the flag to set the right time when downloading
 		self.firstParse = True
@@ -165,20 +170,26 @@ class Accelerometer:
 
 	def full_reset(self):
 		try:
-			# Stop acclerometer
-			libmetawear.mbl_mw_acc_stop(self.device.board)
-			libmetawear.mbl_mw_acc_disable_acceleration_sampling(self.device.board)
-
-			# Stop logging
+			# Stops data logging
 			libmetawear.mbl_mw_logging_stop(self.device.board)
 
-			# Flush cache if MMS
-			libmetawear.mbl_mw_logging_flush_page(self.device.board)
+			# Clear the logger of saved entries
+			libmetawear.mbl_mw_logging_clear_entries(self.device.board)
 
-			# Reset theboard after this
-			self.reset()
+			# Remove all macros on the flash memory
+			libmetawear.mbl_mw_macro_erase_all(self.device.board)
+
+			# Restarts the board after performing garbage collection
+			libmetawear.mbl_mw_debug_reset_after_gc(self.device.board)
+
+			libmetawear.mbl_mw_debug_disconnect(self.device.board)
+
+			device.disconnect()
+			return True
+
 		except:
 			print('  Error reseting ... try again.')
+			return False
 
 	# Cancel the recordong on the device
 	def cancel_record(self):

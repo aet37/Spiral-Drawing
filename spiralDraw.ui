@@ -33,7 +33,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="caseSelect">
      <attribute name="title">
@@ -146,8 +146,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>20</y>
+        <x>10</x>
+        <y>10</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -164,8 +164,8 @@
      <widget class="QPushButton" name="recordAccel">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>90</y>
+        <x>260</x>
+        <y>40</y>
         <width>100</width>
         <height>32</height>
        </rect>
@@ -180,8 +180,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>90</y>
+        <x>260</x>
+        <y>80</y>
         <width>100</width>
         <height>32</height>
        </rect>
@@ -190,24 +190,11 @@
        <string>Download</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="trialNameAccel">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>60</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QPushButton" name="cancelRecord">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>130</y>
+        <x>260</x>
+        <y>120</y>
         <width>111</width>
         <height>32</height>
        </rect>
@@ -219,11 +206,128 @@
      <widget class="QListWidget" name="accelCases">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>20</y>
+        <x>440</x>
+        <y>40</y>
         <width>161</width>
         <height>111</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="accel_trial_sel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>241</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QRadioButton" name="preopRadio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>preop</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="intraopRadio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>intraop</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="postopRadio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>postop</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="otherRadio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>other</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="trialNameAccel">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>110</y>
+         <width>161</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="testRadio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>129</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>test</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>40</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="resetBoard">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>160</y>
+        <width>121</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset BT Board</string>
       </property>
      </widget>
     </widget>

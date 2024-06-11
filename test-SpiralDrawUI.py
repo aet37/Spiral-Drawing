@@ -200,7 +200,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
 
-		# Establish connection
 		connected = False
 		for i in range(5):
 			connected = self.accelDevice.connect()
@@ -297,9 +296,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
-			isReset = self.accelDevice.full_reset()
+			isReset = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 		else:
-			print('Connecton lost ... Trying to reestablish...')
+			print('Connecton lost during recording... Trying to reestablish...')
 			connected = False
 			for i in range(5):
 				connected = self.accelDevice.connect()
@@ -309,10 +308,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					print('Trying to establish connection again...')
 					sleep(1)
 
-			# After connection, call reset function
+			# After connection, call is_downloaded function
 			if self.accelDevice.isConnected:
-				print('Reseting BT board ...')
-				isDownloaded = self.accelDevice.full_reset()
+				print('Downloading...')
+				isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
