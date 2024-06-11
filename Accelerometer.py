@@ -55,7 +55,6 @@ class Accelerometer:
 	def log(self):
 		try:
 			print('Preparing Board ...')
-			#self.full_reset()
 
 			# Configure the board with the right frequency and g
 			libmetawear.mbl_mw_acc_set_odr(self.device.board, self.fs)	# Start the accelerometer

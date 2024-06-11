@@ -299,7 +299,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
-			isReset = self.accelDevice.full_reset()
+			isReset = self.accelDevice.eset()
 		else:
 			print('Connecton lost ... Trying to reestablish...')
 			connected = False
@@ -314,7 +314,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# After connection, call reset function
 			if self.accelDevice.isConnected:
 				print('Reseting BT board ...')
-				isDownloaded = self.accelDevice.full_reset()
+				isDownloaded = self.accelDevice.reset()
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
