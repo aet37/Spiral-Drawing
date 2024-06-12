@@ -19,6 +19,7 @@ class Accelerometer:
 		# Function to handle disconnect every time device disconnected
 		self.device.on_disconnect = lambda status: self.disconnect_handler()
 		self.isConnected = False
+		self.download_sucess = None
 		self.reset_disconnect_event = Event()
 
 		# Parsing + logging variables
@@ -49,6 +50,25 @@ class Accelerometer:
 		print('DISCONNECTED... Flag set.')
 		self.isConnected = False
 		self.reset_disconnect_event.set()
+
+	# Funciton to handle disconnects when downloading (e = event to signal end of download (otherwise stuck in loop))
+	def disconnect_during_download_handle(self, e):
+		print('DISCONNECTED during download ... Flag set.')
+		self.isConnected = False
+		self.reset_disconnect_event.set()
+		self.e.set()
+		self.download_sucess = False
+
+		print('Connecton lost during recording... Trying to reestablish...')
+			connected = False
+			for i in range(5):
+				connected = self.device.connect()
+				if connected:
+					break
+				else:
+					print('Trying to establish connection again...')
+					sleep(1)
+
 
 
 	# Start logging the acceleration
@@ -112,9 +132,13 @@ class Accelerometer:
 	# Stop logging and save to file
 	def stop_log(self):
 		try:
+			# Disconnect or complete trial event
+			e = Event()
+
 			# Make the file to print out to
 			self.f = open(self.fpath, 'w+')
 			self.f.truncate()
+			self.device.on_disconnect = lambda status: self.disconnect_during_download_handle(e)
 
 			# Setop acc
 			libmetawear.mbl_mw_acc_stop(self.device.board)
@@ -131,10 +155,10 @@ class Accelerometer:
 			sleep(1)
 
 			# Setup Download handler
-			e = Event()
 			def progress_update_handler(context, entries_left, total_entries):
 				if (entries_left == 0):
 					self.f.close()
+					self.download_sucess = True
 					e.set()
 					print('\n')
 
@@ -151,7 +175,7 @@ class Accelerometer:
 			libmetawear.mbl_mw_logging_download(self.device.board, 0, byref(download_handler))
 			e.wait()
 
-			return True # Signal sucess
+			return self.download_sucess # Signal sucess
 
 		except RuntimeError as err:
 			print(err)
