@@ -56,7 +56,7 @@ class Accelerometer:
 		print('DISCONNECTED during download ... Flag set.')
 		self.isConnected = False
 		self.reset_disconnect_event.set()
-		self.e.set()
+		e.set()
 		self.download_sucess = False
 
 		print('Connecton lost during recording... Trying to reestablish...')
