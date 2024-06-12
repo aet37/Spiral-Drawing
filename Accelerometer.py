@@ -60,14 +60,14 @@ class Accelerometer:
 		self.download_sucess = False
 
 		print('Connecton lost during recording... Trying to reestablish...')
-			connected = False
-			for i in range(5):
-				connected = self.device.connect()
-				if connected:
-					break
-				else:
-					print('Trying to establish connection again...')
-					sleep(1)
+		connected = False
+		for i in range(5):
+			connected = self.device.connect()
+			if connected:
+				break
+			else:
+				print('Trying to establish connection again...')
+				sleep(1)
 
 
 
