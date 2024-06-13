@@ -165,6 +165,7 @@ class Accelerometer:
 			def progress_update_handler(context, entries_left, total_entries):
 				if (entries_left == 0):
 					self.f.close()
+					self.device.on_disconnect = lambda status: self.disconnect_handler()
 					self.download_sucess = True
 					e.set()
 					print('\n')
