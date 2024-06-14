@@ -59,8 +59,9 @@ class Accelerometer:
 		print('DISCONNECTED during download ... Flag set.')
 		self.isConnected = False
 		self.reset_disconnect_event.set()
-		e.set()
 		self.download_sucess = False
+		self.f.close()
+		e.set()
 
 		'''
 		print('Connecton lost during recording... Trying to reestablish...')
@@ -144,6 +145,7 @@ class Accelerometer:
 			self.f = open(self.fpath, 'a')
 
 			if self.firstParse:
+				print('****** TRUNCATED *****')
 				self.f.truncate()
 
 			self.device.on_disconnect = lambda status: self.disconnect_during_download_handle(e)
