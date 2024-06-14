@@ -56,16 +56,10 @@ class Accelerometer:
 		print('DISCONNECTED during download ... Flag set.')
 		self.isConnected = False
 		self.reset_disconnect_event.set()
-		self.firstParse = True
-		self.time_original = 0
-		self.write_ind = 0
-		self.time_data = []
-		self.data_x = []
-		self.data_y = []
-		self.data_z = []
 		e.set()
 		self.download_sucess = False
 
+		'''
 		print('Connecton lost during recording... Trying to reestablish...')
 		connected = False
 		for i in range(5):
@@ -75,6 +69,7 @@ class Accelerometer:
 			else:
 				print('Trying to establish connection again...')
 				sleep(1)
+		'''
 
 
 
@@ -144,7 +139,10 @@ class Accelerometer:
 
 			# Make the file to print out to
 			self.f = open(self.fpath, 'w+')
-			self.f.truncate()
+
+			if self.firstParse:
+				self.f.truncate()
+
 			self.device.on_disconnect = lambda status: self.disconnect_during_download_handle(e)
 
 			# Setop acc
@@ -167,6 +165,7 @@ class Accelerometer:
 					self.f.close()
 					self.device.on_disconnect = lambda status: self.disconnect_handler()
 					self.download_sucess = True
+					self.firstParse = True
 					e.set()
 					print('\n')
 

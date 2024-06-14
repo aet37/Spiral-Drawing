@@ -81,6 +81,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.pt_id = ''
 		self.data_save_path = ''
 		self.current_trial = ''
+		self.first_download = True
 		self.prev_pt_lists = next(os.walk(self.basePath))[1]
 		self.accel_files = []
 		self.intraop_current = 1
