@@ -7,13 +7,15 @@ from time import sleep
 class Accelerometer:
 
 	# Setup function
-	def __init__(self, address, fpath='', fs=100):
+	def __init__(self, address, fpath, fs=100):
 		self.address = address
 		self.fs = fs
 		self.device = MetaWear(address)
 		self.signal = []
 		self.logger = []
-		self.f = []
+		self.f = open(fpath, 'w')
+		sleep(0.1)
+		self.f.close()
 		self.fpath = fpath
 
 		# Function to handle disconnect every time device disconnected
@@ -138,7 +140,7 @@ class Accelerometer:
 			e = Event()
 
 			# Make the file to print out to
-			self.f = open(self.fpath, 'w+')
+			self.f = open(self.fpath, 'a')
 
 			if self.firstParse:
 				self.f.truncate()
