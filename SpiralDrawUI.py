@@ -88,7 +88,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Acclerometer
 		self.accel_address = 'C5:02:6A:76:E4:5D'
-		self.accelDevice = Accelerometer(self.accel_address, '')
+		self.accelDevice = Accelerometer()
 
 		# New or loaded case flag
 		self.isNewCase = False
