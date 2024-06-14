@@ -208,7 +208,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def record_accel(self):
 
 		if self.preopRadioButton.isChecked():
-			tmp_str= 'preop'
+			tmp_str = 'preop'
 
 		elif self.intraopRadioButton.isChecked():
 			tmp_str = 'intraop' + str(self.intraop_current)
@@ -223,6 +223,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		elif self.testRadioButton.isChecked():
 			tmp_str = 'test'
+		else:
+			tmp_str = ''
 
 		if tmp_str == '' or (tmp_str in self.accel_files):
 			return
