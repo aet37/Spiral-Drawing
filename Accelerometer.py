@@ -15,7 +15,7 @@ class Accelerometer:
 		self.logger = []
 		if fpath != '':
 			self.f = open(fpath, 'w')
-			sleep(0.1)
+			#sleep(0.1)
 			self.f.close()
 		self.fpath = fpath
 

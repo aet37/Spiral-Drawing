@@ -235,7 +235,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Disable the record button
 		self.recordAccelButton.setEnabled(False)
-		print('***** HERE *********')
+
 		# Update user thatdevice is being set up
 		self.accelDeviceUpdates.setText('Connecting to device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
