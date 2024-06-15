@@ -357,8 +357,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print('  Done')
 
 			# Signal to UI that the data is being downloaded
-			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
-			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+			self.accelDeviceUpdates.setText('Done. Reseting BT ...')
+			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
 
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
@@ -385,6 +385,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 			print('Reseting ...')
 			self.accelDevice.reset()
+
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
+			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
+
 			print('. Done.... Ready for next trial')
 		else:
 			# Signal to UI that the data is being downloaded
