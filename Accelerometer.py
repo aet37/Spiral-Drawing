@@ -145,7 +145,6 @@ class Accelerometer:
 			self.f = open(self.fpath, 'a')
 
 			if self.firstParse:
-				print('****** TRUNCATED *****')
 				self.f.truncate()
 
 			self.device.on_disconnect = lambda status: self.disconnect_during_download_handle(e)

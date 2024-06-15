@@ -59,6 +59,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accelControlWindow = self.findChild(QtWidgets.QWidget, 'accelControl')
 		self.spiralControlWindow = self.findChild(QtWidgets.QWidget, 'spiralControl')
 
+		# Line edits
+		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
 
 		# List Widgets
 		self.patientList = self.findChild(QtWidgets.QListView, 'prevPatientList')
@@ -231,21 +233,37 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			self.current_trial = tmp_str
 
+		# Disable the record button
+		self.recordAccelButton.setEnabled(False)
+
+		# Update user thatdevice is being set up
+		self.accelDeviceUpdates.setText('Connecting to device ...')
+		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+
 		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
 
 		# Establish connection
 		connected = False
-		for i in range(5):
+		for i in range(1):
 			connected = self.accelDevice.connect()
 			if connected:
 				break
 			else:
+				self.accelDeviceUpdates.setText('Still connecting ...')
+				self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
 				print('Trying to establish connection again...')
 				sleep(1)
 
+		# Update user that device is being set up
+		self.accelDeviceUpdates.setText('Connected. Setting up device ...')
+		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
 		isRecording = self.accelDevice.log()
 		if isRecording:
-			#print("Recording...")
+			self.accelDeviceUpdates.setText('Recording ...')
+			self.accelDeviceUpdates.setStyleSheet('Color: red;')
 
 			# Save file name and disable record button (only allow download)
 			self.trialNameAccelerom.setEnabled(False)
@@ -254,6 +272,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.cancelRecordButton.setEnabled(True)
 			self.trialNameSelect.setEnabled(False)
 		else:
+			# Enable the record button again
+			self.recordAccelButton.setEnabled(True)
 			print('Error in BT setup... try again')
 
 	# Fuction to download the acclerometer recording after spiral is done
@@ -262,12 +282,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
 			print('Downloading data...')
+
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Downloading data ...')
+			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
 			#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 			isDownloaded = self.accelDevice.stop_log()
 		else:
 			print('Connecton lost during recording... Trying to reestablish...')
+
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Reconnecting ...')
+			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
 			connected = False
-			for i in range(5):
+			for i in range(2):
 				connected = self.accelDevice.connect()
 				if connected:
 					break
@@ -278,15 +308,29 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# After connection, call is_downloaded function
 			if self.accelDevice.isConnected:
 				print('Downloading...')
+
+				# Signal to UI that the data is being downloaded
+				self.accelDeviceUpdates.setText('Downloading data ...')
+				self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
 				#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 				isDownloaded = self.accelDevice.stop_log()
 			else:
 				isDownloaded = False
+
+				# Signal to UI that the data is being downloaded
+				self.accelDeviceUpdates.setText('Connect failed. Try again.')
+				self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
 				print('  Could not download. Try again.')
 
 		if isDownloaded:
 			# Signal that downloading is complete
 			print('  Done')
+
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
+			self.accelDeviceUpdates.setStyleSheet('Color: green;')
 
 			# Get the accelerometer data and write it to file
 			if self.current_trial != 'test':
@@ -312,6 +356,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.accelDevice.reset()
 			print('. Done.... Ready for next trial')
 		else:
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Download failed. Try again.')
+			self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
 			print('Error in downloading ... try again')
 
 	# Function to cancel the accelerometer recording button
