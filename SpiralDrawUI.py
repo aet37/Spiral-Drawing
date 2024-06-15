@@ -242,6 +242,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Update user thatdevice is being set up
 		self.accelDeviceUpdates.setText('Connecting to device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
 
 
@@ -257,12 +259,18 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.accelDeviceUpdates.setText('Still connecting ...')
 				self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
 
+				#Force GUI to update (needed due to many sleep() calls associated with BT device)
+				app.processEvents()
+
 				print('Trying to establish connection again...')
 				sleep(1)
 
 		# Update user that device is being set up
 		self.accelDeviceUpdates.setText('Connected. Setting up device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+		#Force GUI to update (needed due to many sleep() calls associated with BT device)
+		app.processEvents()
 
 		isRecording = self.accelDevice.log()
 		if isRecording:
@@ -291,6 +299,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.accelDeviceUpdates.setText('Downloading data ...')
 			self.accelDeviceUpdates.setStyleSheet('Color: green;')
 
+			# Disable Download and cancel buttons
+			self.downloadAccelButton.setEnabled(False)
+			self.cancelRecordButton.setEnabled(False)
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
+
 			#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 			isDownloaded = self.accelDevice.stop_log()
 		else:
@@ -299,6 +314,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Reconnecting ...')
 			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
 
 			connected = False
 			for i in range(2):
@@ -317,6 +335,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.accelDeviceUpdates.setText('Downloading data ...')
 				self.accelDeviceUpdates.setStyleSheet('Color: green;')
 
+				#Force GUI to update (needed due to many sleep() calls associated with BT device)
+				app.processEvents()
+
 				#isDownloaded = self.accelDevice.stop_log(self.data_save_path + self.current_trial + '.csv')
 				isDownloaded = self.accelDevice.stop_log()
 			else:
@@ -325,6 +346,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				# Signal to UI that the data is being downloaded
 				self.accelDeviceUpdates.setText('Connect failed. Try again.')
 				self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
+				#Force GUI to update (needed due to many sleep() calls associated with BT device)
+				app.processEvents()
 
 				print('  Could not download. Try again.')
 
@@ -335,6 +359,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
 			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
 
 			# Get the accelerometer data and write it to file
 			if self.current_trial != 'test':
@@ -363,6 +390,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Download failed. Try again.')
 			self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
+			# Disable Download and cancel buttons
+			self.downloadAccelButton.setEnabled(True)
+			self.cancelRecordButton.setEnabled(True)
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
 
 			print('Error in downloading ... try again')
 
