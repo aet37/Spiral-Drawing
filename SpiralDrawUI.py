@@ -5,6 +5,9 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from datetime import datetime
 import sys
 
+# UI Setup
+app = QtWidgets.QApplication(sys.argv)
+
 class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# UI Class initializer / LOAD THE UI
@@ -239,7 +242,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Update user thatdevice is being set up
 		self.accelDeviceUpdates.setText('Connecting to device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
-		QtGui.QGuiApplication.processEvents()
+		app.processEvents()
 
 
 		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
@@ -406,9 +409,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
-
-# UI Setup
-app = QtWidgets.QApplication(sys.argv)
 
 # Start UI
 window = spiralDrawSystem()
