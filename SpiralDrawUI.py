@@ -1,9 +1,14 @@
 from Accelerometer import *
 import os
+import sys
+
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+sys.coinit_flags = 2
+
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from datetime import datetime
-import sys
 
 # UI Setup
 app = QtWidgets.QApplication(sys.argv)
