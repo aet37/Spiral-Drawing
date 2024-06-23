@@ -276,6 +276,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				print('Trying to establish connection again...')
 				sleep(1)
 
+		if not connected:
+			# Update user that device is being set up
+			self.accelDeviceUpdates.setText('Could not connect. Try again.')
+			self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
+			return
+
 		# Update user that device is being set up
 		self.accelDeviceUpdates.setText('Connected. Setting up device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')

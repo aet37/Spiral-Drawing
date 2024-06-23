@@ -245,12 +245,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	###############################################################################################
 	###############################################################################################
 
-	# Define threads for each of the 3 time consuming processes
-	def record_accel_thread(self):
-		print('Enter Record thread')
-		t1 = threading.Thread(target=self.record_accel)
-		t1.start()
-
 	# Function to start the accelerometer recording
 	def record_accel(self):
 		print('Record Clicked')
