@@ -20,7 +20,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# UI Class initializer / LOAD THE UI
 	def __init__(self):
 		super(spiralDrawSystem, self).__init__()
-		uic.loadUi('spiralDraw.ui', self)
+		if system.platform == 'win32':
+			uic.loadUi('spiralDraw_win.ui', self)
+		else:
+			uic.loadUi('spiralDraw.ui', self)
 		self.move(0, 0)
 
 
