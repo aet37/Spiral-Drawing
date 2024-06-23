@@ -6,7 +6,7 @@ if sys.platform == 'win32':
 	import warnings
 	warnings.simplefilter("ignore", UserWarning)
 	sys.coinit_flags = 2
-	import pywinauto
+	#import pywinauto
 
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
