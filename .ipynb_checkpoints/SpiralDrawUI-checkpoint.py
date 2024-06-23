@@ -74,14 +74,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		###########################################################################################
 
 		# Case Setup variables
-		if sys.platform == 'win32':
-			print('Windows Detected')
-			self.basePath = 'C:/hifu/HIFU-cases/'
 
-		else:
-			tmpdir = os.getcwd()
-			tmpdir = tmpdir.split('/')
-			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
+		tmpdir = os.getcwd()
+		tmpdir = tmpdir.split('/')
+		self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
 
 		# If the base directory doesnt exist, make it
 		if not os.path.exists(self.basePath):
