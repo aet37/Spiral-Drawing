@@ -223,6 +223,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to start the accelerometer recording
 	def record_accel(self):
+		print('Record Clicked')
 
 		if self.preopRadioButton.isChecked():
 			tmp_str = 'preop'
@@ -254,6 +255,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Update user thatdevice is being set up
 		self.accelDeviceUpdates.setText('Connecting to device ...')
 		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+		print('Connecting...')
 
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
