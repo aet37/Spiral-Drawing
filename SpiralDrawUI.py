@@ -281,6 +281,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.accelDeviceUpdates.setText('Could not connect. Try again.')
 			self.accelDeviceUpdates.setStyleSheet('Color: red;')
 
+			# Enable the record button
+			self.recordAccelButton.setEnabled(True)
+
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
 			return
