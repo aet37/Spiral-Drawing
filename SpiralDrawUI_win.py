@@ -233,14 +233,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Define threads for each of the 3 time consuming processes
 	def download_accel_thread(self):
 		print('Enter Download thread')
-		t1 = threading.Thread(target=self.download_accel)
-		t1.start()
+		t2 = threading.Thread(target=self.download_accel)
+		t2.start()
 
 	# Define threads for each of the 3 time consuming processes
 	def cancel_accel_thread(self):
 		print('Enter Cancel thread')
-		t1 = threading.Thread(target=self.cancel_accel_record)
-		t1.start()
+		t3 = threading.Thread(target=self.cancel_accel_record)
+		t3.start()
 
 	###############################################################################################
 	###############################################################################################
@@ -337,10 +337,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(True)
 			self.cancelRecordButton.setEnabled(True)
 			self.trialNameSelect.setEnabled(False)
+			return
 		else:
 			# Enable the record button again
 			self.recordAccelButton.setEnabled(True)
 			print('Error in BT setup... try again')
+			return
 
 	# Fuction to download the acclerometer recording after spiral is done
 	def download_accel(self):
