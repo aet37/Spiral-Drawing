@@ -52,11 +52,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.resetBoardButton.clicked.connect(self.handle_reset)
 
 		self.recordAccelButton = self.findChild(QtWidgets.QPushButton, 'recordAccel')
-		self.recordAccelButton.clicked.connect(threading.Thread(target=self.record_accel).start)
+		self.recordAccelButton.clicked.connect(self.record_accel_thread)
 		self.downloadAccelButton = self.findChild(QtWidgets.QPushButton, 'downloadAccel')
-		self.downloadAccelButton.clicked.connect(threading.Thread(target=self.download_accel).start)
+		self.downloadAccelButton.clicked.connect(self.download_accel_thread)
 		self.cancelRecordButton = self.findChild(QtWidgets.QPushButton, 'cancelRecord')
-		self.cancelRecordButton.clicked.connect(threading.Thread(target=self.cancel_accel_record).start)
+		self.cancelRecordButton.clicked.connect(self.cancel_accel_thread)
 
 		# Radio Button
 		self.preopRadioButton = self.findChild(QtWidgets.QRadioButton, 'preopRadio')
@@ -220,6 +220,36 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		for item in self.accel_files:
 			self.accelCasesList.addItem(item)
 
+	###############################################################################################
+	## Worker threads
+	###############################################################################################
+
+	# Define threads for each of the 3 time consuming processes
+	def record_accel_thread(self):
+		print('Enter Record thread')
+		t1 = threading.Thread(target=self.record_accel)
+		t1.start()
+
+	# Define threads for each of the 3 time consuming processes
+	def download_accel_thread(self):
+		print('Enter Download thread')
+		t1 = threading.Thread(target=self.download_accel)
+		t1.start()
+
+	# Define threads for each of the 3 time consuming processes
+	def cancel_accel_thread(self):
+		print('Enter Cancel thread')
+		t1 = threading.Thread(target=self.cancel_accel_record)
+		t1.start()
+
+	###############################################################################################
+	###############################################################################################
+
+	# Define threads for each of the 3 time consuming processes
+	def record_accel_thread(self):
+		print('Enter Record thread')
+		t1 = threading.Thread(target=self.record_accel)
+		t1.start()
 
 	# Function to start the accelerometer recording
 	def record_accel(self):
