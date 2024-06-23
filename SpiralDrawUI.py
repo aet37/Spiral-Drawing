@@ -2,9 +2,11 @@ from Accelerometer import *
 import os
 import sys
 
-import warnings
-warnings.simplefilter("ignore", UserWarning)
-sys.coinit_flags = 2
+if sys.platform == 'win32':
+	import warnings
+	warnings.simplefilter("ignore", UserWarning)
+	sys.coinit_flags = 2
+	import pywinauto
 
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -489,8 +491,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 # Start UI
 window = spiralDrawSystem()
-os.system('clear')
+if sys.platform != 'win32':
+	os.system('clear')
 app.exec_()
 
 # To do before system Exit
-os.system('clear')
+if sys.platform != 'win32':
+	os.system('clear')
