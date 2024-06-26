@@ -22,7 +22,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# UI Class initializer / LOAD THE UI
 	def __init__(self):
 		super(spiralDrawSystem, self).__init__()
-		uic.loadUi('spiralDraw.ui', self)
+		uic.loadUi('spiralDraw_win.ui', self)
 		self.move(0, 0)
 
 
