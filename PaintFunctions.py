@@ -18,6 +18,7 @@ class DrawingArea(QWidget):
 		self.drawing = False
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
+		self.win_size = [719, 386]
 
 		# Load the background image
 		self.background_image = QImage('spiral_temp_ccw.png')
@@ -30,7 +31,8 @@ class DrawingArea(QWidget):
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
 		scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-		self.image = QPixmap(self.size())
+		#self.image = QPixmap(self.size())
+		self.image = QPixmap(PyQt5.QtCore.QSize(self.win_size[0], self.win_size[1]))
 		print(self.size())
 		self.image.fill(Qt.white)
 
