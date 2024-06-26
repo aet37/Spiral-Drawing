@@ -18,12 +18,13 @@ class DrawingArea(QWidget):
 		self.drawing = False
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
-		self.win_size = [179, 96]
+
+		# Scale factor of the spiral
+		self.scale_factor = 0.25
 
 		# Load the background image
 		self.background_image = QImage('spiral_temp_ccw.png')
-		#self.image = QPixmap(self.size())
-		self.image = QPixmap(QSize(self.win_size[0], self.win_size[1]))
+		self.image = QPixmap(self.size())
 		self.image.fill(Qt.white)
 
 		self.lastPoint = QPoint()
@@ -31,11 +32,13 @@ class DrawingArea(QWidget):
 
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
-		#scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-		scaled_background = self.background_image.scaled(QSize(self.win_size[0], self.win_size[1]), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-		#self.image = QPixmap(self.size())
-		self.image = QPixmap(QSize(self.win_size[0], self.win_size[1]))
-		print(self.size())
+		scaled_background = self.background_image.scaled(
+			int(self.size().width() * self.scale_factor),
+			int(self.size().height() * self.scale_factor),
+			Qt.KeepAspectRatio,
+			Qt.SmoothTransformation
+		)
+		self.image = QPixmap(self.size())
 		self.image.fill(Qt.white)
 
 		# Center the scaled background image
@@ -49,7 +52,13 @@ class DrawingArea(QWidget):
 
 	def resizeWin(self):
 		# Scale the background image to fit the widget size
-		scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		#scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		scaled_background = self.background_image.scaled(
+			int(self.size().width() * self.scale_factor),
+			int(self.size().height() * self.scale_factor),
+			Qt.KeepAspectRatio,
+			Qt.SmoothTransformation
+		)
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.white)
 
