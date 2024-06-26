@@ -16,7 +16,7 @@ class DrawingArea(QWidget):
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
 		self.modified = False
 		self.drawing = False
-		self.myPenWidth = 2
+		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
 
 		# Load the background image
@@ -31,6 +31,7 @@ class DrawingArea(QWidget):
 		# Scale the background image to fit the widget size
 		scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
 		self.image = QPixmap(self.size())
+		print(self.size())
 		self.image.fill(Qt.white)
 
 		# Center the scaled background image

@@ -129,6 +129,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accel_address = 'C5:02:6A:76:E4:5D'
 		self.accelDevice = Accelerometer(self.accel_address)
 
+		# Spiral
+		self.previous_spiral = ''
+
 		# New or loaded case flag
 		self.isNewCase = False
 
@@ -525,13 +528,20 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				print('  Could not download. Try again.')
 
 	def onDone(self):
-		file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
+		if self.current_trial != '':
+			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_spiral.csv'
+		else:
+			file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
+
 		self.drawingArea.saveDrawing(file_path)
 		self.drawingArea.clearDrawing()
+		self.previous_spiral = file_path
 
 	def onLoadPrevious(self):
-		file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
-		self.drawingArea.loadDrawing(file_path)
+		if self.previous_spiral != '':
+			self.drawingArea.loadDrawing(self.previous_spiral)
+		else:
+			return
 
 # Start UI
 window = spiralDrawSystem()
