@@ -22,7 +22,8 @@ class DrawingArea(QWidget):
 
 		# Load the background image
 		self.background_image = QImage('spiral_temp_ccw.png')
-		self.image = QPixmap(self.size())
+		#self.image = QPixmap(self.size())
+		self.image = QPixmap(QSize(self.win_size[0], self.win_size[1]))
 		self.image.fill(Qt.white)
 
 		self.lastPoint = QPoint()
