@@ -18,7 +18,7 @@ class DrawingArea(QWidget):
 		self.drawing = False
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
-		self.win_size = [719, 386]
+		self.win_size = [179, 96]
 
 		# Load the background image
 		self.background_image = QImage('spiral_temp_ccw.png')
