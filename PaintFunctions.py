@@ -20,7 +20,7 @@ class DrawingArea(QWidget):
 		self.myPenColor = Qt.blue
 
 		# Scale factor of the spiral
-		self.scale_factor = 0.25
+		self.scale_factor = 0.45
 
 		# Load the background image
 		self.background_image = QImage('spiral_temp_ccw.png')
