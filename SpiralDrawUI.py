@@ -73,6 +73,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accelControlWindow = self.findChild(QtWidgets.QWidget, 'accelControl')
 		self.spiralControlWindow = self.findChild(QtWidgets.QWidget, 'spiralControl')
 
+		# Drawing Area and Buttons for Spiral Drawing Tab
+		self.drawingArea = DrawingArea(self.spiralControlWindow)
+		self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
+		self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
+
+		# Set up layout for the drawing area and buttons
+		self.layout = QVBoxLayout()
+		self.layout.addWidget(self.drawingArea)
+
+		self.buttonLayout = QHBoxLayout()
+		self.buttonLayout.addWidget(self.doneButton)
+		self.buttonLayout.addWidget(self.loadButton)
+
+		self.layout.addLayout(self.buttonLayout)
+		self.spiralControlWindow.setLayout(self.layout)
+
+		self.doneButton.clicked.connect(self.onDone)
+		self.loadButton.clicked.connect(self.onLoadPrevious)
+
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
 
@@ -506,12 +525,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				print('  Could not download. Try again.')
 
 	def onDone(self):
-		file_path = self.data_save_path + 'prev_drawing.csv'
+		file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
 		self.drawingArea.saveDrawing(file_path)
 		self.drawingArea.clearDrawing()
 
 	def onLoadPrevious(self):
-		file_path = self.data_save_path + 'prev_drawing.csv'
+		file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
 		self.drawingArea.loadDrawing(file_path)
 
 	def plot_graph(self):
