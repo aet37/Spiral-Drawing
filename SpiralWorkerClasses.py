@@ -4,6 +4,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 class RecordWorker(QObject):
 
 	# Signals to update UI
+	finished = pyqtSignal()
 	sucessStart = pyqtSignal()
 	failedStart = pyqtSignal()
 
@@ -46,6 +47,7 @@ class RecordWorker(QObject):
 			'''
 
 			self.failedStart.emit()
+			self.finished.emit()
 
 			return
 
@@ -73,6 +75,7 @@ class RecordWorker(QObject):
 			'''
 			self.sucessStart.emit()
 			print('Recording ...')
+			self.finished.emit()
 			return
 		else:
 			'''
@@ -81,4 +84,5 @@ class RecordWorker(QObject):
 			'''
 			self.failedStart.emit()
 			print('Error in BT setup... try again')
+			self.finished.emit()
 			return

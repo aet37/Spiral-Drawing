@@ -336,7 +336,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Connect Worker signals
 		self.record_thread.started.connect(self.record_worker.run)
 		self.record_worker.finished.connect(self.destroy_record_thread)
-		self.record_worker.force_stopped.connect(self.destroy_record_thread)
 
 		# Connect UI update signals
 		self.record_worker.sucessStart.connect(self.started_btn_update)
