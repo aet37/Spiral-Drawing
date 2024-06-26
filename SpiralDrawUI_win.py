@@ -1,4 +1,5 @@
 from Accelerometer import *
+from SpiralWorkerClasses import *
 import os
 import sys
 import threading
@@ -242,6 +243,41 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		t3 = threading.Thread(target=self.cancel_accel_record)
 		t3.start()
 
+	# Destroy recording thread once it is done
+	def destroy_record_thread(self):
+		self.record_thread.exit()
+		time.sleep(0.2)
+		self.record_worker.deleteLater()
+		self.record_thread.deleteLater()
+
+	###############################################################################################
+	###############################################################################################
+
+	###############################################################################################
+	## GUI record accel update functions
+	###############################################################################################
+
+	def started_btn_update(self):
+		# Enable the record button
+		self.recordAccelButton.setEnabled(True)
+
+		#Force GUI to update (needed due to many sleep() calls associated with BT device)
+		app.processEvents()
+
+	def failedstart_btn_update(self):
+		self.accelDeviceUpdates.setText('Recording ...')
+		self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
+		# Save file name and disable record button (only allow download)
+		self.trialNameAccelerom.setEnabled(False)
+		self.recordAccelButton.setEnabled(False)
+		self.downloadAccelButton.setEnabled(True)
+		self.cancelRecordButton.setEnabled(True)
+		self.trialNameSelect.setEnabled(False)
+
+		#Force GUI to update (needed due to many sleep() calls associated with BT device)
+		app.processEvents()
+
 	###############################################################################################
 	###############################################################################################
 
@@ -288,6 +324,29 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		self.accelDevice = Accelerometer(self.accel_address, self.basePath + self.pt_id + '/' + self.current_trial + '.csv')
 
+		# Start Thread
+		self.record_thread = QThread()
+
+		# Initialize worker
+		self.record_worker = RecordWorker(self.accelDevice)
+
+		# Move the worker to the thread
+		self.record_worker.moveToThread(self.record_thread)
+
+		# Connect Worker signals
+		self.record_thread.started.connect(self.record_worker.run)
+		self.record_worker.finished.connect(self.destroy_record_thread)
+		self.record_worker.force_stopped.connect(self.destroy_record_thread)
+
+		# Connect UI update signals
+		self.record_worker.sucessStart.connect(self.started_btn_update)
+		self.record_worker.failedStart.connect(self.failedstart_btn_update)
+
+		# Start the thread
+		self.record_thread.start()
+
+
+		'''
 		# Establish connection
 		connected = False
 		for i in range(1):
@@ -308,6 +367,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Update user that device is being set up
 			self.accelDeviceUpdates.setText('Could not connect. Try again.')
 			self.accelDeviceUpdates.setStyleSheet('Color: red;')
+
+			# Enable the record button
+			self.recordAccelButton.setEnabled(True)
 
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
@@ -337,6 +399,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.recordAccelButton.setEnabled(True)
 			print('Error in BT setup... try again')
 			return
+		'''
 
 	# Fuction to download the acclerometer recording after spiral is done
 	def download_accel(self):
