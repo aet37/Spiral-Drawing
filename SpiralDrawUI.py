@@ -533,15 +533,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
 		self.drawingArea.loadDrawing(file_path)
 
-	def plot_graph(self):
-		# Create a canvas for the plot
-		sc = MplCanvas(self.viewProgressTab, width=5, height=4, dpi=100)
-		t = np.linspace(-10, 10, 400)
-		y = t**2
-		sc.axes.plot(t, y)
-		self.viewProgressLayout.addWidget(sc)
-		sc.draw()
-
 # Start UI
 window = spiralDrawSystem()
 if sys.platform != 'win32':
