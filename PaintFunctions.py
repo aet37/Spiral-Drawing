@@ -4,7 +4,7 @@ import csv
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget
 from PyQt5.QtGui import QPainter, QPen, QPixmap, QImage
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtCore import Qt, QPoint, QSize
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
@@ -32,7 +32,7 @@ class DrawingArea(QWidget):
 		# Scale the background image to fit the widget size
 		scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
 		#self.image = QPixmap(self.size())
-		self.image = QPixmap(PyQt5.QtCore.QSize(self.win_size[0], self.win_size[1]))
+		self.image = QPixmap(QSize(self.win_size[0], self.win_size[1]))
 		print(self.size())
 		self.image.fill(Qt.white)
 
