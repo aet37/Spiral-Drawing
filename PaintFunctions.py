@@ -30,7 +30,8 @@ class DrawingArea(QWidget):
 
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
-		scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		#scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		scaled_background = self.background_image.scaled(QSize(self.win_size[0], self.win_size[1]), Qt.KeepAspectRatio, Qt.SmoothTransformation)
 		#self.image = QPixmap(self.size())
 		self.image = QPixmap(QSize(self.win_size[0], self.win_size[1]))
 		print(self.size())
