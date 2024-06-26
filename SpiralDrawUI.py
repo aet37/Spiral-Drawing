@@ -1,4 +1,5 @@
 from Accelerometer import *
+from PaintFunctions import *
 import os
 import sys
 
@@ -503,6 +504,24 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
+
+	def onDone(self):
+		file_path = self.data_save_path + 'prev_drawing.csv'
+		self.drawingArea.saveDrawing(file_path)
+		self.drawingArea.clearDrawing()
+
+	def onLoadPrevious(self):
+		file_path = self.data_save_path + 'prev_drawing.csv'
+		self.drawingArea.loadDrawing(file_path)
+
+	def plot_graph(self):
+		# Create a canvas for the plot
+		sc = MplCanvas(self.viewProgressTab, width=5, height=4, dpi=100)
+		t = np.linspace(-10, 10, 400)
+		y = t**2
+		sc.axes.plot(t, y)
+		self.viewProgressLayout.addWidget(sc)
+		sc.draw()
 
 # Start UI
 window = spiralDrawSystem()
