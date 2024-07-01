@@ -67,6 +67,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.postopRadioButton = self.findChild(QtWidgets.QRadioButton, 'postopRadio')
 		self.otherRadioButton = self.findChild(QtWidgets.QRadioButton, 'otherRadio')
 		self.testRadioButton = self.findChild(QtWidgets.QRadioButton, 'testRadio')
+		self.penRadioButton = self.findChild(QtWidgets.QRadioButton, 'penRadio')
+		self.tabletRadioButton = self.findChild(QtWidgets.QRadioButton, 'tabletRadio')
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
@@ -272,6 +274,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			return
 		else:
 			self.current_trial = tmp_str
+
+		# Set the proper BT address
+		if self.penRadioButton.isChecked():
+			self.accel_address = 'C5:02:6A:76:E4:5D'
+		elif self.tabletRadioButton.isChecked():
+			self.accel_address = 'DA:83:E6:EE:AB:BF'
+		else:
+			self.accel_address = 'C5:02:6A:76:E4:5D'
 
 		# Disable the record button
 		self.recordAccelButton.setEnabled(False)

@@ -351,6 +351,45 @@
        <string>Ready for next recording.</string>
       </property>
      </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>920</x>
+        <y>90</y>
+        <width>391</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Select Device</string>
+      </property>
+      <widget class="QRadioButton" name="penRadio">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>30</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Pen</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="tabletRadio">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>30</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Tablet</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
