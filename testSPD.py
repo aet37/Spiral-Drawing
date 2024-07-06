@@ -1,5 +1,4 @@
 from Accelerometer import *
-from PaintFunctions import *
 import os
 import sys
 
@@ -77,29 +76,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Drawing Area and Buttons for Spiral Drawing Tab
 		self.drawingArea = DrawingArea(self.spiralControlWindow)
-		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
-		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
+		self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
+		self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
 
 		# Set up layout for the drawing area and buttons
 		self.layout = QVBoxLayout()
 		self.layout.addWidget(self.drawingArea)
 
-		self.doneCCWButton = self.findChild(QtWidgets.QPushButton, 'done_ccw_button')
-		self.doneCCWButton.clicked.connect(self.onDone)
-		self.doneCWButton = self.findChild(QtWidgets.QPushButton, 'done_cw_button')
-		self.doneCWButton.clicked.connect(self.onDone)
-		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
-		self.doneLineButton.clicked.connect(self.onDone)
+		self.buttonLayout = QHBoxLayout()
+		self.buttonLayout.addWidget(self.doneButton)
+		self.buttonLayout.addWidget(self.loadButton)
 
-		#self.buttonLayout = QHBoxLayout()
-		#self.buttonLayout.addWidget(self.doneButton)
-		#self.buttonLayout.addWidget(self.loadButton)
-
-		#self.layout.addLayout(self.buttonLayout)
+		self.layout.addLayout(self.buttonLayout)
 		self.spiralControlWindow.setLayout(self.layout)
 
-		#self.doneButton.clicked.connect(self.onDone)
-		#self.loadButton.clicked.connect(self.onLoadPrevious)
+		self.doneButton.clicked.connect(self.onDone)
+		self.loadButton.clicked.connect(self.onLoadPrevious)
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')

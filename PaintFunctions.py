@@ -23,9 +23,9 @@ class DrawingArea(QWidget):
 		self.scale_factor = 0.45
 
 		# Load the background image
-		self.background_image = QImage('spiral_temp_ccw.png')
-		self.image = QPixmap(self.size())
-		self.image.fill(Qt.white)
+		#self.background_image = QImage('spiral_temp_ccw.png')
+		#self.image = QPixmap(self.size())
+		#self.image.fill(Qt.white)
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
