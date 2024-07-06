@@ -29,7 +29,7 @@ class DrawingArea(QWidget):
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
-
+	'''
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
 		scaled_background = self.background_image.scaled(
@@ -70,7 +70,7 @@ class DrawingArea(QWidget):
 		painter.end()
 
 		self.update()
-
+	'''
 	def mousePressEvent(self, event):
 		if event.button() == Qt.LeftButton:
 			self.lastPoint = event.pos()
@@ -109,8 +109,10 @@ class DrawingArea(QWidget):
 	def clearDrawing(self):
 		self.image.fill(Qt.white)
 		painter = QPainter(self.image)
-		offset_x = (self.width() - self.background_image.width()) // 2
-		offset_y = (self.height() - self.background_image.height()) // 2
+		#offset_x = (self.width() - self.background_image.width()) // 2
+		#offset_y = (self.height() - self.background_image.height()) // 2
+		offset_x = 0
+		offset_y = 0
 		painter.drawImage(offset_x, offset_y, self.background_image)
 		painter.end()
 		self.drawn_points = []
