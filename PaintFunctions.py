@@ -20,7 +20,8 @@ class DrawingArea(QWidget):
 		self.myPenColor = Qt.blue
 
 		self.image = QPixmap(self.size())
-		#self.image.fill(Qt.white)
+		self.image.fill(Qt.white)
+		self.image.alpha(0)
 
 		# Scale factor of the spiral
 		self.scale_factor = 0.45
