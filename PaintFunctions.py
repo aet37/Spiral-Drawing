@@ -11,7 +11,7 @@ import numpy as np
 from datetime import datetime
 
 class DrawingArea(QWidget):
-	def __init__(self, parent=None):
+	def __init__(self, parent=None, image_label):
 		super(DrawingArea, self).__init__(parent)
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
 		self.modified = False
@@ -19,9 +19,7 @@ class DrawingArea(QWidget):
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
 
-		self.image = QPixmap(self.size())
-		self.image.fill(Qt.white)
-		self.image.alpha(0)
+		self.image = image_label
 
 		# Scale factor of the spiral
 		self.scale_factor = 0.45
