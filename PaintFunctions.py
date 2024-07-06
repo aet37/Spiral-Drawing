@@ -11,7 +11,7 @@ import numpy as np
 from datetime import datetime
 
 class DrawingArea(QWidget):
-	def __init__(self, parent=None, image_label):
+	def __init__(self, image_label, parent=None):
 		super(DrawingArea, self).__init__(parent)
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
 		self.modified = False

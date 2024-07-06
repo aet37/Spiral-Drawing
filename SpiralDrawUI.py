@@ -80,7 +80,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_cw_draw')
 		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
 
-		self.drawingArea = DrawingArea(self.spiralControlWindow, self.SpiralCCWArea)
+		self.drawingArea = DrawingArea(self.SpiralCCWArea, self.spiralControlWindow)
 		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
 		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
 
