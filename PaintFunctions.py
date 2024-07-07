@@ -11,7 +11,7 @@ import numpy as np
 from datetime import datetime
 
 class DrawingArea(QWidget):
-	def __init__(self, image_label, parent=None):
+	def __init__(self, parent=None):
 		super(DrawingArea, self).__init__(parent)
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
 		self.modified = False
@@ -19,19 +19,19 @@ class DrawingArea(QWidget):
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
 
-		self.image = image_label
+		#self.image = image_label
 
 		# Scale factor of the spiral
 		self.scale_factor = 0.45
 
 		# Load the background image
-		#self.background_image = QImage('spiral_temp_ccw.png')
-		#self.image = QPixmap(self.size())
-		#self.image.fill(Qt.white)
+		self.background_image = QImage('spiral_temp_ccw.png')
+		self.image = QPixmap(self.size())
+		self.image.fill(Qt.white)
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
-	'''
+
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
 		scaled_background = self.background_image.scaled(
@@ -72,7 +72,7 @@ class DrawingArea(QWidget):
 		painter.end()
 
 		self.update()
-	'''
+
 	def mousePressEvent(self, event):
 		if event.button() == Qt.LeftButton:
 			self.lastPoint = event.pos()

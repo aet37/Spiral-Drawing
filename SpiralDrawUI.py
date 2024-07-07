@@ -80,9 +80,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_cw_draw')
 		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
 
-		self.drawingArea = DrawingArea(self.SpiralCCWArea, self.spiralControlWindow)
-		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
-		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
+		self.drawingArea = DrawingArea(self.spiralControlWindow)
+		self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
+		self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
 
 		# Set up layout for the drawing area and buttons
 		self.layout = QVBoxLayout()
@@ -95,15 +95,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
 		self.doneLineButton.clicked.connect(self.onDone)
 
-		#self.buttonLayout = QHBoxLayout()
-		#self.buttonLayout.addWidget(self.doneButton)
-		#self.buttonLayout.addWidget(self.loadButton)
+		self.buttonLayout = QHBoxLayout()
+		self.buttonLayout.addWidget(self.doneButton)
+		self.buttonLayout.addWidget(self.loadButton)
 
-		#self.layout.addLayout(self.buttonLayout)
+		self.layout.addLayout(self.buttonLayout)
 		self.spiralControlWindow.setLayout(self.layout)
 
-		#self.doneButton.clicked.connect(self.onDone)
-		#self.loadButton.clicked.connect(self.onLoadPrevious)
+		self.doneButton.clicked.connect(self.onDone)
+		self.loadButton.clicked.connect(self.onLoadPrevious)
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
