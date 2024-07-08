@@ -109,7 +109,7 @@ class DrawingArea(QLabel):
 		canvasPainter = QPainter(self)
 		canvasPainter.drawPixmap(self.rect(), self.image)
 		'''
-		super(DrawingLabel, self).paintEvent(event)
+		super(DrawingArea, self).paintEvent(event)
 		painter = QPainter(self)
 		painter.drawPixmap(0, 0, self.image)
 
