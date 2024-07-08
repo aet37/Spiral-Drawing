@@ -81,9 +81,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
 
 		# Create instances of DrawingLabel
-		self.drawingAreaCCW = drawingArea(self.SpiralCCWArea)
-		self.drawingAreaCW = drawingArea(self.SpiralCWArea)
-		self.drawingAreaLine = drawingArea(self.SpiralLineArea)
+		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea)
+		self.drawingAreaCW = DrawingArea(self.SpiralCWArea)
+		self.drawingAreaLine = DrawingArea(self.SpiralLineArea)
 
 		# Set the pixmap of the drawing labels to be the same as the original labels
 		self.drawingAreaCCW.setPixmap(self.SpiralCCWArea.pixmap())
