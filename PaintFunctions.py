@@ -79,6 +79,7 @@ class DrawingArea(QLabel):
 		if event.button() == Qt.LeftButton:
 			self.lastPoint = event.pos()
 			self.drawing = True
+			print(f"Mouse pressed at {self.lastPoint}")
 
 	def mouseMoveEvent(self, event):
 		if (event.buttons() & Qt.LeftButton) & self.drawing:
@@ -93,6 +94,7 @@ class DrawingArea(QLabel):
 			painter.drawLine(self.lastPoint, currentPoint)
 			self.lastPoint = currentPoint
 			self.update()
+			print(f"Mouse moved to {self.lastPoint}")
 
 	def mouseReleaseEvent(self, event):
 		if event.button() == Qt.LeftButton and self.drawing:
