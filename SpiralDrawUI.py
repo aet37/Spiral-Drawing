@@ -96,14 +96,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.setGeometry(self.SpiralLineArea.geometry())
 
 		# Add the DrawingLabel instances to the parent widget
-        self.drawingAreaCCW.setParent(self.SpiralCCWArea.parent())
-        self.drawingAreaCW.setParent(self.SpiralCWArea.parent())
-        self.drawingAreaLine.setParent(self.SpiralLineArea.parent())
+		self.drawingAreaCCW.setParent(self.SpiralCCWArea.parent())
+		self.drawingAreaCW.setParent(self.SpiralCWArea.parent())
+		self.drawingAreaLine.setParent(self.SpiralLineArea.parent())
 
 		# Hide the original labels
-        self.SpiralCCWArea.hide()
-        self.SpiralCWArea.hide()
-        self.SpiralLineArea.hide()
+		self.SpiralCCWArea.hide()
+		self.SpiralCWArea.hide()
+		self.SpiralLineArea.hide()
 
 
 		#self.drawingArea = DrawingArea(self.spiralControlWindow)
