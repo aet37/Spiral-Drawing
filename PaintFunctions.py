@@ -19,6 +19,7 @@ class DrawingArea(QLabel):
 		self.drawing = False
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
+		self.imagePath = image_path
 
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.white)
