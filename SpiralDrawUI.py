@@ -76,9 +76,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.spiralControlWindow = self.findChild(QtWidgets.QWidget, 'spiralControl')
 
 		# Drawing Area and Buttons for Spiral Drawing Tab
-		self.SpiralCCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_ccw_draw')
-		self.SpiralCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_cw_draw')
-		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
+		self.SpiralCCWArea = self.findChild(QtWidgets.QLabel, 'spiral_ccw_draw')
+		self.SpiralCWArea = self.findChild(QtWidgets.QLabel, 'spiral_cw_draw')
+		self.SpiralLineArea = self.findChild(QtWidgets.QLabel, 'line_draw')
 
 		if not all([self.SpiralCCWArea, self.SpiralCWArea, self.SpiralLineArea]):
 			raise Exception("One or more labels not found in the UI file.")
