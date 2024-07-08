@@ -27,7 +27,7 @@ class DrawingArea(QLabel):
 		# Load the background image
 		#self.background_image = QImage('spiral_temp_ccw.png')
 		self.image = QPixmap(self.size())
-		self.image.fill(Qt.white)
+		self.image.fill(Qt.transperent)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
 		self.setMouseTracking(True)
 

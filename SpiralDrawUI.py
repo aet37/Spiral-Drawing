@@ -129,10 +129,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea.setVisible(True)
 		self.SpiralLineArea.setVisible(True)
 
-		# Ensure the DrawingArea instances update correctly
-		self.drawingAreaCCW.update()
-		self.drawingAreaCW.update()
-		self.drawingAreaLine.update()
+		self.drawingAreaCCW.show()
+		self.drawingAreaCW.show()
+		self.drawingAreaLine.show()
 
 
 
