@@ -53,7 +53,7 @@ class DrawingArea(QLabel):
 		painter.drawPixmap(0, 0, self.backgroundImage)
 		self.setPixmap(self.image)
 
-def setImage(self, imagePath):
+	def setImage(self, imagePath):
 		self.image = QPixmap(imagePath)
 		self.update()
 
