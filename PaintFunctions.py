@@ -30,6 +30,7 @@ class DrawingArea(QLabel):
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.transparent)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
+		self.backgroundImage = QPixmap()
 		#self.setMouseTracking(True)
 
 		self.lastPoint = QPoint()
