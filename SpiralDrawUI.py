@@ -148,18 +148,18 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Add functionality to buttons
 		self.doneCCWButton = self.findChild(QtWidgets.QPushButton, 'done_ccw_button')
-		self.doneCCWButton.clicked.connect(self.onDone('ccw'))
+		self.doneCCWButton.clicked.connect(self.onDoneCCW)
 		self.doneCWButton = self.findChild(QtWidgets.QPushButton, 'done_cw_button')
-		self.doneCWButton.clicked.connect(self.onDone('cw'))
+		self.doneCWButton.clicked.connect(self.onDoneCW)
 		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
-		self.doneLineButton.clicked.connect(self.onDone('line'))
+		self.doneLineButton.clicked.connect(self.onDoneLine)
 
 		self.LoadPrevCCWButton = self.findChild(QtWidgets.QPushButton, 'loadp_spiralccw_button')
-		self.LoadPrevCCWButton.clicked.connect(self.onLoadPrevious('ccw'))
+		self.LoadPrevCCWButton.clicked.connect(self.onLoadPreviousCCW)
 		self.LoadPrevCWButton = self.findChild(QtWidgets.QPushButton, 'loadp_spiralcw_button')
-		self.LoadPrevCWButton.clicked.connect(self.onLoadPrevious('cw'))
+		self.LoadPrevCWButton.clicked.connect(self.onLoadPreviousCW)
 		self.LoadPrevLineButton = self.findChild(QtWidgets.QPushButton, 'loadp_line_button')
-		self.LoadPrevLineButton.clicked.connect(self.onLoadPrevious('line'))
+		self.LoadPrevLineButton.clicked.connect(self.onLoadPreviousLine)
 
 		self.ClearDrawingsButton = self.findChild(QtWidgets.QPushButton, 'clear_drawings')
 		self.ClearDrawingsButton2 = self.findChild(QtWidgets.QPushButton, 'clear_drawings2')
@@ -594,6 +594,36 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
 
+	def onDoneCCW(self):
+		if self.current_trial != '':
+			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_ccw_spiral.csv'
+		else:
+			file_path = self.basePath + self.pt_id + '/ccw_spiral.csv'
+
+		self.drawingAreaCCW.saveDrawing(file_path)
+		self.drawingAreaCCW.clearDrawing()
+		self.previous_spiral_ccw = file_path
+
+	def onDoneCW(self):
+		if self.current_trial != '':
+			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_cw_spiral.csv'
+		else:
+			file_path = self.basePath + self.pt_id + '/cw_spiral.csv'
+
+		self.drawingAreaCW.saveDrawing(file_path)
+		self.drawingAreaCW.clearDrawing()
+		self.previous_spiral_cw = file_path
+
+	def onDoneLine(self):
+		if self.current_trial != '':
+			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_line_spiral.csv'
+		else:
+			file_path = self.basePath + self.pt_id + '/line_spiral.csv'
+
+		self.drawingAreaLine.saveDrawing(file_path)
+		self.drawingAreaLine.clearDrawing()
+		self.previous_spiral_line = file_path
+
 	def onLoadPrevious(self, id):
 		if id == 'ccw':
 			if self.previous_spiral_ccw != '':
@@ -612,6 +642,24 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				return
 		else:
 			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
+
+	def onLoadPreviousCCW(self):
+		if self.previous_spiral_ccw != '':
+			self.drawingAreaCCW.loadDrawing(self.previous_spiral_ccw)
+		else:
+			return
+
+	def onLoadPreviousCW(self):
+		if self.previous_spiral_cw != '':
+			self.drawingAreaCCW.loadDrawing(self.previous_spiral_cw)
+		else:
+			return
+
+	def onLoadPreviousLine(self):
+		if self.previous_spiral_line != '':
+			self.drawingAreaLine.loadDrawing(self.previous_spiral_line)
+		else:
+			return
 
 	def onClearDrawings(self):
 		self.drawingAreaCCW.clearDrawing()
