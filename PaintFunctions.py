@@ -44,6 +44,14 @@ class DrawingArea(QLabel):
 			self.image = new_image
 			self.setPixmap(self.image)
 		super().resizeEvent(event)
+
+	def setBackgroundImage(self, imagePath):
+		self.backgroundImage.load(imagePath)
+		self.backgroundImage = self.backgroundImage.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
+		painter = QPainter(self.image)
+		painter.drawPixmap(0, 0, self.backgroundImage)
+		self.setPixmap(self.image)
+
 	'''
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
