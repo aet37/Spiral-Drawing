@@ -55,6 +55,7 @@ class DrawingArea(QLabel):
 
 	def setImage(self, imagePath):
 		self.image = QPixmap(imagePath)
+		self.image = self.image.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
 		self.update()
 
 	'''
