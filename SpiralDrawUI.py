@@ -84,14 +84,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			raise Exception("One or more labels not found in the UI file.")
 
 		# Create instances of DrawingLabel
-		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea)
-		self.drawingAreaCW = DrawingArea(self.SpiralCWArea)
-		self.drawingAreaLine = DrawingArea(self.SpiralLineArea)
+		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea.parent())
+		self.drawingAreaCW = DrawingArea(self.SpiralCWArea.parent())
+		self.drawingAreaLine = DrawingArea(self.SpiralLineArea.parent())
 
 		# Set the pixmap of the drawing labels to be the same as the original labels
+		'''
 		self.drawingAreaCCW.setPixmap(self.SpiralCCWArea.pixmap())
 		self.drawingAreaCW.setPixmap(self.SpiralCWArea.pixmap())
 		self.drawingAreaLine.setPixmap(self.SpiralLineArea.pixmap())
+		'''
 
 		 # Set the new DrawingLabel instances to have the same geometry as the original labels
 		self.drawingAreaCCW.setGeometry(self.SpiralCCWArea.geometry())
@@ -99,14 +101,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.setGeometry(self.SpiralLineArea.geometry())
 
 		# Add the DrawingLabel instances to the parent widget
+		'''
 		self.drawingAreaCCW.setParent(self.SpiralCCWArea.parent())
 		self.drawingAreaCW.setParent(self.SpiralCWArea.parent())
 		self.drawingAreaLine.setParent(self.SpiralLineArea.parent())
+
 
 		# Hide the original labels
 		self.SpiralCCWArea.hide()
 		self.SpiralCWArea.hide()
 		self.SpiralLineArea.hide()
+		'''
+		self.drawingAreaCCW.raise_()
+		self.drawingAreaCW.raise_()
+		self.drawingAreaLine.raise_()
+
+		# Ensure the original labels are visible (if needed)
+		self.SpiralCCWArea.setVisible(True)
+		self.SpiralCWArea.setVisible(True)
+		self.SpiralLineArea.setVisible(True)
 
 
 
