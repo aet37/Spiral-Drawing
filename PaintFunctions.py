@@ -108,6 +108,7 @@ class DrawingArea(QLabel):
 			painter.drawLine(self.lastPoint, currentPoint)
 			self.drawing = False
 			self.update()
+			print(f"Mouse released at {self.lastPoint}")
 
 	def paintEvent(self, event):
 		'''
