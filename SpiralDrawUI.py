@@ -126,9 +126,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralLineArea.hide()
 
 		# Set background images for the drawing areas
+		'''
 		self.drawingAreaCCW.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/spiral_ccw_big.png')
-		self.drawingAreaCW.setBackgroundImage('C:/hifu/Spiral-Drawingims/spiral_cw_big.png')
-		self.drawingAreaLine.setBackgroundImage('C:/hifu/Spiral-Drawingims/line.png')
+		self.drawingAreaCW.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
+		self.drawingAreaLine.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/line.png')
+		'''
+
+		self.drawingAreaCCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_ccw_big.png')
+		self.drawingAreaCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
+		self.drawingAreaLine.setImage('C:/hifu/Spiral-Drawing/ims/line.png')
 
 		# Ensure the original labels are visible (if needed)
 		self.SpiralCCWArea.setVisible(True)
