@@ -20,6 +20,13 @@ class DrawingArea(QLabel):
 		self.myPenWidth = 4
 		self.myPenColor = Qt.blue
 
+		#self.image = image_label
+
+		# Scale factor of the spiral
+		#self.scale_factor = 0.45
+
+		# Load the background image
+		#self.background_image = QImage('spiral_temp_ccw.png')
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.white)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
@@ -44,6 +51,48 @@ class DrawingArea(QLabel):
 		self.image = self.image.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
 		self.update()
 
+	'''
+	def resizeEvent(self, event):
+		# Scale the background image to fit the widget size
+		scaled_background = self.background_image.scaled(
+			int(self.size().width() * self.scale_factor),
+			int(self.size().height() * self.scale_factor),
+			Qt.KeepAspectRatio,
+			Qt.SmoothTransformation
+		)
+		self.image = QPixmap(self.size())
+		self.image.fill(Qt.white)
+
+		# Center the scaled background image
+		painter = QPainter(self.image)
+		offset_x = (self.width() - scaled_background.width()) // 2
+		offset_y = (self.height() - scaled_background.height()) // 2
+		painter.drawImage(offset_x, offset_y, scaled_background)
+		painter.end()
+
+		self.update()
+
+	def resizeWin(self):
+		# Scale the background image to fit the widget size
+		#scaled_background = self.background_image.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+		scaled_background = self.background_image.scaled(
+			int(self.size().width() * self.scale_factor),
+			int(self.size().height() * self.scale_factor),
+			Qt.KeepAspectRatio,
+			Qt.SmoothTransformation
+		)
+		self.image = QPixmap(self.size())
+		self.image.fill(Qt.white)
+
+		# Center the scaled background image
+		painter = QPainter(self.image)
+		offset_x = (self.width() - scaled_background.width()) // 2
+		offset_y = (self.height() - scaled_background.height()) // 2
+		painter.drawImage(offset_x, offset_y, scaled_background)
+		painter.end()
+
+		self.update()
+	'''
 	def mousePressEvent(self, event):
 		if event.button() == Qt.LeftButton:
 			self.lastPoint = event.pos()
@@ -62,8 +111,8 @@ class DrawingArea(QLabel):
 			painter.setPen(pen)
 			painter.drawLine(self.lastPoint, currentPoint)
 			self.lastPoint = currentPoint
-			self.update()
-			#self.repaint()
+			#self.update()
+			self.repaint()
 			#print(f"Mouse moved to {self.lastPoint}")
 
 	def mouseReleaseEvent(self, event):
@@ -77,11 +126,20 @@ class DrawingArea(QLabel):
 			painter.setPen(pen)
 			painter.drawLine(self.lastPoint, currentPoint)
 			self.drawing = False
-			self.update()
-			#self.repaint()
+			#self.update()
+			self.repaint()
 			#print(f"Mouse released at {self.lastPoint}")
 
 	def paintEvent(self, event):
+		'''
+		canvasPainter = QPainter(self)
+		canvasPainter.drawPixmap(self.rect(), self.image)
+		'''
+		'''
+		super(DrawingArea, self).paintEvent(event)
+		painter = QPainter(self)
+		painter.drawPixmap(0, 0, self.image)'''
+
 		QLabel.paintEvent(self, event)
 		painter = QPainter(self)
 		painter.drawPixmap(0, 0, self.image)
