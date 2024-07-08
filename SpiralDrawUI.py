@@ -115,23 +115,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCCW.show()
 		self.drawingAreaCW.show()
 		self.drawingAreaLine.show()
-
+		'''
 		self.drawingAreaCCW.raise_()
 		self.drawingAreaCW.raise_()
 		self.drawingAreaLine.raise_()
+		'''
 
 		self.SpiralCCWArea.hide()
 		self.SpiralCWArea.hide()
 		self.SpiralLineArea.hide()
 
 		# Ensure the original labels are visible (if needed)
+		'''
 		self.SpiralCCWArea.setVisible(True)
 		self.SpiralCWArea.setVisible(True)
 		self.SpiralLineArea.setVisible(True)
-
-		self.drawingAreaCCW.show()
-		self.drawingAreaCW.show()
-		self.drawingAreaLine.show()
+		'''
 
 
 

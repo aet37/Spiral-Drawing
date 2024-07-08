@@ -14,6 +14,7 @@ class DrawingArea(QLabel):
 	def __init__(self, parent=None):
 		super(DrawingArea, self).__init__(parent)
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
+		self.setAttribute(Qt.WA_OpaquePaintEvent)
 		self.modified = False
 		self.drawing = False
 		self.myPenWidth = 4
@@ -29,7 +30,7 @@ class DrawingArea(QLabel):
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.transparent)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
-		self.setMouseTracking(True)
+		#self.setMouseTracking(True)
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
