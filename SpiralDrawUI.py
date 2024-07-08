@@ -119,9 +119,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralLineArea = self.findChild(QtWidgets.QLabel, 'line_draw')
 
 		# Create instances of DrawingLabel
-		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea.parent())
-		self.drawingAreaCW = DrawingArea(self.SpiralCWArea.parent())
-		self.drawingAreaLine = DrawingArea(self.SpiralLineArea.parent())
+		self.drawingAreaCCW = DrawingArea('ims/spiral_ccw_big.png', self.SpiralCCWArea.parent())
+		self.drawingAreaCW = DrawingArea('ims/spiral_cw_big.png', self.SpiralCWArea.parent())
+		self.drawingAreaLine = DrawingArea('ims/line.png', self.SpiralLineArea.parent())
 
 		# Set the new DrawingLabel instances to have the same geometry as the original labels
 		self.drawingAreaCCW.setGeometry(self.SpiralCCWArea.geometry())
@@ -137,9 +137,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralLineArea.hide()
 
 		# Set background images for the drawing areas
-		self.drawingAreaCCW.setImage('ims/spiral_ccw_big.png')
-		self.drawingAreaCW.setImage('ims/spiral_cw_big.png')
-		self.drawingAreaLine.setImage('ims/line.png')
+		self.drawingAreaCCW.setImage()
+		self.drawingAreaCW.setImage()
+		self.drawingAreaLine.setImage()
 
 		# Ensure the original labels are visible (if needed)
 		self.SpiralCCWArea.setVisible(True)

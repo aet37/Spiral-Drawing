@@ -11,7 +11,7 @@ import numpy as np
 from datetime import datetime
 
 class DrawingArea(QLabel):
-	def __init__(self, parent=None):
+	def __init__(self, image_path, parent=None, ):
 		super(DrawingArea, self).__init__(parent)
 		self.setAttribute(QtCore.Qt.WA_StaticContents)
 		self.setAttribute(Qt.WA_OpaquePaintEvent)
@@ -38,8 +38,8 @@ class DrawingArea(QLabel):
 			self.setPixmap(self.image)
 		super().resizeEvent(event)
 
-	def setImage(self, imagePath):
-		self.image = QPixmap(imagePath)
+	def setImage(self):
+		self.image = QPixmap(self.imagePath)
 		self.image = self.image.scaled(self.size(), Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
 		self.update()
 
@@ -84,14 +84,18 @@ class DrawingArea(QLabel):
 	def clearDrawing(self):
 		self.image.fill(Qt.white)
 		painter = QPainter(self.image)
+		self.setPixmap(self.image)  # Set the pixmap for the QLabel
+		self.backgroundImage = QPixmap()
+		self.setImage()
 		#offset_x = (self.width() - self.background_image.width()) // 2
 		#offset_y = (self.height() - self.background_image.height()) // 2
 		offset_x = 0
 		offset_y = 0
-		painter.drawImage(offset_x, offset_y, self.background_image)
-		painter.end()
+		#painter.drawImage(offset_x, offset_y, self.background_image)
+		#painter.end()
+
 		self.drawn_points = []
-		self.resizeWin()
+		#self.resizeWin()
 		self.update()
 
 	def saveDrawing(self, file_path):
