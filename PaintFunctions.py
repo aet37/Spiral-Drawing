@@ -28,6 +28,7 @@ class DrawingArea(QLabel):
 		#self.background_image = QImage('spiral_temp_ccw.png')
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.transparent)
+		self.setPixmap(self.image)  # Set the pixmap for the QLabel
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
@@ -84,8 +85,8 @@ class DrawingArea(QLabel):
 			currentTime = datetime.now()
 			self.drawn_points.append((currentTime, currentPoint.x(), currentPoint.y()))
 
-			#painter = QPainter(self.image)
-			painter = QPainter(self)
+			painter = QPainter(self.image)
+			#painter = QPainter(self)
 			pen = QPen(self.myPenColor, self.myPenWidth, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
 			painter.setPen(pen)
 			painter.drawLine(self.lastPoint, currentPoint)
