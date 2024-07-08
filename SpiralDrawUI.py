@@ -80,6 +80,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_cw_draw')
 		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
 
+		if not all([self.SpiralCCWArea, self.SpiralCWArea, self.SpiralLineArea]):
+			raise Exception("One or more labels not found in the UI file.")
+
 		# Create instances of DrawingLabel
 		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea)
 		self.drawingAreaCW = DrawingArea(self.SpiralCWArea)
