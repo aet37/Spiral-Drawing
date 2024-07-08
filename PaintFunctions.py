@@ -29,6 +29,7 @@ class DrawingArea(QLabel):
 		self.image = QPixmap(self.size())
 		self.image.fill(Qt.transparent)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
+		self.setMouseTracking(True)
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
@@ -111,7 +112,12 @@ class DrawingArea(QLabel):
 		canvasPainter = QPainter(self)
 		canvasPainter.drawPixmap(self.rect(), self.image)
 		'''
+		'''
 		super(DrawingArea, self).paintEvent(event)
+		painter = QPainter(self)
+		painter.drawPixmap(0, 0, self.image)'''
+
+		QLabel.paintEvent(self, event)
 		painter = QPainter(self)
 		painter.drawPixmap(0, 0, self.image)
 
