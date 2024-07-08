@@ -136,6 +136,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
 		self.drawingAreaLine.setImage('C:/hifu/Spiral-Drawing/ims/line.png')
 
+		self.drawingAreaCCW.setImage('ims/spiral_ccw_big.png')
+		self.drawingAreaCW.setImage('ims/spiral_cw_big.png')
+		self.drawingAreaLine.setImage('ims/line.png')
+
 		# Ensure the original labels are visible (if needed)
 		self.SpiralCCWArea.setVisible(True)
 		self.SpiralCWArea.setVisible(True)

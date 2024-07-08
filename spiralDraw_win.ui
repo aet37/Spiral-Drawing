@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1489</width>
-    <height>924</height>
+    <width>1504</width>
+    <height>977</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>1471</width>
-      <height>871</height>
+      <width>1491</width>
+      <height>921</height>
      </rect>
     </property>
     <property name="whatsThis">
@@ -143,16 +143,16 @@
        <rect>
         <x>0</x>
         <y>-1</y>
-        <width>1471</width>
-        <height>851</height>
+        <width>1481</width>
+        <height>891</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>HIFU</string>
+        <string>Basic Drawings</string>
        </attribute>
        <widget class="QLabel" name="spiral_ccw_draw">
         <property name="geometry">
@@ -199,7 +199,7 @@
         <property name="geometry">
          <rect>
           <x>70</x>
-          <y>630</y>
+          <y>660</y>
           <width>1311</width>
           <height>111</height>
          </rect>
@@ -230,8 +230,8 @@
        <widget class="QPushButton" name="done_ccw_button">
         <property name="geometry">
          <rect>
-          <x>200</x>
-          <y>490</y>
+          <x>210</x>
+          <y>500</y>
           <width>100</width>
           <height>32</height>
          </rect>
@@ -244,7 +244,7 @@
         <property name="geometry">
          <rect>
           <x>980</x>
-          <y>480</y>
+          <y>500</y>
           <width>100</width>
           <height>32</height>
          </rect>
@@ -256,8 +256,8 @@
        <widget class="QPushButton" name="done_line_button">
         <property name="geometry">
          <rect>
-          <x>610</x>
-          <y>770</y>
+          <x>600</x>
+          <y>800</y>
           <width>100</width>
           <height>32</height>
          </rect>
@@ -269,8 +269,8 @@
        <widget class="QPushButton" name="loadp_spiralccw_button">
         <property name="geometry">
          <rect>
-          <x>350</x>
-          <y>490</y>
+          <x>360</x>
+          <y>500</y>
           <width>121</width>
           <height>32</height>
          </rect>
@@ -283,7 +283,7 @@
         <property name="geometry">
          <rect>
           <x>1120</x>
-          <y>480</y>
+          <y>500</y>
           <width>100</width>
           <height>32</height>
          </rect>
@@ -295,10 +295,10 @@
        <widget class="QPushButton" name="loadp_line_button">
         <property name="geometry">
          <rect>
-          <x>740</x>
-          <y>770</y>
+          <x>780</x>
+          <y>790</y>
           <width>111</width>
-          <height>32</height>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -308,7 +308,7 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>Clinic</string>
+        <string>Extras</string>
        </attribute>
       </widget>
      </widget>
@@ -323,7 +323,7 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>0</y>
         <width>251</width>
         <height>51</height>
@@ -341,7 +341,7 @@
      <widget class="QPushButton" name="recordAccel">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>450</x>
         <y>30</y>
         <width>100</width>
         <height>32</height>
@@ -357,7 +357,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>450</x>
         <y>80</y>
         <width>100</width>
         <height>32</height>
@@ -370,7 +370,7 @@
      <widget class="QPushButton" name="cancelRecord">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>450</x>
         <y>170</y>
         <width>111</width>
         <height>32</height>
@@ -383,7 +383,7 @@
      <widget class="QListWidget" name="accelCases">
       <property name="geometry">
        <rect>
-        <x>660</x>
+        <x>700</x>
         <y>40</y>
         <width>181</width>
         <height>111</height>
@@ -393,7 +393,7 @@
      <widget class="QGroupBox" name="accel_trial_sel">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>40</x>
         <y>50</y>
         <width>371</width>
         <height>181</height>
@@ -497,7 +497,7 @@
      <widget class="QPushButton" name="resetBoard">
       <property name="geometry">
        <rect>
-        <x>920</x>
+        <x>950</x>
         <y>40</y>
         <width>121</width>
         <height>32</height>
@@ -510,8 +510,8 @@
      <widget class="QLabel" name="accelDeviceUpdate">
       <property name="geometry">
        <rect>
-        <x>670</x>
-        <y>170</y>
+        <x>700</x>
+        <y>190</y>
         <width>501</width>
         <height>101</height>
        </rect>
@@ -528,7 +528,7 @@
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>920</x>
+        <x>960</x>
         <y>90</y>
         <width>391</width>
         <height>80</height>
@@ -572,7 +572,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1489</width>
+     <width>1504</width>
      <height>24</height>
     </rect>
    </property>
