@@ -105,8 +105,13 @@ class DrawingArea(QLabel):
 			self.update()
 
 	def paintEvent(self, event):
+		'''
 		canvasPainter = QPainter(self)
 		canvasPainter.drawPixmap(self.rect(), self.image)
+		'''
+		super(DrawingLabel, self).paintEvent(event)
+		painter = QPainter(self)
+		painter.drawPixmap(0, 0, self.image)
 
 	def clearDrawing(self):
 		self.image.fill(Qt.white)

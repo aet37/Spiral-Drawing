@@ -109,6 +109,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralLineArea.hide()
 
 
+
 		#self.drawingArea = DrawingArea(self.spiralControlWindow)
 		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
 		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
