@@ -24,7 +24,6 @@ class DrawingArea(QLabel):
 		self.image.fill(Qt.white)
 		self.setPixmap(self.image)  # Set the pixmap for the QLabel
 		self.backgroundImage = QPixmap()
-		#self.setMouseTracking(True)
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
@@ -48,7 +47,6 @@ class DrawingArea(QLabel):
 		if event.button() == Qt.LeftButton:
 			self.lastPoint = event.pos()
 			self.drawing = True
-			#print(f"Mouse pressed at {self.lastPoint}")
 
 	def mouseMoveEvent(self, event):
 		if (event.buttons() & Qt.LeftButton) & self.drawing:
@@ -57,14 +55,12 @@ class DrawingArea(QLabel):
 			self.drawn_points.append((currentTime, currentPoint.x(), currentPoint.y()))
 
 			painter = QPainter(self.image)
-			#painter = QPainter(self)
 			pen = QPen(self.myPenColor, self.myPenWidth, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
 			painter.setPen(pen)
 			painter.drawLine(self.lastPoint, currentPoint)
 			self.lastPoint = currentPoint
 			self.update()
 			#self.repaint()
-			#print(f"Mouse moved to {self.lastPoint}")
 
 	def mouseReleaseEvent(self, event):
 		if event.button() == Qt.LeftButton and self.drawing:
@@ -79,7 +75,6 @@ class DrawingArea(QLabel):
 			self.drawing = False
 			self.update()
 			#self.repaint()
-			#print(f"Mouse released at {self.lastPoint}")
 
 	def paintEvent(self, event):
 		QLabel.paintEvent(self, event)

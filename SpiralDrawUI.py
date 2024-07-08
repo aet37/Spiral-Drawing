@@ -131,10 +131,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
 		self.drawingAreaLine.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/line.png')
 		'''
-
+		'''
 		self.drawingAreaCCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_ccw_big.png')
 		self.drawingAreaCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
-		self.drawingAreaLine.setImage('C:/hifu/Spiral-Drawing/ims/line.png')
+		self.drawingAreaLine.setImage('C:/hifu/Spiral-Drawing/ims/line.png')'''
 
 		self.drawingAreaCCW.setImage('ims/spiral_ccw_big.png')
 		self.drawingAreaCW.setImage('ims/spiral_cw_big.png')
@@ -145,16 +145,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea.setVisible(True)
 		self.SpiralLineArea.setVisible(True)
 
-
-
-		#self.drawingArea = DrawingArea(self.spiralControlWindow)
-		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
-		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
-
-		# Set up layout for the drawing area and buttons
-		#self.layout = QVBoxLayout()
-		#self.layout.addWidget(self.drawingArea)
-
 		self.doneCCWButton = self.findChild(QtWidgets.QPushButton, 'done_ccw_button')
 		self.doneCCWButton.clicked.connect(self.onDone)
 		self.doneCWButton = self.findChild(QtWidgets.QPushButton, 'done_cw_button')
@@ -162,15 +152,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
 		self.doneLineButton.clicked.connect(self.onDone)
 
-		#self.buttonLayout = QHBoxLayout()
-		#self.buttonLayout.addWidget(self.doneButton)
-		#self.buttonLayout.addWidget(self.loadButton)
-
-		#self.layout.addLayout(self.buttonLayout)
-		#self.spiralControlWindow.setLayout(self.layout)
-
-		#self.doneButton.clicked.connect(self.onDone)
-		#self.loadButton.clicked.connect(self.onLoadPrevious)
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
