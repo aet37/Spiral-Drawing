@@ -84,7 +84,8 @@ class DrawingArea(QLabel):
 			currentTime = datetime.now()
 			self.drawn_points.append((currentTime, currentPoint.x(), currentPoint.y()))
 
-			painter = QPainter(self.image)
+			#painter = QPainter(self.image)
+			painter = QPainter(self)
 			pen = QPen(self.myPenColor, self.myPenWidth, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
 			painter.setPen(pen)
 			painter.drawLine(self.lastPoint, currentPoint)
