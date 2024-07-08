@@ -34,6 +34,16 @@ class DrawingArea(QLabel):
 
 		self.lastPoint = QPoint()
 		self.drawn_points = []  # To store the time and coordinates of drawn points
+
+	def resizeEvent(self, event):
+		if self.width() > self.image.width() or self.height() > self.image.height():
+			new_image = QPixmap(self.size())
+			new_image.fill(Qt.white)
+			painter = QPainter(new_image)
+			painter.drawPixmap(0, 0, self.image)
+			self.image = new_image
+			self.setPixmap(self.image)
+		super().resizeEvent(event)
 	'''
 	def resizeEvent(self, event):
 		# Scale the background image to fit the widget size
