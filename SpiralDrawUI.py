@@ -31,6 +31,44 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.setWindowTitle("HIFU Spiral Drawing")
 
 		###########################################################################################
+		## Class Variables
+		###########################################################################################
+
+		# Case Setup variables
+		if sys.platform == 'win32':
+			print('Windows Detected')
+			self.basePath = 'C:/hifu/HIFU-cases/'
+
+		else:
+			tmpdir = os.getcwd()
+			tmpdir = tmpdir.split('/')
+			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
+
+		# If the base directory doesnt exist, make it
+		if not os.path.exists(self.basePath):
+			os.mkdir(self.basePath)
+
+		self.pt_id = ''
+		self.data_save_path = ''
+		self.current_trial = ''
+		self.first_download = True
+		self.prev_pt_lists = next(os.walk(self.basePath))[1]
+		self.accel_files = []
+		self.intraop_current = 1
+
+		# Acclerometer
+		self.accel_address = 'C5:02:6A:76:E4:5D'
+		self.accelDevice = Accelerometer(self.accel_address)
+
+		# Spiral
+		self.previous_spiral_ccw = ''
+		self.previous_spiral_cw = ''
+		self.previous_spiral_line = ''
+
+		# New or loaded case flag
+		self.isNewCase = False
+
+		###########################################################################################
 		## Buttons / Screen Items
 		###########################################################################################
 
@@ -134,44 +172,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# List Widgets
 		self.patientList = self.findChild(QtWidgets.QListView, 'prevPatientList')
 		self.accelCasesList = self.findChild(QtWidgets.QListView, 'accelCases')
-
-		###########################################################################################
-		## Class Variables
-		###########################################################################################
-
-		# Case Setup variables
-		if sys.platform == 'win32':
-			print('Windows Detected')
-			self.basePath = 'C:/hifu/HIFU-cases/'
-
-		else:
-			tmpdir = os.getcwd()
-			tmpdir = tmpdir.split('/')
-			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
-
-		# If the base directory doesnt exist, make it
-		if not os.path.exists(self.basePath):
-			os.mkdir(self.basePath)
-
-		self.pt_id = ''
-		self.data_save_path = ''
-		self.current_trial = ''
-		self.first_download = True
-		self.prev_pt_lists = next(os.walk(self.basePath))[1]
-		self.accel_files = []
-		self.intraop_current = 1
-
-		# Acclerometer
-		self.accel_address = 'C5:02:6A:76:E4:5D'
-		self.accelDevice = Accelerometer(self.accel_address)
-
-		# Spiral
-		self.previous_spiral_ccw = ''
-		self.previous_spiral_cw = ''
-		self.previous_spiral_line = ''
-
-		# New or loaded case flag
-		self.isNewCase = False
 
 		# Add all previous cases in the QListView Object
 		for item in self.prev_pt_lists:
