@@ -572,7 +572,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
-
+	'''
 	def onDone(self, id):
 		if self.current_trial != '':
 			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_' + id + '_spiral.csv'
@@ -593,6 +593,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.previous_spiral_line = file_path
 		else:
 			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
+	'''
 
 	def onDoneCCW(self):
 		if self.current_trial != '':
@@ -623,7 +624,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.saveDrawing(file_path)
 		self.drawingAreaLine.clearDrawing()
 		self.previous_spiral_line = file_path
-
+	'''
 	def onLoadPrevious(self, id):
 		if id == 'ccw':
 			if self.previous_spiral_ccw != '':
@@ -642,6 +643,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				return
 		else:
 			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
+	'''
 
 	def onLoadPreviousCCW(self):
 		if self.previous_spiral_ccw != '':
@@ -651,7 +653,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	def onLoadPreviousCW(self):
 		if self.previous_spiral_cw != '':
-			self.drawingAreaCCW.loadDrawing(self.previous_spiral_cw)
+			self.drawingAreaCW.loadDrawing(self.previous_spiral_cw)
 		else:
 			return
 
