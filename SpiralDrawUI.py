@@ -80,13 +80,39 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea = self.findChild(QtWidgets.QLineEdit, 'spiral_cw_draw')
 		self.SpiralLineArea = self.findChild(QtWidgets.QLineEdit, 'line_draw')
 
-		self.drawingArea = DrawingArea(self.spiralControlWindow)
-		self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
-		self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
+		# Create instances of DrawingLabel
+		self.drawingAreaCCW = drawingArea(self.SpiralCCWArea)
+		self.drawingAreaCW = drawingArea(self.SpiralCWArea)
+		self.drawingAreaLine = drawingArea(self.SpiralLineArea)
+
+		# Set the pixmap of the drawing labels to be the same as the original labels
+		self.drawingAreaCCW.setPixmap(self.SpiralCCWArea.pixmap())
+		self.drawingAreaCW.setPixmap(self.SpiralCWArea.pixmap())
+		self.drawingAreaLine.setPixmap(self.SpiralLineArea.pixmap())
+
+		 # Set the new DrawingLabel instances to have the same geometry as the original labels
+		self.drawingAreaCCW.setGeometry(self.SpiralCCWArea.geometry())
+		self.drawingAreaCW.setGeometry(self.SpiralCWArea.geometry())
+		self.drawingAreaLine.setGeometry(self.SpiralLineArea.geometry())
+
+		# Add the DrawingLabel instances to the parent widget
+        self.drawingAreaCCW.setParent(self.SpiralCCWArea.parent())
+        self.drawingAreaCW.setParent(self.SpiralCWArea.parent())
+        self.drawingAreaLine.setParent(self.SpiralLineArea.parent())
+
+		# Hide the original labels
+        self.SpiralCCWArea.hide()
+        self.SpiralCWArea.hide()
+        self.SpiralLineArea.hide()
+
+
+		#self.drawingArea = DrawingArea(self.spiralControlWindow)
+		#self.doneButton = QtWidgets.QPushButton("Done", self.spiralControlWindow)
+		#self.loadButton = QtWidgets.QPushButton("Load Previous", self.spiralControlWindow)
 
 		# Set up layout for the drawing area and buttons
-		self.layout = QVBoxLayout()
-		self.layout.addWidget(self.drawingArea)
+		#self.layout = QVBoxLayout()
+		#self.layout.addWidget(self.drawingArea)
 
 		self.doneCCWButton = self.findChild(QtWidgets.QPushButton, 'done_ccw_button')
 		self.doneCCWButton.clicked.connect(self.onDone)
@@ -95,15 +121,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
 		self.doneLineButton.clicked.connect(self.onDone)
 
-		self.buttonLayout = QHBoxLayout()
-		self.buttonLayout.addWidget(self.doneButton)
-		self.buttonLayout.addWidget(self.loadButton)
+		#self.buttonLayout = QHBoxLayout()
+		#self.buttonLayout.addWidget(self.doneButton)
+		#self.buttonLayout.addWidget(self.loadButton)
 
-		self.layout.addLayout(self.buttonLayout)
-		self.spiralControlWindow.setLayout(self.layout)
+		#self.layout.addLayout(self.buttonLayout)
+		#self.spiralControlWindow.setLayout(self.layout)
 
-		self.doneButton.clicked.connect(self.onDone)
-		self.loadButton.clicked.connect(self.onLoadPrevious)
+		#self.doneButton.clicked.connect(self.onDone)
+		#self.loadButton.clicked.connect(self.onLoadPrevious)
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
