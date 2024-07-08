@@ -84,9 +84,9 @@ class DrawingArea(QLabel):
 
 	def clearDrawing(self):
 		self.image.fill(Qt.white)
-		painter = QPainter(self.image)
-		self.setPixmap(self.image)  # Set the pixmap for the QLabel
-		self.backgroundImage = QPixmap()
+		#painter = QPainter(self.image)
+		#self.setPixmap(self.image)  # Set the pixmap for the QLabel
+		#self.backgroundImage = QPixmap()
 		self.setImage()
 		#offset_x = (self.width() - self.background_image.width()) // 2
 		#offset_y = (self.height() - self.background_image.height()) // 2
