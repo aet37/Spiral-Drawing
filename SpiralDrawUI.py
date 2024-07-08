@@ -80,62 +80,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea = self.findChild(QtWidgets.QLabel, 'spiral_cw_draw')
 		self.SpiralLineArea = self.findChild(QtWidgets.QLabel, 'line_draw')
 
-		if not all([self.SpiralCCWArea, self.SpiralCWArea, self.SpiralLineArea]):
-			raise Exception("One or more labels not found in the UI file.")
-
 		# Create instances of DrawingLabel
 		self.drawingAreaCCW = DrawingArea(self.SpiralCCWArea.parent())
 		self.drawingAreaCW = DrawingArea(self.SpiralCWArea.parent())
 		self.drawingAreaLine = DrawingArea(self.SpiralLineArea.parent())
 
-		# Set the pixmap of the drawing labels to be the same as the original labels
-		'''
-		self.drawingAreaCCW.setPixmap(self.SpiralCCWArea.pixmap())
-		self.drawingAreaCW.setPixmap(self.SpiralCWArea.pixmap())
-		self.drawingAreaLine.setPixmap(self.SpiralLineArea.pixmap())
-		'''
-
-		 # Set the new DrawingLabel instances to have the same geometry as the original labels
+		# Set the new DrawingLabel instances to have the same geometry as the original labels
 		self.drawingAreaCCW.setGeometry(self.SpiralCCWArea.geometry())
 		self.drawingAreaCW.setGeometry(self.SpiralCWArea.geometry())
 		self.drawingAreaLine.setGeometry(self.SpiralLineArea.geometry())
 
-		# Add the DrawingLabel instances to the parent widget
-		'''
-		self.drawingAreaCCW.setParent(self.SpiralCCWArea.parent())
-		self.drawingAreaCW.setParent(self.SpiralCWArea.parent())
-		self.drawingAreaLine.setParent(self.SpiralLineArea.parent())
-
-		# Hide the original labels
-		self.SpiralCCWArea.hide()
-		self.SpiralCWArea.hide()
-		self.SpiralLineArea.hide()
-		'''
-
 		self.drawingAreaCCW.show()
 		self.drawingAreaCW.show()
 		self.drawingAreaLine.show()
-		'''
-		self.drawingAreaCCW.raise_()
-		self.drawingAreaCW.raise_()
-		self.drawingAreaLine.raise_()
-		'''
 
 		self.SpiralCCWArea.hide()
 		self.SpiralCWArea.hide()
 		self.SpiralLineArea.hide()
 
 		# Set background images for the drawing areas
-		'''
-		self.drawingAreaCCW.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/spiral_ccw_big.png')
-		self.drawingAreaCW.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
-		self.drawingAreaLine.setBackgroundImage('C:/hifu/Spiral-Drawing/ims/line.png')
-		'''
-		'''
-		self.drawingAreaCCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_ccw_big.png')
-		self.drawingAreaCW.setImage('C:/hifu/Spiral-Drawing/ims/spiral_cw_big.png')
-		self.drawingAreaLine.setImage('C:/hifu/Spiral-Drawing/ims/line.png')'''
-
 		self.drawingAreaCCW.setImage('ims/spiral_ccw_big.png')
 		self.drawingAreaCW.setImage('ims/spiral_cw_big.png')
 		self.drawingAreaLine.setImage('ims/line.png')
@@ -145,13 +108,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SpiralCWArea.setVisible(True)
 		self.SpiralLineArea.setVisible(True)
 
+		# Add functionality to buttons
 		self.doneCCWButton = self.findChild(QtWidgets.QPushButton, 'done_ccw_button')
-		self.doneCCWButton.clicked.connect(self.onDone)
+		self.doneCCWButton.clicked.connect(self.onDone('ccw'))
 		self.doneCWButton = self.findChild(QtWidgets.QPushButton, 'done_cw_button')
-		self.doneCWButton.clicked.connect(self.onDone)
+		self.doneCWButton.clicked.connect(self.onDone('cw'))
 		self.doneLineButton = self.findChild(QtWidgets.QPushButton, 'done_line_button')
-		self.doneLineButton.clicked.connect(self.onDone)
+		self.doneLineButton.clicked.connect(self.onDone('line'))
 
+		self.LoadPrevCCWButton = self.findChild(QtWidgets.QPushButton, 'loadp_spiralccw_button')
+		self.LoadPrevCCWButton.clicked.connect(self.onLoadPrevious('ccw'))
+		self.LoadPrevCWButton = self.findChild(QtWidgets.QPushButton, 'loadp_spiralcw_button')
+		self.LoadPrevCWButton.clicked.connect(self.onLoadPrevious('cw'))
+		self.LoadPrevLineButton = self.findChild(QtWidgets.QPushButton, 'loadp_line_button')
+		self.LoadPrevLineButton.clicked.connect(self.onLoadPrevious('line'))
+
+		self.ClearDrawingsButton = self.findChild(QtWidgets.QPushButton, 'clear_drawings')
+		self.ClearDrawingsButton2 = self.findChild(QtWidgets.QPushButton, 'clear_drawings2')
+		self.ClearDrawingsButton.clicked.connect(self.onClearDrawings)
+		self.ClearDrawingsButton2.clicked.connect(self.onClearDrawings)
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
@@ -191,7 +166,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accelDevice = Accelerometer(self.accel_address)
 
 		# Spiral
-		self.previous_spiral = ''
+		self.previous_spiral_ccw = ''
+		self.previous_spiral_cw = ''
+		self.previous_spiral_line = ''
 
 		# New or loaded case flag
 		self.isNewCase = False
@@ -596,21 +573,50 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				isDownloaded = False
 				print('  Could not download. Try again.')
 
-	def onDone(self):
+	def onDone(self, id):
 		if self.current_trial != '':
-			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_spiral.csv'
+			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_' + id + '_spiral.csv'
 		else:
-			file_path = self.basePath + self.pt_id + '/' + 'spiral.csv'
+			file_path = self.basePath + self.pt_id + '/' + id + '_spiral.csv'
 
-		self.drawingArea.saveDrawing(file_path)
-		self.drawingArea.clearDrawing()
-		self.previous_spiral = file_path
-
-	def onLoadPrevious(self):
-		if self.previous_spiral != '':
-			self.drawingArea.loadDrawing(self.previous_spiral)
+		if id == 'ccw':
+			self.drawingAreaCCW.saveDrawing(file_path)
+			self.drawingAreaCCW.clearDrawing()
+			self.previous_spiral_ccw = file_path
+		elif id == 'cw':
+			self.drawingAreaCW.saveDrawing(file_path)
+			self.drawingAreaCW.clearDrawing()
+			self.previous_spiral_cw = file_path
+		elif id == 'line':
+			self.drawingAreaLine.saveDrawing(file_path)
+			self.drawingAreaLine.clearDrawing()
+			self.previous_spiral_line = file_path
 		else:
-			return
+			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
+
+	def onLoadPrevious(self, id):
+		if id == 'ccw':
+			if self.previous_spiral_ccw != '':
+				self.drawingAreaCCW.loadDrawing(self.previous_spiral_ccw)
+			else:
+				return
+		elif id == 'cw':
+			if self.previous_spiral_cw != '':
+				self.drawingAreaCW.loadDrawing(self.previous_spiral_cw)
+			else:
+				return
+		elif id == 'line':
+			if self.previous_spiral_line != '':
+				self.drawingAreaLine.loadDrawing(self.previous_spiral_line)
+			else:
+				return
+		else:
+			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
+
+	def onClearDrawings(self):
+		self.drawingAreaCCW.clearDrawing()
+		self.drawingAreaCW.clearDrawing()
+		self.drawingAreaLine.clearDrawing()
 
 # Start UI
 window = spiralDrawSystem()

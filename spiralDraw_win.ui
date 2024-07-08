@@ -310,6 +310,19 @@
        <attribute name="title">
         <string>Extras</string>
        </attribute>
+       <widget class="QPushButton" name="clear_drawings2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>131</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Clear Drawings</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
