@@ -121,7 +121,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.canvasImprove = MplCanvas(self, width=5, height=4, dpi=100)
 
 		# Add the canvas to the placeholder widget
-		self.improveGraphWidget.addWidget(self.canvasImprove)
+		self.improveGraphWidget.layout().addWidget(self.canvasImprove)
 
 		# Plot some example data
 		self.plot_data()
