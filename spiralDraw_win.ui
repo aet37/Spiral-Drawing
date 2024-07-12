@@ -130,15 +130,118 @@
      <attribute name="title">
       <string>View Progress</string>
      </attribute>
-     <widget class="QWidget" name="procedureImprovementGraph" native="true">
+     <widget class="QTabWidget" name="GraphTab">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>581</width>
-        <height>431</height>
+        <x>-10</x>
+        <y>0</y>
+        <width>1781</width>
+        <height>911</height>
        </rect>
       </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="showGraphTab">
+       <attribute name="title">
+        <string>Graphs</string>
+       </attribute>
+       <widget class="QWidget" name="procedureImprovementGraph" native="true">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>581</width>
+          <height>431</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget2" native="true">
+        <property name="geometry">
+         <rect>
+          <x>1020</x>
+          <y>150</y>
+          <width>361</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget1" native="true">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>150</y>
+          <width>361</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget3" native="true">
+        <property name="geometry">
+         <rect>
+          <x>1400</x>
+          <y>150</y>
+          <width>351</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget4" native="true">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>520</y>
+          <width>341</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget5" native="true">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>520</y>
+          <width>341</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget6" native="true">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>520</y>
+          <width>341</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget7" native="true">
+        <property name="geometry">
+         <rect>
+          <x>1060</x>
+          <y>520</y>
+          <width>341</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="GraphWidget8" native="true">
+        <property name="geometry">
+         <rect>
+          <x>1410</x>
+          <y>520</y>
+          <width>351</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="GraphSettingsTab">
+       <attribute name="title">
+        <string>Graph Settings</string>
+       </attribute>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="spiralControl">
@@ -570,7 +673,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Pen</string>
+        <string>Pen (Gray)</string>
        </property>
       </widget>
       <widget class="QRadioButton" name="tabletRadio">
@@ -583,7 +686,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Tablet</string>
+        <string>Tablet (White)</string>
        </property>
       </widget>
      </widget>

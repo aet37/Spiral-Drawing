@@ -116,12 +116,62 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Create the matplotlib canvas
 		self.canvasImprove = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph1 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph2 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph3 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph4 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph5 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph6 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph7 = MplCanvas(self, width=5, height=4, dpi=100)
+		self.canvasGraph8 = MplCanvas(self, width=5, height=4, dpi=100)
 
 		# Graphing Widgets
 		self.improveGraphWidget = self.findChild(QtWidgets.QWidget, 'procedureImprovementGraph')
+		self.graph_widget1 = self.findChild(QtWidgets.QWidget, 'GraphWidget1')
+		self.graph_widget2 = self.findChild(QtWidgets.QWidget, 'GraphWidget2')
+		self.graph_widget3 = self.findChild(QtWidgets.QWidget, 'GraphWidget3')
+		self.graph_widget4 = self.findChild(QtWidgets.QWidget, 'GraphWidget4')
+		self.graph_widget5 = self.findChild(QtWidgets.QWidget, 'GraphWidget5')
+		self.graph_widget6 = self.findChild(QtWidgets.QWidget, 'GraphWidget6')
+		self.graph_widget7 = self.findChild(QtWidgets.QWidget, 'GraphWidget7')
+		self.graph_widget8 = self.findChild(QtWidgets.QWidget, 'GraphWidget8')
+
+		# Add the graph canvases as layouts
 		layout = QtWidgets.QVBoxLayout(self.improveGraphWidget)
 		layout.addWidget(self.canvasImprove)
 		self.improveGraphWidget.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget1)
+		layout.addWidget(self.canvasGraph1)
+		self.graph_widget1.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget2)
+		layout.addWidget(self.canvasGraph2)
+		self.graph_widget2.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget3)
+		layout.addWidget(self.canvasGraph3)
+		self.graph_widget3.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget4)
+		layout.addWidget(self.canvasGraph4)
+		self.graph_widget4.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget5)
+		layout.addWidget(self.canvasGraph5)
+		self.graph_widget5.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget6)
+		layout.addWidget(self.canvasGraph6)
+		self.graph_widget6.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget7)
+		layout.addWidget(self.canvasGraph7)
+		self.graph_widget7.setLayout(layout)
+
+		layout = QtWidgets.QVBoxLayout(self.graph_widget8)
+		layout.addWidget(self.canvasGraph8)
+		self.graph_widget8.setLayout(layout)
 
 		# Plot some example data
 		self.plot_data()
