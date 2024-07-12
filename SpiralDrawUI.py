@@ -211,7 +211,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.axes.set_title('Tremor Improvement Intra-Procedure', fontsize=18)
 			self.canvasImprove.axes.set_xlim([min(x), max(x)])
 			self.canvasImprove.axes.set_ylim([-100, 20])
-			self.canvasImprove.grid()
+			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
 
 
