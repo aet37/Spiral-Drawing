@@ -114,14 +114,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accelControlWindow = self.findChild(QtWidgets.QWidget, 'accelControl')
 		self.spiralControlWindow = self.findChild(QtWidgets.QWidget, 'spiralControl')
 
-		# Graphing Widgets
-		self.improveGraphWidget = self.findChild(QtWidgets.QWidget, 'procedureImprovementGraph')
-
 		# Create the matplotlib canvas
 		self.canvasImprove = MplCanvas(self, width=5, height=4, dpi=100)
 
-		# Add the canvas to the placeholder widget
-		self.improveGraphWidget.layout().addWidget(self.canvasImprove)
+		# Graphing Widgets
+		self.improveGraphWidget = self.findChild(QtWidgets.QWidget, 'procedureImprovementGraph')
+		layout = QtWidgets.QVBoxLayout(self.improveGraphWidget)
+		layout.addWidget(self.canvasImprove)
+		self.improveGraphWidget.setLayout(layout)
 
 		# Plot some example data
 		self.plot_data()
@@ -198,8 +198,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to plot sample data
 	def plot_data(self):
-			x = [0, 1, 2, 3, 4]
-			y = [10, 1, 20, 4, 3]
+			x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+			y = [0, -0.2, -0.25, -0.4, -0.45, -0.6, -0.75, -0.8, -0.9]
 			self.canvasImprove.axes.plot(x, y)
 			self.canvasImprove.draw()
 
