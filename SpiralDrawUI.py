@@ -2,6 +2,8 @@ from Accelerometer import *
 from PaintFunctions import *
 import os
 import sys
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 if sys.platform == 'win32':
 	import warnings
