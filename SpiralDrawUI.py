@@ -199,8 +199,19 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Function to plot sample data
 	def plot_data(self):
 			x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-			y = [0, -0.2, -0.25, -0.4, -0.45, -0.6, -0.75, -0.8, -0.9]
-			self.canvasImprove.axes.plot(x, y)
+			y = [0, -0.2, -0.22, -0.3, -0.6, -0.7, -0.85, -0.9, -0.9]
+			y2 = [0, -0.1, -0.3, -0.4, -0.55, -0.77, -0.87, -0.95, -0.97]
+			y = [i * 100 for i in y]
+			y2 = [i * 100 for i in y2]
+
+			self.canvasImprove.axes.plot(x, y, marker="s", color='b')
+			self.canvasImprove.axes.plot(x, y2, marker="s", color='r')
+			self.canvasImprove.axes.set_xlabel('Sonication', fontsize=14)
+			self.canvasImprove.axes.set_xlabel('Tremor Reduction (%)', fontsize=14)
+			self.canvasImprove.axes.set_title('Tremor Improvement Intra-Procedure', fontsize=next(fontsizes))
+			self.canvasImprove.axes.set_xlim([min(x), max(x)])
+			self.canvasImprove.axes.set_ylim([-100, 20])
+			self.canvasImprove.grid()
 			self.canvasImprove.draw()
 
 
