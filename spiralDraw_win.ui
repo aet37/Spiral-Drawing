@@ -33,7 +33,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="caseSelect">
      <attribute name="title">
@@ -130,6 +130,16 @@
      <attribute name="title">
       <string>View Progress</string>
      </attribute>
+     <widget class="QWidget" name="procedureImprovementGraph" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>481</width>
+        <height>421</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="spiralControl">
      <property name="enabled">
