@@ -3,6 +3,7 @@ from PaintFunctions import *
 from PlotFunctions import *
 import os
 import sys
+import csv
 
 if sys.platform == 'win32':
 	import warnings
@@ -55,6 +56,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.first_download = True
 		self.prev_pt_lists = next(os.walk(self.basePath))[1]
 		self.accel_files = []
+		self.ccw_spirals = []
+		self.cw_spirals = []
+		self.line_spirals = []
 		self.intraop_current = 1
 
 		# Acclerometer
@@ -264,6 +268,29 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.axes.legend(['Accelerometer', 'Drawing'])
 			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
+
+	def plot_spirals(self, type='ccw'):
+		# Loop through all spirals drawn so far
+		for i in range(len(self.ccw_spirals)):
+			# Only 7 graphs. Cannot plot more.
+			if i > 7:
+				break
+
+			arr_pts_x = []
+			arr_pts_y = []
+			# Get the points in the current spiral
+			with open(self.data_save_path + self.ccw_spirals[i] + '_ccw_spiral.csv', newline='') as csvfile:
+				spiral_reader = csv.reader(csvfile, delimiter=',')
+				for row in spiral_reader:
+					if row[1] != 'X':
+						arr_pts_x.append(int(row[1]))
+						arr_pts_y.append(int(row[2]))
+
+			# Plot the spirals
+			eval('self.canvasGraph' + str((ii+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+			eval('self.canvasGraph' + str((ii+1)) + '.axes.tight_layout()')
+			eval('self.canvasGraph' + str((ii+1)) + '.axes.draw()')
+
 
 
 	###############################################################################################
@@ -685,6 +712,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCCW.saveDrawing(file_path)
 		self.drawingAreaCCW.clearDrawing()
 		self.previous_spiral_ccw = file_path
+		if self.current_trial not in self.ccw_spirals:
+			self.ccw_spirals.append(self.current_trial)
 
 	def onDoneCW(self):
 		if self.current_trial != '':
@@ -695,6 +724,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.saveDrawing(file_path)
 		self.drawingAreaCW.clearDrawing()
 		self.previous_spiral_cw = file_path
+		if self.current_trial not in self.cw_spirals:
+			self.cc_spirals.append(self.current_trial)
 
 	def onDoneLine(self):
 		if self.current_trial != '':
@@ -705,6 +736,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.saveDrawing(file_path)
 		self.drawingAreaLine.clearDrawing()
 		self.previous_spiral_line = file_path
+		if self.current_trial not in self.line_spirals:
+			self.line_spirals.append(self.current_trial)
+
 	'''
 	def onLoadPrevious(self, id):
 		if id == 'ccw':
