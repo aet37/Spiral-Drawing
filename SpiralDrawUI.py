@@ -387,14 +387,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.ccw_spirals = []
 		self.cw_spirals = []
 		self.line_spirals = []
-
-		print(self.basePath + self.pt_id + '_spirals.txt')
-
 		with open(self.basePath + self.pt_id + '_spirals.txt') as file:
-			print('f opened')
 			for line in file:
 				print(line.rstrip())
 				if len(line.rstrip()) > 4:
+					print('len < 4')
+					line.rstrip()[0:2]
 					if line.rstrip()[0:2] == 'ccw':
 						print('here ccw')
 						self.ccw_spirals.append(line.rstrip()[3:len(line.rstrip())-1 + '_ccw'])
