@@ -241,16 +241,6 @@
        <attribute name="title">
         <string>Graph Settings</string>
        </attribute>
-       <widget class="QListView" name="current_spirals_view">
-        <property name="geometry">
-         <rect>
-          <x>800</x>
-          <y>100</y>
-          <width>211</width>
-          <height>211</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
@@ -267,6 +257,16 @@
         </property>
         <property name="text">
          <string>Current Spirals</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="current_spirals_view">
+        <property name="geometry">
+         <rect>
+          <x>790</x>
+          <y>110</y>
+          <width>221</width>
+          <height>261</height>
+         </rect>
         </property>
        </widget>
       </widget>
