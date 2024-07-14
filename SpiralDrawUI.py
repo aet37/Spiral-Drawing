@@ -246,6 +246,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		for item in self.prev_pt_lists:
 			self.patientList.addItem(item)
 
+		# Disable Drawing
+		self.spiralTab.setEnabled(False)
+
 		self.show()
 
 	###############################################################################################
