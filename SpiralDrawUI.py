@@ -356,8 +356,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		if self.isNewCase:
 			self.patientList.addItem(self.pt_id)
 
-		# Clear the accleration list cases
+		# Clear the list views
 		self.accelCasesList.clear()
+		self.currentSpiralsView.clear()
 
 		# Write a txt file that stores the case
 		self.pt_id = ''
@@ -821,13 +822,24 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCCW.clearDrawing()
 		self.previous_spiral_ccw = file_path
 		if (self.current_trial not in self.ccw_spirals) and (self.current_trial != 'test'):
-			self.ccw_spirals.append(self.current_trial)
+			self.ccw_spirals.append(self.current_trial + '_ccw')
+
+		self.currentSpiralsView.addItem(self.current_trial + '_ccw')
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
 			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('ccw_' + self.current_trial + '\n')
 			fl.close()
+
+		# Update the list views of spiral graph settings
+		self.currentSpiralsView.clear()
+		for item in self.ccw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.cw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.line_spirals:
+			self.currentSpiralsView.addItem(item)
 
 	def onDoneCW(self):
 		if self.current_trial != '':
@@ -839,13 +851,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.clearDrawing()
 		self.previous_spiral_cw = file_path
 		if (self.current_trial not in self.cw_spirals) and (self.current_trial != 'test'):
-			self.cw_spirals.append(self.current_trial)
+			self.cw_spirals.append(self.current_trial + '_cw')
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
 			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('cw_' + self.current_trial + '\n')
 			fl.close()
+
+		# Update the list views of spiral graph settings
+		self.currentSpiralsView.clear()
+		for item in self.ccw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.cw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.line_spirals:
+			self.currentSpiralsView.addItem(item)
 
 	def onDoneLine(self):
 		if self.current_trial != '':
@@ -857,13 +878,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.clearDrawing()
 		self.previous_spiral_line = file_path
 		if (self.current_trial not in self.line_spirals) and (self.current_trial != 'test'):
-			self.line_spirals.append(self.current_trial)
+			self.line_spirals.append(self.current_trial + '_line')
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
 			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('line_' + self.current_trial + '\n')
 			fl.close()
+
+		# Update the list views of spiral graph settings
+		self.currentSpiralsView.clear()
+		for item in self.ccw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.cw_spirals:
+			self.currentSpiralsView.addItem(item)
+		for item in self.line_spirals:
+			self.currentSpiralsView.addItem(item)
 
 	'''
 	def onLoadPrevious(self, id):
