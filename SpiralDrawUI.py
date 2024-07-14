@@ -392,14 +392,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				if len(line.rstrip()) > 4:
 					print(line.rstrip()[0:3])
 					if line.rstrip()[0:3] == 'ccw':
-						print('here ccw')
-						self.ccw_spirals.append(line.rstrip()[3:len(line.rstrip())-1 + '_ccw'])
+						self.ccw_spirals.append(line.rstrip()[3:len(line.rstrip())-1] + '_ccw')
 					elif line.rstrip()[0:2] == 'cw':
-						print('here cw')
-						self.cw_spirals.append(line.rstrip()[2:len(line.rstrip())-1 + '_cw'])
+						self.cw_spirals.append(line.rstrip()[2:len(line.rstrip())-1] + '_cw')
 					elif line.rstrip()[0:4] == 'line':
-						print('here line')
-						self.line_spirals.append(line.rstrip()[4:len(line.rstrip())-1 + '_line'])
+						self.line_spirals.append(line.rstrip()[4:len(line.rstrip())-1] + '_line')
 
 		print(self.ccw_spirals)
 		print(self.cw_spirals)
