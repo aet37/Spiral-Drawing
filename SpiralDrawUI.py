@@ -363,7 +363,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Write a txt file that stores the case
 		self.pt_id = ''
 		self.data_save_path = ''
+		self.previous_spiral_ccw = ''
+		self.previous_spiral_cw = ''
+		self.previous_spiral_line = ''
 		self.accel_files = []
+		self.ccw_spirals = []
+		self.cw_spirals = []
+		self.line_spirals = []
+		self.intraop_current = 1
 		self.isNewCase = False
 
 	# Function to load a previous case
@@ -406,12 +413,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.currentSpiralsView.addItem(item)
 		for item in self.line_spirals:
 			self.currentSpiralsView.addItem(item)
-
-		# Print the spirals loaded
-		print('Spirals Loaded:')
-		print(self.ccw_spirals)
-		print(self.cw_spirals)
-		print(self.line_spirals)
 
 		# Disable all other start case functions
 		self.aboutCaseWindow.setEnabled(True)
