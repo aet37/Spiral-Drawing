@@ -400,11 +400,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Add entries to the current spirals
 		for item in self.ccw_spirals:
-			self.ccw_spirals.addItem(item)
+			self.currentSpiralsView.addItem(item)
 		for item in self.cw_spirals:
-			self.ccw_spirals.addItem(item)
+			self.currentSpiralsView.addItem(item)
 		for item in self.line_spirals:
-			self.ccw_spirals.addItem(item)
+			self.currentSpiralsView.addItem(item)
 
 		# Print the spirals loaded
 		print('Spirals Loaded:')
