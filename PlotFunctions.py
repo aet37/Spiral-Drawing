@@ -6,3 +6,7 @@ class MplCanvas(FigureCanvas):
 		self.fig = Figure(figsize=(width, height), dpi=dpi)
 		self.axes = self.fig.add_subplot(111)
 		super(MplCanvas, self).__init__(self.fig)
+
+	def clear_plot(self):
+		self.fig.clf()
+		self.axes = self.fig.add_subplot(111)
