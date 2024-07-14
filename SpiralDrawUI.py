@@ -428,8 +428,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.intraop_current = 1
 		self.isNewCase = False
 
-		for i in range(1, 9):
-			eval('self.canvasGraph' + str(i) + '.clear_plot()')
+		self.canvasGraph1.clear_plot()
+		self.canvasGraph2.clear_plot()
+		self.canvasGraph3.clear_plot()
+		self.canvasGraph4.clear_plot()
+		self.canvasGraph5.clear_plot()
+		self.canvasGraph6.clear_plot()
+		self.canvasGraph7.clear_plot()
+		self.canvasGraph8.clear_plot()
 
 	# Function to load a previous case
 	def load_case(self):
