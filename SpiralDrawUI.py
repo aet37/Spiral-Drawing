@@ -304,10 +304,52 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 				# Plot the spirals
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
-				#eval('self.canvasGraph' + str((i+1)) + '.axes.tight_layout()')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
+		elif self.CWPlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.cw_spirals)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
 
+				arr_pts_x = []
+				arr_pts_y = []
+				# Get the points in the current spiral
+				with open(self.data_save_path + self.cw_spirals[i] + '_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						if row[1] != 'X':
+							arr_pts_x.append(int(row[1]))
+							arr_pts_y.append(int(row[2]))
+
+				# Plot the spirals
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+
+		elif self.LinePlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.line_spirals)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
+
+				arr_pts_x = []
+				arr_pts_y = []
+				# Get the points in the current spiral
+				with open(self.data_save_path + self.line_spirals[i] + '_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						if row[1] != 'X':
+							arr_pts_x.append(int(row[1]))
+							arr_pts_y.append(int(row[2]))
+
+				# Plot the spirals
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+
+		elif self.SFlotRadio.isChecked():
+			return
 
 	###############################################################################################
 	## Button Click Functions
