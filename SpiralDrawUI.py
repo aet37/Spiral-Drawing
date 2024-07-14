@@ -96,6 +96,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.loadCaseButton.clicked.connect(self.load_case)
 		self.resetBoardButton = self.findChild(QtWidgets.QPushButton, 'resetBoard')
 		self.resetBoardButton.clicked.connect(self.handle_reset)
+		self.PlotSpirals = self.findChild(QtWidgets.QPushButton, 'plot_spiral_aspects')
+		self.PlotSpirals.clicked.connect(self.plot_spirals)
 
 		self.recordAccelButton = self.findChild(QtWidgets.QPushButton, 'recordAccel')
 		self.recordAccelButton.clicked.connect(self.record_accel)
@@ -113,6 +115,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.penRadioButton = self.findChild(QtWidgets.QRadioButton, 'penRadio')
 		self.tabletRadioButton = self.findChild(QtWidgets.QRadioButton, 'tabletRadio')
 		self.spiralOnlyRadioButton = self.findChild(QtWidgets.QRadioButton, 'spiralOnlyRadio')
+		self.CCWPlotRadio = self.findChild(QtWidgets.QRadioButton, 'ccw_plot_radio')
+		self.CWPlotRadio = self.findChild(QtWidgets.QRadioButton, 'cw_plot_radio')
+		self.LinePlotRadio = self.findChild(QtWidgets.QRadioButton, 'line_plot_radio')
+		self.SFlotRadio = self.findChild(QtWidgets.QRadioButton, 'spatial_freq_plot_radio')
+
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
@@ -275,27 +282,30 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
 
-	def plot_spirals(self, type='ccw'):
-		# Loop through all spirals drawn so far
-		for i in range(len(self.ccw_spirals)):
-			# Only 7 graphs. Cannot plot more.
-			if i > 7:
-				break
+	def plot_spirals(self):
 
-			arr_pts_x = []
-			arr_pts_y = []
-			# Get the points in the current spiral
-			with open(self.data_save_path + self.ccw_spirals[i] + '_ccw_spiral.csv', newline='') as csvfile:
-				spiral_reader = csv.reader(csvfile, delimiter=',')
-				for row in spiral_reader:
-					if row[1] != 'X':
-						arr_pts_x.append(int(row[1]))
-						arr_pts_y.append(int(row[2]))
+		# If want to plot CCW spiral
+		if self.CCWPlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.ccw_spirals)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
 
-			# Plot the spirals
-			eval('self.canvasGraph' + str((ii+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
-			eval('self.canvasGraph' + str((ii+1)) + '.axes.tight_layout()')
-			eval('self.canvasGraph' + str((ii+1)) + '.axes.draw()')
+				arr_pts_x = []
+				arr_pts_y = []
+				# Get the points in the current spiral
+				with open(self.data_save_path + self.ccw_spirals[i] + '_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						if row[1] != 'X':
+							arr_pts_x.append(int(row[1]))
+							arr_pts_y.append(int(row[2]))
+
+				# Plot the spirals
+				eval('self.canvasGraph' + str((ii+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((ii+1)) + '.axes.tight_layout()')
+				eval('self.canvasGraph' + str((ii+1)) + '.axes.draw()')
 
 
 
