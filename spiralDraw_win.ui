@@ -295,7 +295,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Download</string>
+       <string>Done</string>
       </property>
      </widget>
      <widget class="QPushButton" name="cancelRecord">
@@ -505,6 +505,9 @@
        </property>
        <property name="text">
         <string>No Accel (Spiral Only)</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
