@@ -241,6 +241,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# List Widgets
 		self.patientList = self.findChild(QtWidgets.QListView, 'prevPatientList')
 		self.accelCasesList = self.findChild(QtWidgets.QListView, 'accelCases')
+		self.currentSpiralsView = self.findChild(QtWidgets.QListView, 'current_spirals_view')
 
 		# Add all previous cases in the QListView Object
 		for item in self.prev_pt_lists:
@@ -389,7 +390,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.line_spirals = []
 		with open(self.basePath + self.pt_id + '_spirals.txt') as file:
 			for line in file:
-				if (len(line.rstrip()) > 4) and (line.rstrip()[len(line.rstrip())-4:len(line.rstrip())] != 'test'):
+				if len(line.rstrip()) > 4:
 					if line.rstrip()[0:3] == 'ccw':
 						self.ccw_spirals.append(line.rstrip()[4:len(line.rstrip())] + '_ccw')
 					elif line.rstrip()[0:2] == 'cw':
@@ -397,6 +398,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					elif line.rstrip()[0:4] == 'line':
 						self.line_spirals.append(line.rstrip()[5:len(line.rstrip())] + '_line')
 
+		# Add entries to the current spirals
+		for item in self.ccw_spirals:
+			self.ccw_spirals.addItem(item)
+		for item in self.cw_spirals:
+			self.ccw_spirals.addItem(item)
+		for item in self.line_spirals:
+			self.ccw_spirals.addItem(item)
+
+		# Print the spirals loaded
+		print('Spirals Loaded:')
 		print(self.ccw_spirals)
 		print(self.cw_spirals)
 		print(self.line_spirals)
@@ -809,7 +820,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCCW.saveDrawing(file_path)
 		self.drawingAreaCCW.clearDrawing()
 		self.previous_spiral_ccw = file_path
-		if self.current_trial not in self.ccw_spirals:
+		if (self.current_trial not in self.ccw_spirals) and (self.current_trial != 'test'):
 			self.ccw_spirals.append(self.current_trial)
 
 		# Get the spiral name and add it to file
@@ -827,7 +838,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.saveDrawing(file_path)
 		self.drawingAreaCW.clearDrawing()
 		self.previous_spiral_cw = file_path
-		if self.current_trial not in self.cw_spirals:
+		if (self.current_trial not in self.cw_spirals) and (self.current_trial != 'test'):
 			self.cw_spirals.append(self.current_trial)
 
 		# Get the spiral name and add it to file
@@ -845,7 +856,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaLine.saveDrawing(file_path)
 		self.drawingAreaLine.clearDrawing()
 		self.previous_spiral_line = file_path
-		if self.current_trial not in self.line_spirals:
+		if (self.current_trial not in self.line_spirals) and (self.current_trial != 'test'):
 			self.line_spirals.append(self.current_trial)
 
 		# Get the spiral name and add it to file
