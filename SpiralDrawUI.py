@@ -326,6 +326,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			fl = open(self.basePath + self.pt_id + '.txt', 'w')
 			fl.write(self.pt_id + '\n' + self.basePath + self.pt_id + '/' + '\n' + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + '\n\n')
 			fl.close()
+			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'w')
+			fl.close()
 			self.data_save_path = self.basePath + self.pt_id + '/'
 			os.mkdir(self.data_save_path)
 
@@ -364,15 +366,32 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.data_save_path = self.basePath + self.pt_id + '/'
 		self.patientIdEnter.setText(self.pt_id)
 
+
+		# Open accel files
 		self.accel_files = []
 		with open(self.basePath + self.pt_id + '.txt') as file:
 			for line in file:
 				self.accel_files.append(line.rstrip())
 
+		# Delete header information
 		del(self.accel_files[0])
 		del(self.accel_files[0])
 		del(self.accel_files[0])
 		del(self.accel_files[0])
+		'''
+		self.ccw_spirals = []
+		self.cw_spirals = []
+		self.line_spirals = []
+		with open(self.basePath + self.pt_id + '_spirals.txt') as file:
+			for line in file:
+				if len(line.rstrip()) > 4:
+					if line.rstrip()[0:2] == 'ccw':
+						self.ccw_spirals.append(line.rstrip())
+					elif line.rstrip()[0:1] == 'cw':
+						self.cw_spirals.append(line.rstrip())
+					elif line.rstrip()[0:3] == 'line':
+						self.line_spirals.append(line.rstrip())
+		'''
 
 		# Disable all other start case functions
 		self.aboutCaseWindow.setEnabled(True)
@@ -715,6 +734,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		if self.current_trial not in self.ccw_spirals:
 			self.ccw_spirals.append(self.current_trial)
 
+		# Get the spiral name and add it to file
+		if self.current_trial != 'test':
+			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl.write('ccw_' + self.current_trial + '\n')
+			fl.close()
+
 	def onDoneCW(self):
 		if self.current_trial != '':
 			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_cw_spiral.csv'
@@ -727,6 +752,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		if self.current_trial not in self.cw_spirals:
 			self.cc_spirals.append(self.current_trial)
 
+		# Get the spiral name and add it to file
+		if self.current_trial != 'test':
+			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl.write('cw_' + self.current_trial + '\n')
+			fl.close()
+
 	def onDoneLine(self):
 		if self.current_trial != '':
 			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_line_spiral.csv'
@@ -738,6 +769,12 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.previous_spiral_line = file_path
 		if self.current_trial not in self.line_spirals:
 			self.line_spirals.append(self.current_trial)
+
+		# Get the spiral name and add it to file
+		if self.current_trial != 'test':
+			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl.write('line_' + self.current_trial + '\n')
+			fl.close()
 
 	'''
 	def onLoadPrevious(self, id):
