@@ -392,11 +392,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				if len(line.rstrip()) > 4:
 					print(line.rstrip()[0:3])
 					if line.rstrip()[0:3] == 'ccw':
-						self.ccw_spirals.append(line.rstrip()[3:len(line.rstrip())-1] + '_ccw')
+						self.ccw_spirals.append(line.rstrip()[4:len(line.rstrip())-1] + '_ccw')
 					elif line.rstrip()[0:2] == 'cw':
-						self.cw_spirals.append(line.rstrip()[2:len(line.rstrip())-1] + '_cw')
+						self.cw_spirals.append(line.rstrip()[3:len(line.rstrip())-1] + '_cw')
 					elif line.rstrip()[0:4] == 'line':
-						self.line_spirals.append(line.rstrip()[4:len(line.rstrip())-1] + '_line')
+						self.line_spirals.append(line.rstrip()[5:len(line.rstrip())-1] + '_line')
 
 		print(self.ccw_spirals)
 		print(self.cw_spirals)
@@ -705,9 +705,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Function to cancel the accelerometer recording button
 	def cancel_accel_record(self):
 
-		# Signal to UI that the data is being downloaded
-		self.accelDeviceUpdates.setText('Cancel and Reset...')
-		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+		if not self.spiralOnlyRadioButton.isChecked():
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Cancel and Reset...')
+			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
 
 		# Disable Download and cancel buttons
 		self.downloadAccelButton.setEnabled(False)
@@ -716,10 +717,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
 
+		isCanceled = False
 		if not self.spiralOnlyRadioButton.isChecked():
 			isCanceled = self.accelDevice.cancel_record()
 
-		if isCanceled or self.accel_address == '':
+		if isCanceled or self.spiralOnlyRadioButton.isChecked():
 			# Disable buttons and add trial to list
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
