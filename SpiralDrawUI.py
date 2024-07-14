@@ -463,11 +463,21 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 			# Enable Drawing
 			self.spiralTab.setEnabled(True)
+
+		# Case for DRAWING ONLY
 		else:
 			self.accelDeviceUpdates.setText('Ready for drawing.')
 			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
 			# Enable Drawing
 			self.spiralTab.setEnabled(True)
+
+			# Save file name and disable record button (only allow download)
+			self.trialNameAccelerom.setEnabled(False)
+			self.recordAccelButton.setEnabled(False)
+			self.downloadAccelButton.setEnabled(True)
+			self.cancelRecordButton.setEnabled(True)
+			self.trialNameSelect.setEnabled(False)
 			return
 
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)

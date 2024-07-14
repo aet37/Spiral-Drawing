@@ -244,207 +244,12 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="spiralControl">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <attribute name="title">
-      <string>Draw Spiral</string>
-     </attribute>
-     <widget class="QTabWidget" name="spirals_tab">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>-1</y>
-        <width>1771</width>
-        <height>911</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Basic Drawings</string>
-       </attribute>
-       <widget class="QLabel" name="spiral_ccw_draw">
-        <property name="geometry">
-         <rect>
-          <x>150</x>
-          <y>40</y>
-          <width>561</width>
-          <height>541</height>
-         </rect>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>ims/spiral_ccw_big.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="spiral_cw_draw">
-        <property name="geometry">
-         <rect>
-          <x>1080</x>
-          <y>40</y>
-          <width>591</width>
-          <height>541</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>ims/spiral_cw_big.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLabel" name="line_draw">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>670</y>
-          <width>1348</width>
-          <height>140</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>ims/line.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="clear_drawings">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>121</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Clear Drawings</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="done_ccw_button">
-        <property name="geometry">
-         <rect>
-          <x>260</x>
-          <y>600</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Done</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="done_cw_button">
-        <property name="geometry">
-         <rect>
-          <x>1300</x>
-          <y>610</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Done</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="done_line_button">
-        <property name="geometry">
-         <rect>
-          <x>730</x>
-          <y>830</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Done</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="loadp_spiralccw_button">
-        <property name="geometry">
-         <rect>
-          <x>470</x>
-          <y>600</y>
-          <width>121</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Load Previous</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="loadp_spiralcw_button">
-        <property name="geometry">
-         <rect>
-          <x>1470</x>
-          <y>610</y>
-          <width>111</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Load Previous</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="loadp_line_button">
-        <property name="geometry">
-         <rect>
-          <x>920</x>
-          <y>830</y>
-          <width>111</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Load Previous</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_4">
-       <attribute name="title">
-        <string>Extras</string>
-       </attribute>
-       <widget class="QPushButton" name="clear_drawings2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>131</width>
-          <height>32</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Clear Drawings</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </widget>
     <widget class="QWidget" name="accelControl">
      <property name="enabled">
       <bool>false</bool>
      </property>
      <attribute name="title">
-      <string>Accelerometer</string>
+      <string>Trial Setup</string>
      </attribute>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
@@ -679,7 +484,7 @@
       <widget class="QRadioButton" name="tabletRadio">
        <property name="geometry">
         <rect>
-         <x>110</x>
+         <x>130</x>
          <y>30</y>
          <width>141</width>
          <height>41</height>
@@ -692,7 +497,7 @@
       <widget class="QRadioButton" name="spiralOnlyRadio">
        <property name="geometry">
         <rect>
-         <x>260</x>
+         <x>280</x>
          <y>30</y>
          <width>191</width>
          <height>41</height>
@@ -701,6 +506,201 @@
        <property name="text">
         <string>No Accel (Spiral Only)</string>
        </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="spiralControl">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <attribute name="title">
+      <string>Draw Spiral</string>
+     </attribute>
+     <widget class="QTabWidget" name="spirals_tab">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-1</y>
+        <width>1771</width>
+        <height>911</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Basic Drawings</string>
+       </attribute>
+       <widget class="QLabel" name="spiral_ccw_draw">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>40</y>
+          <width>561</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>ims/spiral_ccw_big.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="spiral_cw_draw">
+        <property name="geometry">
+         <rect>
+          <x>1080</x>
+          <y>40</y>
+          <width>591</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>ims/spiral_cw_big.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="line_draw">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>670</y>
+          <width>1348</width>
+          <height>140</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>ims/line.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="clear_drawings">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>121</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Clear Drawings</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="done_ccw_button">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>600</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="done_cw_button">
+        <property name="geometry">
+         <rect>
+          <x>1300</x>
+          <y>610</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="done_line_button">
+        <property name="geometry">
+         <rect>
+          <x>730</x>
+          <y>830</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="loadp_spiralccw_button">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>600</y>
+          <width>121</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Load Previous</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="loadp_spiralcw_button">
+        <property name="geometry">
+         <rect>
+          <x>1470</x>
+          <y>610</y>
+          <width>111</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Load Previous</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="loadp_line_button">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>830</y>
+          <width>111</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Load Previous</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Extras</string>
+       </attribute>
+       <widget class="QPushButton" name="clear_drawings2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>131</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Clear Drawings</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
