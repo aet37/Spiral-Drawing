@@ -736,7 +736,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
-			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('ccw_' + self.current_trial + '\n')
 			fl.close()
 
@@ -754,7 +754,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
-			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('cw_' + self.current_trial + '\n')
 			fl.close()
 
@@ -772,7 +772,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
-			fl = open(self.basePath + self.pt_id + '_spiral.txt', 'a')
+			fl = open(self.basePath + self.pt_id + '_spirals.txt', 'a')
 			fl.write('line_' + self.current_trial + '\n')
 			fl.close()
 
