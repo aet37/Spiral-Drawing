@@ -383,7 +383,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		del(self.accel_files[0])
 		del(self.accel_files[0])
 		del(self.accel_files[0])
-		'''
+
 		self.ccw_spirals = []
 		self.cw_spirals = []
 		self.line_spirals = []
@@ -391,12 +391,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			for line in file:
 				if len(line.rstrip()) > 4:
 					if line.rstrip()[0:2] == 'ccw':
-						self.ccw_spirals.append(line.rstrip())
+						self.ccw_spirals.append(line.rstrip()[3:len(line.rstrip())-1 + '_ccw'])
 					elif line.rstrip()[0:1] == 'cw':
-						self.cw_spirals.append(line.rstrip())
+						self.cw_spirals.append(line.rstrip()[2:len(line.rstrip())-1 + '_cw'])
 					elif line.rstrip()[0:3] == 'line':
-						self.line_spirals.append(line.rstrip())
-		'''
+						self.line_spirals.append(line.rstrip()[4:len(line.rstrip())-1 + '_line'])
+
+		print(self.ccw_spirals)
+		print(self.cw_spirals)
+		print(self.line_spirals)
 
 		# Disable all other start case functions
 		self.aboutCaseWindow.setEnabled(True)
