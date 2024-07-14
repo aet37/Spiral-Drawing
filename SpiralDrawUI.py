@@ -457,7 +457,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.recordAccelButton.setEnabled(False)
 
 		# Update user thatdevice is being set up
-		if self.accel_address != '':
+		if not self.testRadioButton.isChecked():
 			self.accelDeviceUpdates.setText('Connecting to device ...')
 			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
 
@@ -541,7 +541,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def download_accel(self):
 
 		# If no accelerometer used, do not download
-		if self.accel_address != '':
+		if self.testRadioButton.isChecked():
 
 			# Get the accelerometer data and write it to file
 			if self.current_trial != 'test':
