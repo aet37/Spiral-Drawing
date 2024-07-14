@@ -392,11 +392,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				if len(line.rstrip()) > 4:
 					print(line.rstrip()[0:3])
 					if line.rstrip()[0:3] == 'ccw':
-						self.ccw_spirals.append(line.rstrip()[4:len(line.rstrip())-1] + '_ccw')
+						self.ccw_spirals.append(line.rstrip()[4:len(line.rstrip())] + '_ccw')
 					elif line.rstrip()[0:2] == 'cw':
-						self.cw_spirals.append(line.rstrip()[3:len(line.rstrip())-1] + '_cw')
+						self.cw_spirals.append(line.rstrip()[3:len(line.rstrip())] + '_cw')
 					elif line.rstrip()[0:4] == 'line':
-						self.line_spirals.append(line.rstrip()[5:len(line.rstrip())-1] + '_line')
+						self.line_spirals.append(line.rstrip()[5:len(line.rstrip())] + '_line')
 
 		print(self.ccw_spirals)
 		print(self.cw_spirals)
@@ -727,6 +727,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.recordAccelButton.setEnabled(True)
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
+			self.trialNameSelect.setEnabled(True)
 
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
