@@ -112,11 +112,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.testRadioButton = self.findChild(QtWidgets.QRadioButton, 'testRadio')
 		self.penRadioButton = self.findChild(QtWidgets.QRadioButton, 'penRadio')
 		self.tabletRadioButton = self.findChild(QtWidgets.QRadioButton, 'tabletRadio')
+		self.spiralOnlyRadioButton = self.findChild(QtWidgets.QRadioButton, 'spiralOnlyRadio')
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
 		self.accelControlWindow = self.findChild(QtWidgets.QWidget, 'accelControl')
 		self.spiralControlWindow = self.findChild(QtWidgets.QWidget, 'spiralControl')
+		self.spiralTab = self.findChild(QtWidgets.QWidget, 'spirals_tab')
 
 		# Create the matplotlib canvas
 		self.canvasImprove = MplCanvas(self, width=5, height=4, dpi=100)
@@ -443,6 +445,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.accel_address = 'C5:02:6A:76:E4:5D'
 		elif self.tabletRadioButton.isChecked():
 			self.accel_address = 'DA:83:E6:EE:AB:BF'
+		elif spiralOnlyRadioButton.isChecked():
+			self.accel_address = ''
 		else:
 			self.accel_address = 'C5:02:6A:76:E4:5D'
 
@@ -450,8 +454,18 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.recordAccelButton.setEnabled(False)
 
 		# Update user thatdevice is being set up
-		self.accelDeviceUpdates.setText('Connecting to device ...')
-		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+		if self.accel_address != '':
+			self.accelDeviceUpdates.setText('Connecting to device ...')
+			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+
+			# Enable Drawing
+			self.spiralTab.setEnabled(True)
+		else:
+			self.accelDeviceUpdates.setText('Ready for drawing.')
+			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+			# Enable Drawing
+			self.spiralTab.setEnabled(True)
+			return
 
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
@@ -512,6 +526,44 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Fuction to download the acclerometer recording after spiral is done
 	def download_accel(self):
+
+		# If no accelerometer used, do not download
+		if self.accel_address != '':
+
+			# Get the accelerometer data and write it to file
+			if self.current_trial != 'test':
+				fl = open(self.basePath + self.pt_id + '.txt', 'a')
+				fl.write(self.current_trial + '\n')
+				fl.close()
+
+			# Disable buttons and add trial to list
+			if self.current_trial != 'test':
+				self.accelCasesList.addItem(self.current_trial)
+				self.accel_files.append(self.current_trial)
+			self.trialNameAccelerom.setEnabled(True)
+			self.recordAccelButton.setEnabled(True)
+			self.downloadAccelButton.setEnabled(False)
+			self.cancelRecordButton.setEnabled(False)
+			self.trialNameSelect.setEnabled(True)
+			if self.intraopRadioButton.isChecked():
+				self.intraop_current += 1
+				self.intraopValueFeild.setValue(self.intraop_current)
+			self.current_trial = ''
+
+			# Disable Drawing
+			self.spiralTab.setEnabled(False)
+
+			# Signal to UI that the data is being downloaded
+			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
+			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
+			#Force GUI to update (needed due to many sleep() calls associated with BT device)
+			app.processEvents()
+
+			print('. Done.... Ready for next trial')
+			return
+
+		# If accel was used.
 
 		# Check to make sure device did not loose connection
 		if self.accelDevice.isConnected:
@@ -605,6 +657,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
 
+			# Disable Drawing
+			self.spiralTab.setEnabled(False)
+
 			print('Reseting ...')
 			self.accelDevice.reset()
 
@@ -644,9 +699,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
 
-		isCanceled = self.accelDevice.cancel_record()
+		if self.accel_address != '':
+			isCanceled = self.accelDevice.cancel_record()
 
-		if isCanceled:
+		if isCanceled or self.accel_address == '':
 			# Disable buttons and add trial to list
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
@@ -656,6 +712,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Done. Ready for next trial.')
 			self.accelDeviceUpdates.setStyleSheet('Color: green;')
+
+			# Disable Drawing
+			self.spiralTab.setEnabled(False)
 
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
@@ -750,7 +809,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.drawingAreaCW.clearDrawing()
 		self.previous_spiral_cw = file_path
 		if self.current_trial not in self.cw_spirals:
-			self.cc_spirals.append(self.current_trial)
+			self.cw_spirals.append(self.current_trial)
 
 		# Get the spiral name and add it to file
 		if self.current_trial != 'test':
