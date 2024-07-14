@@ -305,7 +305,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				# Plot the spirals
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
 				#eval('self.canvasGraph' + str((i+1)) + '.axes.tight_layout()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.draw()')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 
 
