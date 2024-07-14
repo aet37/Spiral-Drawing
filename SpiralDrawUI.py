@@ -448,7 +448,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.accel_address = 'C5:02:6A:76:E4:5D'
 		elif self.tabletRadioButton.isChecked():
 			self.accel_address = 'DA:83:E6:EE:AB:BF'
-		elif spiralOnlyRadioButton.isChecked():
+		elif self.spiralOnlyRadioButton.isChecked():
 			self.accel_address = ''
 		else:
 			self.accel_address = 'C5:02:6A:76:E4:5D'
