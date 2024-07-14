@@ -335,8 +335,19 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 							arr_pts_x.append(int(row[1]))
 							arr_pts_y.append(int(row[2]))
 
+				arr_pts_tmp_x = []
+				arr_pts_tmp_y = []
+				# Get the points in the current spiral
+				with open('C:/hifu/Spiral-Drawing/ims/ideal_cw_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmp_x.append(int(row[1]))
+						arr_pts_tmp_y.append(int(row[2]))
+
 				# Plot the spirals
 				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
@@ -357,8 +368,29 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 							arr_pts_x.append(int(row[1]))
 							arr_pts_y.append(int(row[2]))
 
+				arr_pts_tmpu_x = []
+				arr_pts_tmpu_y = []
+				arr_pts_tmpl_x = []
+				arr_pts_tmpl_y = []
+				# Get the points in the current spiral
+				with open('C:/hifu/Spiral-Drawing/ims/line_ideal_upper.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmpu_x.append(int(row[1]))
+						arr_pts_tmpu_y.append(int(row[2]))
+
+				with open('C:/hifu/Spiral-Drawing/ims/line_ideal_lower.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmpl_x.append(int(row[1]))
+						arr_pts_tmpl_y.append(int(row[2]))
+
 				# Plot the spirals
 				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmpu_x, arr_pts_tmpu_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmpl_x, arr_pts_tmpl_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
