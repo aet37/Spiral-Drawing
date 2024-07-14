@@ -457,7 +457,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.recordAccelButton.setEnabled(False)
 
 		# Update user thatdevice is being set up
-		if not self.testRadioButton.isChecked():
+		if not self.spiralOnlyRadioButton.isChecked():
 			self.accelDeviceUpdates.setText('Connecting to device ...')
 			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
 
@@ -541,7 +541,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def download_accel(self):
 
 		# If no accelerometer used, do not download
-		if self.testRadioButton.isChecked():
+		if self.spiralOnlyRadioButton.isChecked():
 
 			# Get the accelerometer data and write it to file
 			if self.current_trial != 'test':
@@ -712,7 +712,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
 
-		if self.accel_address != '':
+		if not self.spiralOnlyRadioButton.isChecked():
 			isCanceled = self.accelDevice.cancel_record()
 
 		if isCanceled or self.accel_address == '':
