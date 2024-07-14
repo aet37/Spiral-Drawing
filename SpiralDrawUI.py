@@ -302,8 +302,19 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 							arr_pts_x.append(int(row[1]))
 							arr_pts_y.append(int(row[2]))
 
+				arr_pts_tmp_x = []
+				arr_pts_tmp_y = []
+				# Get the points in the current spiral
+				with open('C:/hifu/Spiral-Drawing/ims/ideal_ccw_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmp_x.append(int(row[1]))
+						arr_pts_tmp_y.append(int(row[2]))
+
 				# Plot the spirals
 				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
