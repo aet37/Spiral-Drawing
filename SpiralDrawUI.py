@@ -428,6 +428,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.intraop_current = 1
 		self.isNewCase = False
 
+		for i in range(1, 9):
+			eval('self.canvasGraph' + str(i) + '.clear_plot()')
+
 	# Function to load a previous case
 	def load_case(self):
 		# Load the patient ID, and set the class variables
