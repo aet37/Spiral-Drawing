@@ -287,9 +287,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.draw()
 
 	def plot_accels(self):
+		# Clear all plots
+		self.clear_all_plots()
+
 		return
 
 	def plot_spirals(self):
+
+		# Clear all plots
+		self.clear_all_plots()
 
 		# If want to plot CCW spiral
 		if self.CCWPlotRadio.isChecked():
@@ -406,6 +412,17 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		elif self.SFlotRadio.isChecked():
 			return
 
+	def clear_all_plots(self):
+		self.canvasImprove.clear_plot()
+		self.canvasGraph1.clear_plot()
+		self.canvasGraph2.clear_plot()
+		self.canvasGraph3.clear_plot()
+		self.canvasGraph4.clear_plot()
+		self.canvasGraph5.clear_plot()
+		self.canvasGraph6.clear_plot()
+		self.canvasGraph7.clear_plot()
+		self.canvasGraph8.clear_plot()
+
 	###############################################################################################
 	## Button Click Functions
 	###############################################################################################
@@ -481,14 +498,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.intraop_current = 1
 		self.isNewCase = False
 
-		self.canvasGraph1.clear_plot()
-		self.canvasGraph2.clear_plot()
-		self.canvasGraph3.clear_plot()
-		self.canvasGraph4.clear_plot()
-		self.canvasGraph5.clear_plot()
-		self.canvasGraph6.clear_plot()
-		self.canvasGraph7.clear_plot()
-		self.canvasGraph8.clear_plot()
+		self.clear_all_plots()
 
 	# Function to load a previous case
 	def load_case(self):
