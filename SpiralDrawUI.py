@@ -305,7 +305,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					to_plot.append(x[j] + y[j] + z[j])
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t, to_plot, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(\'Full Accelerometer Trace\', fontsize=16)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 		elif self.AccelSamplePlotRadio.isChecked():
@@ -330,7 +331,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max], to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(\'1s of Accelerometer Trace\', fontsize=14)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 
