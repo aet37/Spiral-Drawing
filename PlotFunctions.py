@@ -10,3 +10,4 @@ class MplCanvas(FigureCanvas):
 	def clear_plot(self):
 		self.fig.clf()
 		self.axes = self.fig.add_subplot(111)
+		self.draw()

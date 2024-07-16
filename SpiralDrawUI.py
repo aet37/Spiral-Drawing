@@ -98,6 +98,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.resetBoardButton.clicked.connect(self.handle_reset)
 		self.PlotSpirals = self.findChild(QtWidgets.QPushButton, 'plot_spiral_aspects')
 		self.PlotSpirals.clicked.connect(self.plot_spirals)
+		self.PlotAccels = self.findChild(QtWidgets.QPushButton, 'plot_accel_aspects')
+		self.PlotAccels.clicked.connect(self.plot_accels)
 
 		self.recordAccelButton = self.findChild(QtWidgets.QPushButton, 'recordAccel')
 		self.recordAccelButton.clicked.connect(self.record_accel)
@@ -119,7 +121,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.CWPlotRadio = self.findChild(QtWidgets.QRadioButton, 'cw_plot_radio')
 		self.LinePlotRadio = self.findChild(QtWidgets.QRadioButton, 'line_plot_radio')
 		self.SFlotRadio = self.findChild(QtWidgets.QRadioButton, 'spatial_freq_plot_radio')
-
+		self.FreqAccelPlotRadio = self.findChild(QtWidgets.QRadioButton, 'frequency_accel_plot_radio')
+		self.RawAccelPlotRadio = self.findChild(QtWidgets.QRadioButton, 'raw_accel_plot_radio')
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
@@ -249,6 +252,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.patientList = self.findChild(QtWidgets.QListView, 'prevPatientList')
 		self.accelCasesList = self.findChild(QtWidgets.QListView, 'accelCases')
 		self.currentSpiralsView = self.findChild(QtWidgets.QListView, 'current_spirals_view')
+		self.currentAccelView = self.findChild(QtWidgets.QListView, 'current_accel_view')
 
 		# Add all previous cases in the QListView Object
 		for item in self.prev_pt_lists:
@@ -281,6 +285,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.axes.legend(['Accelerometer', 'Drawing'])
 			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
+
+	def plot_accels(self):
+		return
 
 	def plot_spirals(self):
 
