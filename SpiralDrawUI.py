@@ -301,8 +301,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
 				to_plot = []
-				for i in range(len(x)):
-					to_plot.append(x[i] + y[i] + z[i])
+				for j in range(len(x)):
+					to_plot.append(x[j] + y[j] + z[j])
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t, to_plot, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
@@ -317,8 +317,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
 				to_plot = []
-				for i in range(len(x)):
-					to_plot.append(x[i] + y[i] + z[i])
+				for j in range(len(x)):
+					to_plot.append(x[j] + y[j] + z[j])
 				if len(to_plot) > 500:
 					ind_plot_min = 400
 					ind_plot_max = 500
