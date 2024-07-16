@@ -464,6 +464,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Clear the list views
 		self.accelCasesList.clear()
 		self.currentSpiralsView.clear()
+		self.currentAccelView.clear()
 
 		# Write a txt file that stores the case
 		self.pt_id = ''
@@ -507,6 +508,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		del(self.accel_files[0])
 		del(self.accel_files[0])
 
+		# Get the accel files
+		self.accel_trials = []
+		for i in range(len(self.accel_files)):
+			if os.path.isfile(self.accel_files[i] + '.csv'):
+				self.accel_trials.append(accel_files[i])
+
+		# Get the spiral files
 		self.ccw_spirals = []
 		self.cw_spirals = []
 		self.line_spirals = []
@@ -527,6 +535,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.currentSpiralsView.addItem(item)
 		for item in self.line_spirals:
 			self.currentSpiralsView.addItem(item)
+		for item in self.accel_trials:
+			self.currentAccelView.addItem(item)
 
 		# Disable all other start case functions
 		self.aboutCaseWindow.setEnabled(True)
