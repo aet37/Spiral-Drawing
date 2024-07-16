@@ -333,6 +333,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', 1s of Accel Trace\', fontsize=14)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 
@@ -365,6 +366,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.ccw_spirals[i], fontsize=14)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 		elif self.CWPlotRadio.isChecked():
@@ -398,6 +400,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.cw_spirals[i], fontsize=14)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 		elif self.LinePlotRadio.isChecked():
@@ -441,6 +444,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmpl_x, arr_pts_tmpl_y, color=\'r\')')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.line_spirals[i], fontsize=14)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 		elif self.SFlotRadio.isChecked():
