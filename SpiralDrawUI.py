@@ -294,7 +294,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Plot the entire timeseries
 		if self.RawAccelPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
-			for i in range(len(self.ccw_spirals)):
+			for i in range(len(self.accel_trials)):
 				# Only 7 graphs. Cannot plot more.
 				if i > 7:
 					break
@@ -310,7 +310,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		elif self.AccelSamplePlotRadio.isChecked():
 			# Loop through all spirals drawn so far
-			for i in range(len(self.ccw_spirals)):
+			for i in range(len(self.accel_trials)):
 				# Only 7 graphs. Cannot plot more.
 				if i > 7:
 					break
@@ -328,7 +328,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				else:
 					continue
 
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max]), to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max], to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
