@@ -3,7 +3,6 @@ from PaintFunctions import *
 from PlotFunctions import *
 import os
 import sys
-import csv
 
 if sys.platform == 'win32':
 	import warnings
