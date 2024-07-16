@@ -303,17 +303,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				# Only 7 graphs. Cannot plot more.
 				if i > 7:
 					break
-				'''
-				arr_pts_x = []
-				arr_pts_y = []
-				# Get the points in the current spiral
-				with open(self.data_save_path + self.ccw_spirals[i] + '_spiral.csv', newline='') as csvfile:
-					spiral_reader = csv.reader(csvfile, delimiter=',')
-					for row in spiral_reader:
-						if row[1] != 'X':
-							arr_pts_x.append(int(row[1]))
-							arr_pts_y.append(int(row[2]))
-				'''
+
 				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.ccw_spirals[i] + '_spiral.csv')
 
 				arr_pts_tmp_x = []
@@ -954,6 +944,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			file_path = self.basePath + self.pt_id + '/ccw_spiral.csv'
 
+		# Do not allow empty spirals to be saved
+		if self.drawingAreaCCW.drawn_points == []:
+			return
+
 		self.drawingAreaCCW.saveDrawing(file_path)
 		self.drawingAreaCCW.clearDrawing()
 		self.previous_spiral_ccw = file_path
@@ -983,6 +977,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			file_path = self.basePath + self.pt_id + '/cw_spiral.csv'
 
+		# Do not allow empty spirals to be saved
+		if self.drawingAreaCW.drawn_points == []:
+			return
+
 		self.drawingAreaCW.saveDrawing(file_path)
 		self.drawingAreaCW.clearDrawing()
 		self.previous_spiral_cw = file_path
@@ -1009,6 +1007,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_line_spiral.csv'
 		else:
 			file_path = self.basePath + self.pt_id + '/line_spiral.csv'
+
+		# Do not allow empty spirals to be saved
+		if self.drawingAreaLine.drawn_points == []:
+			return
 
 		self.drawingAreaLine.saveDrawing(file_path)
 		self.drawingAreaLine.clearDrawing()
