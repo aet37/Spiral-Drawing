@@ -58,6 +58,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.ccw_spirals = []
 		self.cw_spirals = []
 		self.line_spirals = []
+		self.accel_trials = []
 		self.intraop_current = 1
 
 		# Acclerometer
@@ -122,6 +123,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.SFlotRadio = self.findChild(QtWidgets.QRadioButton, 'spatial_freq_plot_radio')
 		self.FreqAccelPlotRadio = self.findChild(QtWidgets.QRadioButton, 'frequency_accel_plot_radio')
 		self.RawAccelPlotRadio = self.findChild(QtWidgets.QRadioButton, 'raw_accel_plot_radio')
+		self.AccelSamplePlotRadio = self.findChild(QtWidgets.QRadioButton, 'accel_sample_plot')
 
 		# Tab Widgets
 		self.aboutCaseWindow = self.findChild(QtWidgets.QWidget, 'aboutCase')
@@ -289,7 +291,48 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Clear all plots
 		self.clear_all_plots()
 
-		return
+		# Plot the entire timeseries
+		if self.RawAccelPlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.ccw_spirals)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
+
+				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
+				to_plot = []
+				for i in range(len(x)):
+					to_plot[i] = x[i] + y[i] + z[i]
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t, to_plot, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+
+		elif self.AccelSamplePlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.ccw_spirals)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
+
+				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
+				to_plot = []
+				for i in range(len(x)):
+					to_plot[i] = x[i] + y[i] + z[i]
+				if len(to_plot) > 500:
+					ind_plot_min = 400
+					ind_plot_max = 500
+				elif len(to_plot) >= 103:
+					ind_plot_min = 2
+					ind_plot_max = 102
+				else:
+					continue
+
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max]), to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+
 
 	def plot_spirals(self):
 

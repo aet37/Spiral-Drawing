@@ -27,3 +27,20 @@ def load_data_spiral(fpath):
 				y.append(int(row[2]))
 
 	return x, y
+
+# Function to read data from a file
+def load_data_accel(fpath):
+	t = []
+	x = []
+	y = []
+	z = []
+	# Get the points in the current spiral
+	with open(fpath, newline='') as csvfile:
+		spiral_reader = csv.reader(csvfile, delimiter=',')
+		for row in spiral_reader:
+			t.append(float(row[0]))
+			x.append(float(row[1]))
+			y.append(float(row[2]))
+			z.append(float(row[3]))
+
+	return t, x, y, z
