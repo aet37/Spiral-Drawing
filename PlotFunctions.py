@@ -11,3 +11,18 @@ class MplCanvas(FigureCanvas):
 		self.fig.clf()
 		self.axes = self.fig.add_subplot(111)
 		self.draw()
+
+# Function to read data from a file
+def load_data_spiral(fpath):
+	x = []
+	y = []
+
+	# Get the points in the current spiral
+	with open(fpath, newline='') as csvfile:
+		spiral_reader = csv.reader(csvfile, delimiter=',')
+		for row in spiral_reader:
+			if row[1] != 'X':
+				x.append(int(row[1]))
+				y.append(int(row[2]))
+
+	return x, y

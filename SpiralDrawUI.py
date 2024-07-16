@@ -298,7 +298,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				# Only 7 graphs. Cannot plot more.
 				if i > 7:
 					break
-
+				'''
 				arr_pts_x = []
 				arr_pts_y = []
 				# Get the points in the current spiral
@@ -308,6 +308,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 						if row[1] != 'X':
 							arr_pts_x.append(int(row[1]))
 							arr_pts_y.append(int(row[2]))
+				'''
+				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.ccw_spirals[i] + '_spiral.csv')
 
 				arr_pts_tmp_x = []
 				arr_pts_tmp_y = []
@@ -511,7 +513,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Get the accel files
 		self.accel_trials = []
 		for i in range(len(self.accel_files)):
-			print(self.basePath + self.pt_id + self.accel_files[i] + '.csv')
 			if os.path.isfile(self.basePath + self.pt_id + '/' + self.accel_files[i] + '.csv'):
 				self.accel_trials.append(self.accel_files[i])
 
