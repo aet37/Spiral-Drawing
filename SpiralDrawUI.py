@@ -307,6 +307,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', Full Accel Trace\', fontsize=14)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
 		elif self.AccelSamplePlotRadio.isChecked():
