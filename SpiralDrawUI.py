@@ -511,7 +511,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Get the accel files
 		self.accel_trials = []
 		for i in range(len(self.accel_files)):
-			if os.path.isfile(self.accel_files[i] + '.csv'):
+			if os.path.isfile(self.basePath + self.pt_id + self.accel_files[i] + '.csv'):
 				self.accel_trials.append(accel_files[i])
 
 		# Get the spiral files
