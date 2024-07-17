@@ -253,6 +253,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Line edits
 		self.accelDeviceUpdates = self.findChild(QtWidgets.QLabel, 'accelDeviceUpdate')
+		self.baselineTrialLE = self.findChild(QtWidgets.QLabel, 'baseline_disp')
 
 		# List Widgets
 		self.patientList = self.findChild(QtWidgets.QListView, 'prevPatientList')
@@ -275,8 +276,17 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Set the baseline trial
 	def set_accel_baseline(self):
-		#self.accel_baseline =
-		print(self.currentAccelView.currentItem().text())
+
+		if self.currentAccelView.currentItem().text() == None:
+			return
+
+		for i in range(len(self.accel_files)):
+			if self.currentAccelView.currentItem().text() == self.accel_files[i]:
+				self.accel_baseline = i
+				print('Baseline = ' + str(i))
+
+		# Set the text in the LINe edit
+		self.baselineTrialLE.setText(self.currentAccelView.currentItem().text())
 
 	# Function to plot sample data
 	def plot_data(self):
