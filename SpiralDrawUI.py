@@ -112,6 +112,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.cancelRecordButton.clicked.connect(self.cancel_accel_record)
 		self.setBaselineButton = self.findChild(QtWidgets.QPushButton, 'set_baseline')
 		self.setBaselineButton.clicked.connect(self.set_accel_baseline)
+		self.setBaselineButton = self.findChild(QtWidgets.QPushButton, 'analyze_accel_data')
+		self.analyzeAccelDataButton.clicked.connect(self.analyze_data)
 
 
 		# Radio Button
