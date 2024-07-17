@@ -289,12 +289,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	# Function to plot sample data
 	def plot_improvement(self):
-		print('called')
 
 		if not os.path.isfile(self.data_save_path + 'analysis/' + 'improvement_accel.csv'):
 			return
 
 			x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
+			print(x)
+			print(improve)
 
 			self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
 			self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
