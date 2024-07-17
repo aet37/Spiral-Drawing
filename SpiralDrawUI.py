@@ -295,6 +295,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
 
+		for i in range(len(improve)):
+			improve[i] = improve[i] * 100
+
 		self.canvasImprove.axes.plot(x, improve, marker="s", color='b')
 
 		self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
