@@ -690,7 +690,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				c_reader = csv.reader(csvfile, delimiter=',')
 				for row in c_reader:
 					if row[0] == 'BaselineIndex':
-						self.accel_baseline = row[1]
+						self.accel_baseline = int(row[1])
 						self.baselineTrialLE.setText(self.accel_psds[self.accel_baseline])
 					if row[0] == 'BaselineIndex':
 						self.baseline_f_peak_val = row[1]
