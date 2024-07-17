@@ -343,7 +343,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			with open(self.data_save_path + 'analysis/' + self.accel_trials[i] + '_accel_psd.csv', 'w', newline='') as file:
 				writer = csv.writer(file)
 				for j in range(len(f)):
-					writer.writerow(f[j], accel_welch[j])
+					writer.writerow([f[j], accel_welch[j]])
 
 			if self.accel_trials[i] not in self.accel_psds:
 				self.accel_psds.append(self.accel_trials[i])
@@ -354,8 +354,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Add the baseline trial and the maxinum value of that trial to file to easlity be acessible
 		with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv', 'w', newline='') as file:
 			writer = csv.writer(file)
-			writer.writerow('BaselineIndex', self.accel_baseline)
-			writer.writerow('BaselineMaxF', peak_vals[self.accel_baseline])
+			writer.writerow(['BaselineIndex', self.accel_baseline])
+			writer.writerow(['BaselineMaxF', peak_vals[self.accel_baseline]])
 
 		# Save the peak val for graphing frequency
 		self.baseline_f_peak_val = peak_vals[self.accel_baseline]
@@ -370,7 +370,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		with open(self.data_save_path + 'analysis/' + 'improvement_accel.csv', 'w', newline='') as file:
 				writer = csv.writer(file)
 				for j in range(len(improve_accel)):
-					writer.writerow(j, improve_accel[j])
+					writer.writerow([j, improve_accel[j]])
 		print('  Done.')
 
 	# Plot the acelerometer data
