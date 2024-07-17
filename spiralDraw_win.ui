@@ -459,16 +459,6 @@
          <string>Set as Baseline</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="baseline_disp">
-        <property name="geometry">
-         <rect>
-          <x>690</x>
-          <y>200</y>
-          <width>161</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
@@ -493,6 +483,24 @@
         </property>
         <property name="text">
          <string>Analyze Acelerometer</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="baseline_disp">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>190</y>
+          <width>141</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>
