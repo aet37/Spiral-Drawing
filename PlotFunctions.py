@@ -62,7 +62,7 @@ def load_data_accel_psd(fpath):
 	return f, psd
 
 # Function to analyze functions
-def analyze_accel_data(t, x, y, z):
+def analyze_accel_data(t_pa, x_pa, y_pa, z_pa):
 
 	# Turn into numpy arrays
 	t = np.array(t_pa)
