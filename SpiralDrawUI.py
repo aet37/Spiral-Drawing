@@ -198,9 +198,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		layout.addWidget(self.canvasGraph8)
 		self.graph_widget8.setLayout(layout)
 
-		# Plot some example data
-		self.plot_data()
-
 		# Drawing Area and Buttons for Spiral Drawing Tab
 		self.SpiralCCWArea = self.findChild(QtWidgets.QLabel, 'spiral_ccw_draw')
 		self.SpiralCWArea = self.findChild(QtWidgets.QLabel, 'spiral_cw_draw')
@@ -291,21 +288,20 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.baselineTrialLE.setText(self.currentAccelView.currentItem().text())
 
 	# Function to plot sample data
-	def plot_data(self):
-			x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-			y = [0, -0.2, -0.22, -0.3, -0.6, -0.7, -0.85, -0.9, -0.9]
-			y2 = [0, -0.1, -0.3, -0.4, -0.55, -0.77, -0.87, -0.95, -0.97]
-			y = [i * 100 for i in y]
-			y2 = [i * 100 for i in y2]
+	def plot_improvement(self):
 
-			self.canvasImprove.axes.plot(x, y, marker="s", color='b')
-			self.canvasImprove.axes.plot(x, y2, marker="s", color='r')
+		if not os.path.isfile(self.data_save_path + 'analysis/' + 'improvement_accel.csv'):
+			return
+
+			x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
+
+			self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
 			self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
 			self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
 			self.canvasImprove.axes.set_title('Tremor Improvement', fontsize=18)
 			self.canvasImprove.axes.set_xlim([min(x), max(x)])
 			self.canvasImprove.axes.set_ylim([-100, 20])
-			self.canvasImprove.axes.legend(['Accelerometer', 'Drawing'])
+			self.canvasImprove.axes.legend(['Accelerometer'])
 			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
 
@@ -372,6 +368,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				for j in range(len(improve_accel)):
 					writer.writerow([j, improve_accel[j]])
 		print('  Done.')
+
+		# Plot the accelerometer and the improvment plots
+		self.plot_improvement()
+		self.FreqAccelPlotRadio.setChecked(True)
+		self.plot_accels()
 
 	# Plot the acelerometer data
 	def plot_accels(self):
@@ -694,6 +695,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 						self.baselineTrialLE.setText(self.accel_psds[self.accel_baseline])
 					if row[0] == 'BaselineMaxF':
 						self.baseline_f_peak_val = float(row[1])
+
+			# Plot the accelerometer and the improvment plots
+			self.plot_improvement()
+			self.FreqAccelPlotRadio.setChecked(True)
+			self.plot_accels()
 
 		# Get the spiral files
 		self.ccw_spirals = []
