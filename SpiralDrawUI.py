@@ -62,6 +62,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accel_psds = []
 		self.intraop_current = 1
 		self.accel_baseline = None
+		self.baseline_f_peak_val = None
 
 		# Acclerometer
 		self.accel_address = 'C5:02:6A:76:E4:5D'
@@ -283,7 +284,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		for i in range(len(self.accel_files)):
 			if self.currentAccelView.currentItem().text() == self.accel_files[i]:
 				self.accel_baseline = i
-				print('Baseline = ' + str(i))
 
 		# Set the text in the LINe edit
 		self.baselineTrialLE.setText(self.currentAccelView.currentItem().text())
@@ -310,8 +310,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Analyze the data
 	def analyze_data(self):
 
+		print('Starting analysis ...')
+
 		# If no trials have been done, return
 		if (len(self.accel_files) == 0) or (self.accel_baseline == None):
+			print('  Could not analyze. No accel files or no baseline selected.')
 			return
 
 		# Create a directory to save the analysis if it doesnt exist
@@ -346,11 +349,29 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				fl.write(self.current_trial + '\n')
 				fl.close()
 
+		# Add the baseline trial and the maxinum value of that trial to file to easlity be acessible
+		with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv', 'w', newline='') as file:
+			writer = csv.writer(file)
+			writer.writerow('BaselineIndex', self.accel_baseline)
+			writer.writerow('BaselineMaxF', peak_vals[self.accel_baseline])
+
+		# Save the peak val for graphing frequency
+		self.baseline_f_peak_val = peak_vals[self.accel_baseline]
+
 		# Collate the improvement
 		all_accel_stats = np.vstack([peak_vals, auc_welchs, auc_accels])
+		ref_vals = all_accel_stats[:, self.accel_baseline]
+		improve_accel_all = all_accel_stats / ref_vals[:, None] - 1
+		improve_accel = np.mean(improve_accel_all, axis=0)
 
+		# Write the improvement data to file
+		with open(self.data_save_path + 'analysis/' + 'improvement_accel.csv', 'w', newline='') as file:
+				writer = csv.writer(file)
+				for j in range(len(improve_accel)):
+					writer.writerow(j, improve_accel[j])
+		print('  Done.')
 
-
+	# Plot the acelerometer data
 	def plot_accels(self):
 		# Clear all plots
 		self.clear_all_plots()
@@ -401,7 +422,26 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
 				eval('self.canvasGraph' + str((i+1)) + '.draw()')
 
+		elif self.FreqAccelPlotRadio.isChecked():
+			# Loop through all spirals drawn so far
+			for i in range(len(self.accel_psds)):
+				# Only 7 graphs. Cannot plot more.
+				if i > 7:
+					break
 
+				f, psds = load_data_accel_psd(self.data_save_path + 'analysis/' + self.accel_psds[i] + '_accel_psd.csv')
+
+				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(f, psd, color=\'b\')')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Frequency (Hz)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'PSD (G^2/Hz)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.xlim(min(f), max(f))')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.ylim(0, self.baseline_f_peak_val * 2)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', Accel PSD\', fontsize=14)')
+				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
+				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+
+
+	# Plot the spiral data
 	def plot_spirals(self):
 
 		# Clear all plots
@@ -576,6 +616,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.patientIdEnter.setEnabled(True)
 		self.patientIdEnter.setText('')
 		self.trialNameAccelerom.setText('')
+		self.baselineTrialLE.setText('')
 
 		# Add all previous cases in the QListView Object
 		self.prev_pt_list = next(os.walk(self.basePath))[1]
@@ -601,6 +642,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.accel_psds = []
 		self.intraop_current = 1
 		self.isNewCase = False
+		self.accel_baseline = None
+		self.baseline_f_peak_val = None
 
 		self.clear_all_plots()
 
@@ -629,6 +672,25 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		for i in range(len(self.accel_files)):
 			if os.path.isfile(self.basePath + self.pt_id + '/' + self.accel_files[i] + '.csv'):
 				self.accel_trials.append(self.accel_files[i])
+
+		# Get the analyzed psd files
+		self.accel_psds = []
+		self.accel_baseline = None
+		self.baseline_f_peak_val = None
+		if os.path.isdir(self.data_save_path + 'analysis'):
+			# Load the analyzed psd files
+			with open(self.data_save_path + 'analysis/accel_psd_fls.csv') as file:
+				for line in file:
+					self.accel_psds.append(line.rstrip())
+
+			# Load the baseline info
+			with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv') as file:
+				for line in file:
+					if line[0] == 'BaselineIndex':
+						self.accel_baseline = line[1]
+						self.baselineTrialLE.setText(self.accel_psd[self.accel_baseline])
+					elif line[0] == 'BaselineMaxF'
+						self.baseline_f_peak_val = line[1]
 
 		# Get the spiral files
 		self.ccw_spirals = []

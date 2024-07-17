@@ -47,6 +47,20 @@ def load_data_accel(fpath):
 
 	return t, x, y, z
 
+# Function to read data from a file
+def load_data_accel_psd(fpath):
+	f = []
+	psd = []
+
+	# Get the points in the current spiral
+	with open(fpath, newline='') as csvfile:
+		spiral_reader = csv.reader(csvfile, delimiter=',')
+		for row in spiral_reader:
+			f.append(float(row[0]))
+			psd.append(float(row[1]))
+
+	return f, psd
+
 # Function to analyze functions
 def analyze_accel_data(t, x, y, z):
 
