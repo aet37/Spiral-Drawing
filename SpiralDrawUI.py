@@ -689,7 +689,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					if line[0] == 'BaselineIndex':
 						self.accel_baseline = line[1]
 						self.baselineTrialLE.setText(self.accel_psd[self.accel_baseline])
-					elif line[0] == 'BaselineMaxF'
+					elif line[0] == 'BaselineMaxF':
 						self.baseline_f_peak_val = line[1]
 
 		# Get the spiral files
