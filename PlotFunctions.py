@@ -15,6 +15,13 @@ class MplCanvas(FigureCanvas):
 		self.axes = self.fig.add_subplot(111)
 		self.draw()
 
+
+# Smooth a timeseries
+def smooth(y, box_pts):
+	box = np.ones(box_pts)/box_pts
+	y_smooth = np.convolve(y, box, mode='same')
+	return y_smooth
+
 # Function to read data from a file
 def load_data_spiral(fpath):
 	x = []
@@ -81,7 +88,11 @@ def analyze_accel_data(t_pa, x_pa, y_pa, z_pa):
 	b, a = butter(order, [low_f, high_f], fs=fs, btype='band')
 	accel_data_filt = lfilter(b, a, accel_data)
 
+	f_filt, welch_accel_filt = welch(accel_data_filt, fs=fs, nperseg=len(accel_data_filt)//8, noverlap=(len(accel_data_filt)//8)//2)
+	welch_accel_filt_sm = smooth(welch_accel_filt, int(len(welch_accel_filt)*0.03))
+
 	# Take the regio of interest
+	idx = f_filt < 13
 	f_filt_ret = f_filt[idx]
 	welch_accel_ret = welch_accel_filt_sm[idx]
 
