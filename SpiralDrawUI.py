@@ -298,7 +298,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		for i in range(len(improve)):
 			improve[i] = improve[i] * 100
 
-		self.canvasImprove.axes.plot(x, improve, marker="s", color='b')
+		self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
 
 		self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
 		self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
