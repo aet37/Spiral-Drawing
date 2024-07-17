@@ -346,7 +346,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					writer.writerow([f[j], accel_welch[j]])
 
 			if self.accel_trials[i] not in self.accel_psds:
-				print('Printed psds to file')
 				self.accel_psds.append(self.accel_trials[i])
 				fl = open(self.data_save_path + 'analysis/accel_psd_fls.csv', 'a')
 				fl.write(self.accel_trials[i] + '\n')
