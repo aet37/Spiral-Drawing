@@ -681,7 +681,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.baseline_f_peak_val = None
 		if os.path.isdir(self.data_save_path + 'analysis'):
 			# Load the analyzed psd files
-			with open(self.data_save_path + 'analysis/accel_psd_fls.csv') as file:
+			with open(self.data_save_path + 'analysis/accel_psd_fls.csv', delimiter=',') as file:
 				for line in file:
 					self.accel_psds.append(line.rstrip())
 
