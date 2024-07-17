@@ -688,7 +688,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Load the baseline info
 			with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv') as file:
 				for line in file:
-					print(line)
+					print(line.rstrip())
 					if line[0] == 'BaselineIndex':
 						self.accel_baseline = line[1]
 						self.baselineTrialLE.setText(self.accel_psd[self.accel_baseline])
