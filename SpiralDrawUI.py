@@ -291,20 +291,19 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def plot_improvement(self):
 
 		if not os.path.isfile(self.data_save_path + 'analysis/' + 'improvement_accel.csv'):
-			print('Not Found')
 			return
 
-			x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
+		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
 
-			self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
-			self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
-			self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
-			self.canvasImprove.axes.set_title('Tremor Improvement', fontsize=18)
-			self.canvasImprove.axes.set_xlim([min(x), max(x)])
-			self.canvasImprove.axes.set_ylim([-100, 20])
-			self.canvasImprove.axes.legend(['Accelerometer'])
-			self.canvasImprove.axes.grid(True)
-			self.canvasImprove.draw()
+		self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
+		self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
+		self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
+		self.canvasImprove.axes.set_title('Tremor Improvement', fontsize=18)
+		self.canvasImprove.axes.set_xlim([min(x), max(x)])
+		self.canvasImprove.axes.set_ylim([-100, 20])
+		self.canvasImprove.axes.legend(['Accelerometer'])
+		self.canvasImprove.axes.grid(True)
+		self.canvasImprove.draw()
 
 	# Analyze the data
 	def analyze_data(self):
