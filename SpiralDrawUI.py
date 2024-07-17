@@ -276,7 +276,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Set the baseline trial
 	def set_accel_baseline(self):
 		#self.accel_baseline =
-		print(currentAccelView.selectedItems())
+		print(self.currentAccelView.selectedItems())
 
 	# Function to plot sample data
 	def plot_data(self):
