@@ -1001,6 +1001,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			if self.current_trial != 'test':
 				self.accelCasesList.addItem(self.current_trial)
 				self.accel_files.append(self.current_trial)
+
+			for item in self.accel_trials:
+				self.currentAccelView.addItem(item)
+
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
 			self.downloadAccelButton.setEnabled(False)
