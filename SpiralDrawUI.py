@@ -346,6 +346,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					writer.writerow([f[j], accel_welch[j]])
 
 			if self.accel_trials[i] not in self.accel_psds:
+				print('Printed psds to file')
 				self.accel_psds.append(self.accel_trials[i])
 				fl = open(self.data_save_path + 'analysis/accel_psd_fls.csv', 'a')
 				fl.write(self.current_trial + '\n')
@@ -431,7 +432,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				if i > 7:
 					break
 
-				f, psds = load_data_accel_psd(self.data_save_path + 'analysis/' + self.accel_psds[i] + '_accel_psd.csv')
+				f, psd = load_data_accel_psd(self.data_save_path + 'analysis/' + self.accel_psds[i] + '_accel_psd.csv')
 
 				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(f, psd, color=\'b\')')
 				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Frequency (Hz)\', fontsize=13)')
