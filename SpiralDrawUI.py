@@ -1007,9 +1007,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.accelCasesList.addItem(self.current_trial)
 				self.accel_files.append(self.current_trial)
 				self.accel_trials.append(self.current_trial)
-
-			for item in self.accel_trials:
-				self.currentAccelView.addItem(item)
+				self.currentAccelView.addItem(self.current_trial)
 
 			self.trialNameAccelerom.setEnabled(True)
 			self.recordAccelButton.setEnabled(True)
@@ -1125,28 +1123,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			else:
 				isDownloaded = False
 				print('  Could not download. Try again.')
-	'''
-	def onDone(self, id):
-		if self.current_trial != '':
-			file_path = self.basePath + self.pt_id + '/' + self.current_trial + '_' + id + '_spiral.csv'
-		else:
-			file_path = self.basePath + self.pt_id + '/' + id + '_spiral.csv'
-
-		if id == 'ccw':
-			self.drawingAreaCCW.saveDrawing(file_path)
-			self.drawingAreaCCW.clearDrawing()
-			self.previous_spiral_ccw = file_path
-		elif id == 'cw':
-			self.drawingAreaCW.saveDrawing(file_path)
-			self.drawingAreaCW.clearDrawing()
-			self.previous_spiral_cw = file_path
-		elif id == 'line':
-			self.drawingAreaLine.saveDrawing(file_path)
-			self.drawingAreaLine.clearDrawing()
-			self.previous_spiral_line = file_path
-		else:
-			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
-	'''
 
 	def onDoneCCW(self):
 		if self.current_trial != '':
@@ -1242,27 +1218,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.currentSpiralsView.addItem(item)
 		for item in self.line_spirals:
 			self.currentSpiralsView.addItem(item)
-
-	'''
-	def onLoadPrevious(self, id):
-		if id == 'ccw':
-			if self.previous_spiral_ccw != '':
-				self.drawingAreaCCW.loadDrawing(self.previous_spiral_ccw)
-			else:
-				return
-		elif id == 'cw':
-			if self.previous_spiral_cw != '':
-				self.drawingAreaCW.loadDrawing(self.previous_spiral_cw)
-			else:
-				return
-		elif id == 'line':
-			if self.previous_spiral_line != '':
-				self.drawingAreaLine.loadDrawing(self.previous_spiral_line)
-			else:
-				return
-		else:
-			print('Error... invalid id (check src code). Note: this is not a user problem, rather a code problem')
-	'''
 
 	def onLoadPreviousCCW(self):
 		if self.previous_spiral_ccw != '':
