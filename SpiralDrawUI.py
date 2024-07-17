@@ -681,19 +681,20 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.baseline_f_peak_val = None
 		if os.path.isdir(self.data_save_path + 'analysis'):
 			# Load the analyzed psd files
-			with open(self.data_save_path + 'analysis/accel_psd_fls.csv', delimiter=',') as file:
+			with open(self.data_save_path + 'analysis/accel_psd_fls.csv') as file:
 				for line in file:
 					self.accel_psds.append(line.rstrip())
 
 			# Load the baseline info
-			with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv') as file:
-				for line in file:
-					print(line.rstrip())
-					if line[0] == 'BaselineIndex':
-						self.accel_baseline = line[1]
+			with open(self.data_save_path + 'analysis/' + 'accel_baseline_info.csv', newline='') as csvfile:
+				c_reader = csv.reader(csvfile, delimiter=',')
+				for row in c_reader:
+					if row[0] == 'BaselineIndex':
+						self.accel_baseline = row[1]
 						self.baselineTrialLE.setText(self.accel_psd[self.accel_baseline])
-					elif line[0] == 'BaselineMaxF':
-						self.baseline_f_peak_val = line[1]
+					if row[0] == 'BaselineIndex':
+						self.baseline_f_peak_val = row[1]
+
 
 		# Get the spiral files
 		self.ccw_spirals = []
