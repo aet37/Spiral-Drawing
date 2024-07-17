@@ -296,15 +296,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
 
 		self.canvasImprove.axes.plot(x, improve, marker="s", color='b')
-		'''
+
 		self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
 		self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
 		self.canvasImprove.axes.set_title('Tremor Improvement', fontsize=18)
 		self.canvasImprove.axes.set_xlim([min(x), max(x)])
 		self.canvasImprove.axes.set_ylim([-100, 20])
-		#self.canvasImprove.axes.legend(['Accelerometer'])
+		self.canvasImprove.axes.legend(['Accelerometer'])
 		self.canvasImprove.axes.grid(True)
-		'''
 		self.canvasImprove.draw()
 
 	# Analyze the data
@@ -379,7 +378,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	# Plot the acelerometer data
 	def plot_accels(self):
 		# Clear all plots
-		self.clear_all_plots()
+		self.clear_small_plots()
 
 		# Plot the entire timeseries
 		if self.RawAccelPlotRadio.isChecked():
@@ -450,7 +449,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def plot_spirals(self):
 
 		# Clear all plots
-		self.clear_all_plots()
+		self.clear_small_plots()
 
 		# If want to plot CCW spiral
 		if self.CCWPlotRadio.isChecked():
@@ -562,6 +561,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 	def clear_all_plots(self):
 		self.canvasImprove.clear_plot()
+		self.canvasGraph1.clear_plot()
+		self.canvasGraph2.clear_plot()
+		self.canvasGraph3.clear_plot()
+		self.canvasGraph4.clear_plot()
+		self.canvasGraph5.clear_plot()
+		self.canvasGraph6.clear_plot()
+		self.canvasGraph7.clear_plot()
+		self.canvasGraph8.clear_plot()
+
+	def clear_small_plots(self):
 		self.canvasGraph1.clear_plot()
 		self.canvasGraph2.clear_plot()
 		self.canvasGraph3.clear_plot()
