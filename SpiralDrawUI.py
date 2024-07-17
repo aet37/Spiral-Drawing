@@ -294,7 +294,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			return
 
 		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
-
+		print(x)
+		print(improve)
 		self.canvasImprove.axes.plot(x, improve, marker="s", color='r')
 		self.canvasImprove.axes.set_xlabel('Sonication', fontsize=13)
 		self.canvasImprove.axes.set_ylabel('Tremor Reduction (%)', fontsize=13)
