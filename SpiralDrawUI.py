@@ -59,7 +59,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.cw_spirals = []
 		self.line_spirals = []
 		self.accel_trials = []
+		self.accel_psds = []
 		self.intraop_current = 1
+		self.accel_baseline = None
 
 		# Acclerometer
 		self.accel_address = 'C5:02:6A:76:E4:5D'
@@ -107,6 +109,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.downloadAccelButton.clicked.connect(self.download_accel)
 		self.cancelRecordButton = self.findChild(QtWidgets.QPushButton, 'cancelRecord')
 		self.cancelRecordButton.clicked.connect(self.cancel_accel_record)
+		self.setBaselineButton = self.findChild(QtWidgets.QPushButton, 'set_baseline')
+		self.setBaselineButton.clicked.connect(self.set_accel_baseline)
+
 
 		# Radio Button
 		self.preopRadioButton = self.findChild(QtWidgets.QRadioButton, 'preopRadio')
@@ -268,6 +273,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	## Helper Functions
 	###############################################################################################
 
+	# Set the baseline trial
+	def set_accel_baseline(self):
+		#self.accel_baseline =
+		print(currentAccelView.selectedItems())
+
 	# Function to plot sample data
 	def plot_data(self):
 			x = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -286,6 +296,50 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.canvasImprove.axes.legend(['Accelerometer', 'Drawing'])
 			self.canvasImprove.axes.grid(True)
 			self.canvasImprove.draw()
+
+	# Analyze the data
+	def analyze_data(self):
+
+		# If no trials have been done, return
+		if (len(self.accel_files) == 0) or (self.accel_baseline == None):
+			return
+
+		# Create a directory to save the analysis if it doesnt exist
+		if not os.path.isdir(self.data_save_path + 'analysis'):
+			os.mkdir(self.data_save_path + 'analysis')
+
+		# Temporary arrays to determine the improvement
+		peak_vals = np.array([])
+		auc_welchs = np.array([])
+		auc_accels = np.array([])
+
+		# Analyze the accelerometer data
+		for i in range(len(self.accel_trials)):
+			# Load the data
+			t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
+
+			# Complete fourier and analysis of the data
+			f, accel_welch, peak_val, auc_welch, auc_accel = analyze_accel_data(t, x, y, z)
+
+			peak_vals = np.append(peak_vals, peak_val)
+			auc_welchs = np.append(auc_welchs, auc_welch)
+			auc_accels = np.append(auc_accels, auc_accel)
+
+			with open(self.data_save_path + 'analysis/' + self.accel_trials[i] + '_accel_psd.csv', 'w', newline='') as file:
+				writer = csv.writer(file)
+				for j in range(len(f)):
+					writer.writerow(f[j], accel_welch[j])
+
+			if self.accel_trials[i] not in self.accel_psds:
+				self.accel_psds.append(self.accel_trials[i])
+				fl = open(self.data_save_path + 'analysis/accel_psd_fls.csv', 'a')
+				fl.write(self.current_trial + '\n')
+				fl.close()
+
+		# Collate the improvement
+		all_accel_stats = np.vstack([peak_vals, auc_welchs, auc_accels])
+
+
 
 	def plot_accels(self):
 		# Clear all plots
@@ -534,6 +588,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.ccw_spirals = []
 		self.cw_spirals = []
 		self.line_spirals = []
+		self.accel_psds = []
 		self.intraop_current = 1
 		self.isNewCase = False
 

@@ -33,7 +33,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="caseSelect">
      <attribute name="title">
@@ -140,7 +140,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="showGraphTab">
        <attribute name="title">
@@ -353,7 +353,7 @@
        <widget class="QListWidget" name="current_accel_view">
         <property name="geometry">
          <rect>
-          <x>640</x>
+          <x>470</x>
           <y>110</y>
           <width>211</width>
           <height>261</height>
@@ -363,7 +363,7 @@
        <widget class="QGroupBox" name="groupBox_3">
         <property name="geometry">
          <rect>
-          <x>640</x>
+          <x>470</x>
           <y>380</y>
           <width>211</width>
           <height>131</height>
@@ -418,7 +418,7 @@
        <widget class="QPushButton" name="plot_accel_aspects">
         <property name="geometry">
          <rect>
-          <x>660</x>
+          <x>500</x>
           <y>520</y>
           <width>161</width>
           <height>41</height>
@@ -431,7 +431,7 @@
        <widget class="QLabel" name="label_4">
         <property name="geometry">
          <rect>
-          <x>640</x>
+          <x>480</x>
           <y>50</y>
           <width>261</width>
           <height>51</height>
@@ -444,6 +444,42 @@
         </property>
         <property name="text">
          <string>Accelerometer</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>240</y>
+          <width>151</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Set as Baseline</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>200</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>140</y>
+          <width>121</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Current Baseline:</string>
         </property>
        </widget>
       </widget>

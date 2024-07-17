@@ -1,5 +1,7 @@
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import numpy as np
+from scipy.signal import butter, lfilter, freqz, welch
 import csv
 
 class MplCanvas(FigureCanvas):
@@ -44,3 +46,43 @@ def load_data_accel(fpath):
 			z.append(float(row[3]))
 
 	return t, x, y, z
+
+# Function to analyze functions
+def analyze_accel_data(t, x, y, z):
+
+	# Turn into numpy arrays
+	t = np.array(t_pa)
+	x = np.array(x_pa)
+	y = np.array(y_pa)
+	z = np.array(z_pa)
+	accel_data = x + y + z
+
+	# Set parameters
+	fs = 100
+	low_f = 3
+	high_f = 14
+	order = 4
+
+	# Filter the data
+	b, a = butter(order, [low_f, high_f], fs=fs, btype='band')
+	accel_data_filt = lfilter(b, a, accel_data)
+
+	# Take the regio of interest
+	f_filt_ret = f_filt[idx]
+	welch_accel_ret = welch_accel_filt_sm[idx]
+
+	# Get statstics of accel trace
+	peak_val = round(max(welch_accel_ret), 3)
+	auc_welch = round(np.trapz(welch_accel_ret), 3)
+	auc_accel = round(np.trapz(abs(accel_data_filt)) / len(accel_data_filt), 3)
+
+	return f_filt_ret, welch_accel_ret, peak_val, auc_welch, auc_accel
+
+
+
+
+
+
+
+
+
