@@ -349,7 +349,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				print('Printed psds to file')
 				self.accel_psds.append(self.accel_trials[i])
 				fl = open(self.data_save_path + 'analysis/accel_psd_fls.csv', 'a')
-				fl.write(self.current_trial + '\n')
+				fl.write(self.accel_trials[i] + '\n')
 				fl.close()
 
 		# Add the baseline trial and the maxinum value of that trial to file to easlity be acessible
