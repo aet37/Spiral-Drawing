@@ -291,6 +291,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 	def plot_improvement(self):
 
 		if not os.path.isfile(self.data_save_path + 'analysis/' + 'improvement_accel.csv'):
+			print('Note File')
 			return
 
 			x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
