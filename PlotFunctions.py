@@ -89,6 +89,7 @@ def analyze_accel_data(t_pa, x_pa, y_pa, z_pa):
 	accel_data_filt = lfilter(b, a, accel_data)
 
 	f_filt, welch_accel_filt = welch(accel_data_filt, fs=fs, nperseg=len(accel_data_filt)//8, noverlap=(len(accel_data_filt)//8)//2)
+	print(int(len(welch_accel_filt)*0.03))
 	welch_accel_filt_sm = smooth(welch_accel_filt, int(len(welch_accel_filt)*0.03))
 
 	# Take the regio of interest
