@@ -892,6 +892,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(True)
 			self.cancelRecordButton.setEnabled(True)
 			self.trialNameSelect.setEnabled(False)
+			self.selectDeviceGroup.setEnabled(False)
 		else:
 			# Enable the record button again
 			self.recordAccelButton.setEnabled(True)
