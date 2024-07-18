@@ -651,6 +651,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.patientIdEnter.setText('')
 		self.trialNameAccelerom.setText('')
 		self.baselineTrialLE.setText('')
+		self.intraopValueFeild.setValue(1)
 
 		# Add all previous cases in the QListView Object
 		self.prev_pt_list = next(os.walk(self.basePath))[1]
@@ -769,6 +770,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.downloadAccelButton.setEnabled(False)
 		self.cancelRecordButton.setEnabled(False)
 		self.resetBoardButton.setEnabled(False)
+
+		# Make sure intraop variables are reset
+		self.intraopValueFeild.setValue(1)
+		self.intraop_current = 1
 
 		# Add any accel trials to the case
 		for item in self.accel_files:
