@@ -91,6 +91,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Group Boxes
 		self.trialNameSelect = self.findChild(QtWidgets.QGroupBox, 'accel_trial_sel')
+		self.selectDeviceGroup = self.findChild(QtWidgets.QGroupBox, 'select_device_group')
 
 		# Line Edits
 		self.patientIdEnter = self.findChild(QtWidgets.QLineEdit, 'patientIdEnter')
@@ -836,6 +837,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(True)
 			self.cancelRecordButton.setEnabled(True)
 			self.trialNameSelect.setEnabled(False)
+			self.selectDeviceGroup.setEnabled(False)
 			return
 
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
@@ -920,6 +922,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.intraop_current += 1
 				self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
+			self.selectDeviceGroup.setEnabled(True)
 
 			# Disable Drawing
 			self.spiralTab.setEnabled(False)
@@ -1030,6 +1033,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				self.intraop_current += 1
 				self.intraopValueFeild.setValue(self.intraop_current)
 			self.current_trial = ''
+			self.selectDeviceGroup.setEnabled(True)
 
 			# Disable Drawing
 			self.spiralTab.setEnabled(False)
@@ -1085,6 +1089,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.downloadAccelButton.setEnabled(False)
 			self.cancelRecordButton.setEnabled(False)
 			self.trialNameSelect.setEnabled(True)
+			self.selectDeviceGroup.setEnabled(True)
 
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Done. Ready for next trial.')

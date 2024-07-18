@@ -718,7 +718,7 @@
        <string>Ready for next recording.</string>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="select_device_group">
       <property name="geometry">
        <rect>
         <x>1230</x>
