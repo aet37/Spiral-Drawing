@@ -673,6 +673,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.cw_spirals = []
 		self.line_spirals = []
 		self.accel_psds = []
+		self.accel_trials = []
 		self.intraop_current = 1
 		self.isNewCase = False
 		self.accel_baseline = None
