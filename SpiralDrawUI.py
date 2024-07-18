@@ -779,6 +779,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		io_fls_a = glob.glob(self.data_save_path + 'intraop*.csv')
 		print(io_fls_s)
 		for name in io_fls_a:
+			name[len(name)-10:len(name)-4]
 			if name[len(name)-10:len(name)-4] == 'spiral':
 				io_fls_a.remove(name)
 		print(io_fls_a)
