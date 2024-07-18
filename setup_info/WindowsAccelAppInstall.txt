@@ -20,14 +20,17 @@ Pass: h!fu0h5u
 
 9.) In MinGW-64: type 'git cone https://github.com/mbientlab/MetaWear-SDK-Python'
 
-10.) I like to add the following shortcuts to the home screen:
+10.) I like to add the following shortcuts to the Desktop screen:
 	- scan_connect.py (in Users/hifuo/MetaWear-SDK-Python/examples folder)
 	- SpiralDrawUI.py (in Users/hifuo/Spiral-Drawing) ====>>> THIS IS THE MAIN APPLICAITON! <======
 	- HIFU-cases filder (May only become available after you do your first case. It is in Users/hifuo)
 
-11.)
-
+11.) Install all of the prerequsiste modules below using the command 'pip install <package_name>'
 Pip pagages to install (pip install 'package_name')
 
 metawear
 six
+matplotlib
+numpy
+scipy
+PyQt5
