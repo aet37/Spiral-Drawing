@@ -29,17 +29,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		else:
 			uic.loadUi('spiralDraw.ui', self)
 		'''
-		uic.loadUi('spiralDraw.ui', self)
-		self.move(0, 0)
-
-
-		self.setWindowTitle("HIFU Spiral Drawing")
-
-		###########################################################################################
-		## Class Variables
-		###########################################################################################
-
 		# Case Setup variables
+
 		if sys.platform == 'win32':
 			print('Windows Detected')
 			if os.path.isdir('C:/hifu/'):
@@ -54,6 +45,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			tmpdir = tmpdir.split('/')
 			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
 			self.application_path = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/Spiral-Drawing/'
+
+		uic.loadUi(self.application_path + 'spiralDraw.ui', self)
+		self.move(0, 0)
+
+
+		self.setWindowTitle("HIFU Spiral Drawing")
+
+		###########################################################################################
+		## Class Variables
+		###########################################################################################
 
 		# If the base directory doesnt exist, make it
 		if not os.path.exists(self.basePath):
