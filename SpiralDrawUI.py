@@ -785,6 +785,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print(io_fls_a[ii][len(io_fls_a[ii])-10:len(io_fls_a[ii])-4])
 			if io_fls_a[ii][len(io_fls_a[ii])-10:len(io_fls_a[ii])-4] == 'spiral':
 				io_fls_a.pop(ii)
+				continue
 			ii += 1
 		print(io_fls_a)
 
