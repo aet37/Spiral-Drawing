@@ -40,13 +40,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			print('Windows Detected')
 			if os.path.isdir('C:/hifu/'):
 				self.basePath = 'C:/hifu/HIFU-cases/'
+				self.application_path = 'C:/hifu/Spiral-Drawing/'
 			else:
 				self.basePath = 'C:/Users/hifuo/HIFU-cases/'
+				self.application_path = 'C:/Users/hifuo/Spiral-Drawing/'
 
 		else:
 			tmpdir = os.getcwd()
 			tmpdir = tmpdir.split('/')
 			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
+			self.application_path = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/Spiral-Drawing/'
 
 		# If the base directory doesnt exist, make it
 		if not os.path.exists(self.basePath):
@@ -477,7 +480,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				arr_pts_tmp_x = []
 				arr_pts_tmp_y = []
 				# Get the points in the current spiral
-				with open('C:/hifu/Spiral-Drawing/ims/ideal_ccw_spiral.csv', newline='') as csvfile:
+				with open(self.application_path + 'ims/ideal_ccw_spiral.csv', newline='') as csvfile:
 					spiral_reader = csv.reader(csvfile, delimiter=',')
 					for row in spiral_reader:
 						arr_pts_tmp_x.append(int(row[1]))
@@ -511,7 +514,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				arr_pts_tmp_x = []
 				arr_pts_tmp_y = []
 				# Get the points in the current spiral
-				with open('C:/hifu/Spiral-Drawing/ims/ideal_cw_spiral.csv', newline='') as csvfile:
+				with open(self.application_path + 'ims/ideal_cw_spiral.csv', newline='') as csvfile:
 					spiral_reader = csv.reader(csvfile, delimiter=',')
 					for row in spiral_reader:
 						arr_pts_tmp_x.append(int(row[1]))
@@ -547,13 +550,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				arr_pts_tmpl_x = []
 				arr_pts_tmpl_y = []
 				# Get the points in the current spiral
-				with open('C:/hifu/Spiral-Drawing/ims/line_ideal_upper.csv', newline='') as csvfile:
+				with open(self.application_path + 'ims/line_ideal_upper.csv', newline='') as csvfile:
 					spiral_reader = csv.reader(csvfile, delimiter=',')
 					for row in spiral_reader:
 						arr_pts_tmpu_x.append(int(row[1]))
 						arr_pts_tmpu_y.append(int(row[2]))
 
-				with open('C:/hifu/Spiral-Drawing/ims/line_ideal_lower.csv', newline='') as csvfile:
+				with open(self.application_path + 'ims/line_ideal_lower.csv', newline='') as csvfile:
 					spiral_reader = csv.reader(csvfile, delimiter=',')
 					for row in spiral_reader:
 						arr_pts_tmpl_x.append(int(row[1]))
