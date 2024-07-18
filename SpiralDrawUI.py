@@ -774,8 +774,17 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.resetBoardButton.setEnabled(False)
 
 		# Make sure intraop variables are reset
-		self.intraopValueFeild.setValue(1)
-		self.intraop_current = 1
+		io_fls_s = os.listdir('intraop*_ccw_spiral.csv')
+		io_fls_a = os.listdir('intraop*.csv')
+		for name in io_fls_a:
+			if name[len(name)-10:len(name)-4] == 'spiral':
+				io_fls_a.remove(name)
+
+		self.intraop_current = max([len(io_fls_s), len(io_fls_a)]) + 1
+		if self.intraop_current == 0 or self.intraop_current > 15:
+			self.intraop_current = 1
+
+		self.intraopValueFeild.setValue(self.intraop_current)
 		self.preopRadioButton.setChecked(True)
 
 		# Add any accel trials to the case

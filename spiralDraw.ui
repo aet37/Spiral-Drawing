@@ -607,6 +607,9 @@
        <property name="text">
         <string>preop</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QRadioButton" name="intraopRadio">
        <property name="geometry">
