@@ -3,6 +3,7 @@ from PaintFunctions import *
 from PlotFunctions import *
 import os
 import sys
+import glob
 
 if sys.platform == 'win32':
 	import warnings
@@ -774,8 +775,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.resetBoardButton.setEnabled(False)
 
 		# Make sure intraop variables are reset
-		io_fls_s = os.listdir('intraop*_ccw_spiral.csv')
-		io_fls_a = os.listdir('intraop*.csv')
+		io_fls_s = os.listdir(self.data_save_path + 'intraop*_ccw_spiral.csv')
+		io_fls_a = os.listdir(self.data_save_path + 'intraop*.csv')
+		print(io_fls_s)
+		print(io_fls_a)
 		for name in io_fls_a:
 			if name[len(name)-10:len(name)-4] == 'spiral':
 				io_fls_a.remove(name)
