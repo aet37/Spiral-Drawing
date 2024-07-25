@@ -46,7 +46,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			self.basePath = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/HIFU-cases/'
 			self.application_path = '/' + tmpdir[1] + '/'+ tmpdir[2] + '/Spiral-Drawing/'
 
-		uic.loadUi('spiralDraw.ui', self)
+		os.chdir(self.application_path)
+
+		uic.loadUi('./spiralDraw.ui', self)
 		self.move(0, 0)
 
 
@@ -78,6 +80,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Acclerometer
 		self.accel_address = 'C5:02:6A:76:E4:5D'
 		self.accelDevice = Accelerometer(self.accel_address)
+
+		# Ensure device is not
+		self.accelDevice.scan_connect()
 
 		# Spiral
 		self.previous_spiral_ccw = ''

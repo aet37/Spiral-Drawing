@@ -88,7 +88,10 @@ def analyze_accel_data(t_pa, x_pa, y_pa, z_pa):
 	b, a = butter(order, [low_f, high_f], fs=fs, btype='band')
 	accel_data_filt = lfilter(b, a, accel_data)
 
-	f_filt, welch_accel_filt = welch(accel_data_filt, fs=fs, nperseg=len(accel_data_filt)//8, noverlap=(len(accel_data_filt)//8)//2)
+	if len(accel_data_filt) < 800:
+		f_filt, welch_accel_filt = welch(accel_data_filt, fs=fs, nperseg=len(accel_data_filt)//8, noverlap=(len(accel_data_filt)//8)//2)
+	else:
+		f_filt, welch_accel_filt = welch(accel_data_filt, fs=fs, nperseg=500, noverlap=250)
 
 	box_len = int(len(welch_accel_filt)*0.03)
 	if box_len == 0:
