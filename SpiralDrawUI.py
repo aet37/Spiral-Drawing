@@ -428,31 +428,37 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				plot_ind.append(len(self.accel_trials) - 2)
 				plot_ind.append(len(self.accel_trials) - 1)
 
+		i_plot = 0
+
 		# Plot the entire timeseries
 		if self.RawAccelPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
 			for i in range(len(self.accel_trials)):
 				# Only 7 graphs. Cannot plot more.
-				if i > 7:
-					break
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
 				to_plot = []
 				for j in range(len(x)):
 					to_plot.append(x[j] + y[j] + z[j])
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t, to_plot, color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', Full Accel Trace\', fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(t, to_plot, color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.accel_trials[i] + \', Full Accel Trace\', fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.grid(True)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 		elif self.AccelSamplePlotRadio.isChecked():
 			# Loop through all spirals drawn so far
 			for i in range(len(self.accel_trials)):
 				# Only 7 graphs. Cannot plot more.
-				if i > 7:
-					break
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
 				to_plot = []
@@ -467,30 +473,35 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				else:
 					continue
 
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max], to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', 1s of Accel Trace\', fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(t[ind_plot_min:ind_plot_max], to_plot[ind_plot_min:ind_plot_max], color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_xlabel(\'Time (s)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_ylabel(\'Acceleration (G)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.accel_trials[i] + \', 1s of Accel Trace\', fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.grid(True)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 		elif self.FreqAccelPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
 			for i in range(len(self.accel_psds)):
 				# Only 7 graphs. Cannot plot more.
-				if i > 7:
-					break
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				f, psd = load_data_accel_psd(self.data_save_path + 'analysis/' + self.accel_psds[i] + '_accel_psd.csv')
 
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(f, psd, color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlabel(\'Frequency (Hz)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylabel(\'PSD (G^2/Hz)\', fontsize=13)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_xlim(min(f), max(f))')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_ylim(0, self.baseline_f_peak_val * 2)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.accel_trials[i] + \', Accel PSD\', fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.grid(True)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(f, psd, color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_xlabel(\'Frequency (Hz)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_ylabel(\'PSD (G^2/Hz)\', fontsize=13)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_xlim(min(f), max(f))')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_ylim(0, self.baseline_f_peak_val * 2)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.accel_trials[i] + \', Accel PSD\', fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.grid(True)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 
 	# Plot the spiral data
@@ -527,11 +538,6 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Loop through all spirals drawn so far
 			for i in range(len(self.ccw_spirals)):
 				# Only 7 graphs. Cannot plot more.
-				'''
-				if i > 7:
-					break
-				'''
-
 				if plot_ind != []:
 					if i not in plot_ind:
 						continue
@@ -561,8 +567,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			# Loop through all spirals drawn so far
 			for i in range(len(self.cw_spirals)):
 				# Only 7 graphs. Cannot plot more.
-				if i > 7:
-					break
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				arr_pts_x = []
 				arr_pts_y = []
@@ -584,19 +591,22 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 						arr_pts_tmp_y.append(int(row[2]))
 
 				# Plot the spirals
-				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.cw_spirals[i], fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.cw_spirals[i], fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 		elif self.LinePlotRadio.isChecked():
 			# Loop through all spirals drawn so far
 			for i in range(len(self.line_spirals)):
 				# Only 7 graphs. Cannot plot more.
-				if i > 7:
-					break
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				arr_pts_x = []
 				arr_pts_y = []
@@ -626,14 +636,16 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 						arr_pts_tmpl_y.append(int(row[2]))
 
 				# Plot the spirals
-				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmpu_x, arr_pts_tmpu_y, color=\'r\')')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmpl_x, arr_pts_tmpl_y, color=\'r\')')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.line_spirals[i], fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_tmpu_x, arr_pts_tmpu_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_tmpl_x, arr_pts_tmpl_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.line_spirals[i], fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 		elif self.SFlotRadio.isChecked():
 			return
