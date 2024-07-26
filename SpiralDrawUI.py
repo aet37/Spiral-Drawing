@@ -359,6 +359,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		peak_vals = np.array([])
 		auc_welchs = np.array([])
 		auc_accels = np.array([])
+		f_maxs = np.array([])
+		peak_peaks = np.array([])
 
 		# Analyze the accelerometer data
 		for i in range(len(self.accel_trials)):
@@ -366,11 +368,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			t, x, y, z = load_data_accel(self.data_save_path + self.accel_trials[i] + '.csv')
 
 			# Complete fourier and analysis of the data
-			f, accel_welch, peak_val, auc_welch, auc_accel = analyze_accel_data(t, x, y, z)
+			f, accel_welch, peak_val, auc_welch, f_max, auc_accel, peak_peak = analyze_accel_data(t, x, y, z)
 
 			peak_vals = np.append(peak_vals, peak_val)
 			auc_welchs = np.append(auc_welchs, auc_welch)
 			auc_accels = np.append(auc_accels, auc_accel)
+			f_maxs = np.append(f_maxs, f_max)
+			peak_peaks = np.append(peak_peaks, peak_peak)
 
 			with open(self.data_save_path + 'analysis/' + self.accel_trials[i] + '_accel_psd.csv', 'w', newline='') as file:
 				writer = csv.writer(file)
@@ -388,6 +392,15 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			writer = csv.writer(file)
 			writer.writerow(['BaselineIndex', self.accel_baseline])
 			writer.writerow(['BaselineMaxF', peak_vals[self.accel_baseline]])
+
+		# Collate the improvement
+		all_accel_stats = np.vstack([peak_vals, f_maxs, auc_welchs, peak_peaks, auc_accels])
+
+		# Write the improvement data to file
+		with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', 'w', newline='') as file:
+				writer = csv.writer(file)
+				for j in range(all_accel_stats.shape[1]):
+					writer.writerow([all_accel_stats[0][j], all_accel_stats[1][j], all_accel_stats[2][j], all_accel_stats[3][j], all_accel_stats[4][j]])
 
 		# Save the peak val for graphing frequency
 		self.baseline_f_peak_val = peak_vals[self.accel_baseline]
@@ -438,6 +451,26 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		if not os.path.isdir(self.data_save_path + 'analysis/pdf_figs/'):
 			os.mkdir(self.data_save_path + 'analysis/pdf_figs/')
 
+		# Make graph of the improvement
+		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
+
+		for i in range(len(improve)):
+			improve[i] = improve[i] * 100
+
+		plt.plot(x, improve, marker="s", color='r')
+
+		plt.xlabel('Sonication', fontsize=13)
+		plt.ylabel('Tremor Reduction (%)', fontsize=13)
+		plt.title('Tremor Improvement', fontsize=18)
+		plt.xlim(min(x), max(x))
+		plt.ylim(-100, 20)
+		plt.legend(['Accelerometer'])
+		plt.grid(True)
+		plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png')
+		plt.close()
+
+		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 525, width=300, preserveAspectRatio=True, mask='auto')
+
 		for i in range(len(self.accel_psds)):
 			# Print the trial name on the PDF
 			c.setFont("Helvetica-Bold", 13)
@@ -453,6 +486,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			plt.title(self.accel_trials[i] + ', Accelerometer PSD', fontsize=18)
 			plt.xlabel('Frequency (Hz)', fontsize=14)
 			plt.ylabel('PSD (G^2/Hz)', fontsize=14)
+			plt.ylim(0, self.baseline_f_peak_val * 2)
 			plt.grid(True)
 			plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_psd.png')
 			plt.close()

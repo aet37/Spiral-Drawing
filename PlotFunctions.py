@@ -104,11 +104,19 @@ def analyze_accel_data(t_pa, x_pa, y_pa, z_pa):
 	welch_accel_ret = welch_accel_filt_sm[idx]
 
 	# Get statstics of accel trace
-	peak_val = round(max(welch_accel_ret), 3)
-	auc_welch = round(np.trapz(welch_accel_ret), 3)
-	auc_accel = round(np.trapz(abs(accel_data_filt)) / len(accel_data_filt), 3)
+	peak_val = round(max(welch_accel_ret), 5)
+	auc_welch = round(np.trapz(welch_accel_ret), 5)
+	auc_accel = round(np.trapz(abs(accel_data_filt)) / len(accel_data_filt), 5)
+	f_max = round(f_filt_ret[np.argmax(welch_accel_ret)], 3)
 
-	return f_filt_ret, welch_accel_ret, peak_val, auc_welch, auc_accel
+	# Get P-P Amplitude
+	max_pks_ind, _ = find_peaks(accel_data_filt)
+	max_pks = np.mean(accel_data_filt[max_pks_ind])
+	min_pks_ind, _ = find_peaks(np.negative(accel_data_filt))
+	min_pks = np.mean(accel_data_filt[min_pks_ind])
+	peak_peak = round(max_pks - min_pks, 5)
+
+	return f_filt_ret, welch_accel_ret, peak_val, auc_welch, f_max, auc_accel, peak_peak
 
 
 
