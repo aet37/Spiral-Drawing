@@ -9,6 +9,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 import matplotlib.pyplot as plt
 
 if sys.platform == 'win32':
@@ -477,7 +478,20 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			for row in spiral_reader:
 				display_stats = np.vstack([display_stats, row[0:4]])
 
-		c.drawString(25, height - 600, str(display_stats))
+		table_data = [display_stats.tolist()]
+		disp_table = Table(table_data)
+		disp_table.setStyle(TableStyle([
+			('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+			('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+			('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+			('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+			('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+			('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+			('GRID', (0, 0), (-1, -1), 1, colors.black),
+		]))
+		disp_table.wrapOn(c, width, height)
+		disp_table.drawOn(c, 25, height - 600)
+
 
 		# Print the current page
 		c.showPage()
