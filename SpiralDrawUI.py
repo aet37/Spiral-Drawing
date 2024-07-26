@@ -475,7 +475,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', newline='') as csvfile:
 			spiral_reader = csv.reader(csvfile, delimiter=',')
 			for row in spiral_reader:
-				display_stats = np.vstack(display_stats, row)
+				display_stats = np.vstack([display_stats, row])
 
 		print(display_stats)
 
