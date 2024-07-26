@@ -410,17 +410,23 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		plot_ind = []
 		if len(self.accel_trials) > 7:
 			if self.accel_baseline == None:
+				plot_ind.append(len(self.accel_trials) - 8)
+				plot_ind.append(len(self.accel_trials) - 7)
+				plot_ind.append(len(self.accel_trials) - 6)
+				plot_ind.append(len(self.accel_trials) - 5)
+				plot_ind.append(len(self.accel_trials) - 4)
+				plot_ind.append(len(self.accel_trials) - 3)
+				plot_ind.append(len(self.accel_trials) - 2)
 				plot_ind.append(len(self.accel_trials) - 1)
 			else:
 				plot_ind.append(self.accel_baseline)
-				plot_ind.append(len(self.accel_trials) - 1)
-				plot_ind.append(len(self.accel_trials) - 2)
-				plot_ind.append(len(self.accel_trials) - 3)
-				plot_ind.append(len(self.accel_trials) - 4)
-				plot_ind.append(len(self.accel_trials) - 5)
-				plot_ind.append(len(self.accel_trials) - 6)
 				plot_ind.append(len(self.accel_trials) - 7)
-
+				plot_ind.append(len(self.accel_trials) - 6)
+				plot_ind.append(len(self.accel_trials) - 5)
+				plot_ind.append(len(self.accel_trials) - 4)
+				plot_ind.append(len(self.accel_trials) - 3)
+				plot_ind.append(len(self.accel_trials) - 2)
+				plot_ind.append(len(self.accel_trials) - 1)
 
 		# Plot the entire timeseries
 		if self.RawAccelPlotRadio.isChecked():
@@ -493,13 +499,42 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Clear all plots
 		self.clear_small_plots()
 
+		plot_ind = []
+		if len(self.accel_trials) > 7:
+			if self.accel_baseline == None:
+				plot_ind.append(len(self.accel_trials) - 8)
+				plot_ind.append(len(self.accel_trials) - 7)
+				plot_ind.append(len(self.accel_trials) - 6)
+				plot_ind.append(len(self.accel_trials) - 5)
+				plot_ind.append(len(self.accel_trials) - 4)
+				plot_ind.append(len(self.accel_trials) - 3)
+				plot_ind.append(len(self.accel_trials) - 2)
+				plot_ind.append(len(self.accel_trials) - 1)
+			else:
+				plot_ind.append(self.accel_baseline)
+				plot_ind.append(len(self.accel_trials) - 7)
+				plot_ind.append(len(self.accel_trials) - 6)
+				plot_ind.append(len(self.accel_trials) - 5)
+				plot_ind.append(len(self.accel_trials) - 4)
+				plot_ind.append(len(self.accel_trials) - 3)
+				plot_ind.append(len(self.accel_trials) - 2)
+				plot_ind.append(len(self.accel_trials) - 1)
+
+		i_plot = 0
+
 		# If want to plot CCW spiral
 		if self.CCWPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
 			for i in range(len(self.ccw_spirals)):
 				# Only 7 graphs. Cannot plot more.
+				'''
 				if i > 7:
 					break
+				'''
+
+				if plot_ind != []:
+					if i not in plot_ind:
+						continue
 
 				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.ccw_spirals[i] + '_spiral.csv')
 
@@ -513,12 +548,14 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 						arr_pts_tmp_y.append(int(row[2]))
 
 				# Plot the spirals
-				eval('self.canvasGraph' + str((i+1)) + '.clear_plot()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
-				eval('self.canvasGraph' + str((i+1)) + '.axes.set_title(self.ccw_spirals[i], fontsize=14)')
-				eval('self.canvasGraph' + str((i+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.clear_plot()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_tmp_x, arr_pts_tmp_y, color=\'r\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.ccw_spirals[i], fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
+
+				i_plot += 1
 
 		elif self.CWPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
