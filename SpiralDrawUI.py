@@ -469,7 +469,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png')
 		plt.close()
 
-		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 525, width=300, preserveAspectRatio=True, mask='auto')
+		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 450, width=300, preserveAspectRatio=True, mask='auto')
 
 		# Print the current page
 		c.showPage()
