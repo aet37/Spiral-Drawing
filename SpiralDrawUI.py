@@ -643,6 +643,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
 				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.plot(arr_pts_x, arr_pts_y, color=\'b\')')
 				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_title(self.line_spirals[i], fontsize=14)')
+				eval('self.canvasGraph' + str((i_plot+1)) + '.axes.set_ylim(-10, 170)')
 				eval('self.canvasGraph' + str((i_plot+1)) + '.draw()')
 
 				i_plot += 1
