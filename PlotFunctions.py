@@ -1,7 +1,7 @@
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
-from scipy.signal import butter, lfilter, freqz, welch
+from scipy.signal import butter, lfilter, freqz, welch, find_peaks
 import csv
 
 class MplCanvas(FigureCanvas):
