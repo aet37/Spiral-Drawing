@@ -471,6 +471,9 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 525, width=300, preserveAspectRatio=True, mask='auto')
 
+		# Print the current page
+		c.showPage()
+
 		for i in range(len(self.accel_psds)):
 			# Print the trial name on the PDF
 			c.setFont("Helvetica-Bold", 13)
@@ -499,13 +502,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 					if spiral_reader.line_num - 1 == i:
 						display_statistics.append(round(float(row[0]), 3))
 						display_statistics.append(round(float(row[1]), 3))
-						display_statistics.append(round(float(row[3]), 3))
-						display_statistics.append(float(row[4]))
+						display_statistics.append(round(float(row[2]), 3))
+						display_statistics.append(float(row[3]))
 
 			c.drawString(50, height - 110, 'Tremor (PSD) Peak: ' + str(display_statistics[0]) + ' G^2/Hz')
-			c.drawString(50, height - 130, 'Peak at Frequency: ' + str(display_statistics[3]) + ' Hz')
+			c.drawString(50, height - 130, 'Peak at Frequency: ' + str(display_statistics[1]) + ' Hz')
 			c.drawString(50, height - 150, 'Peak-Peak Amplitude of Accelerometer: ' + str(display_statistics[2]) + ' G')
-			c.drawString(50, height - 170, 'AUC of PSD (4-12Hz): ' + str(display_statistics[1]) + ' G*Hz')
+			c.drawString(50, height - 170, 'AUC of PSD (4-12Hz): ' + str(display_statistics[3]) + ' G*Hz')
 
 			# Add the PSD figure in
 			c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_psd.png'), 150, height - 525, width=300, preserveAspectRatio=True, mask='auto')
