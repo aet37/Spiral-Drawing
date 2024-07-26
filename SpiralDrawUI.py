@@ -477,7 +477,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			for row in spiral_reader:
 				display_stats = np.vstack([display_stats, row[0:4]])
 
-		print(display_stats)
+		c.drawString(25, height - 600, display_stats)
 
 		# Print the current page
 		c.showPage()
