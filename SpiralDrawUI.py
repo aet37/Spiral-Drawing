@@ -479,9 +479,10 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			for row in spiral_reader:
 				display_stats = np.vstack([display_stats, row[0:4]])
 
-		improve_add = np.hstack(['Improvement (%)', np.array(improve)])
+		improve_add = np.array(['Improvement (%)'] + improve)
+		improve_add = improve_add.reshape(-1, 1)
 
-		display_stats = np.hstack([np.transpose(improve_add), display_stats])
+		display_stats = np.concatenate([improve_add, display_stats], axis=1)
 
 		table_data = display_stats.tolist()
 		disp_table = Table(table_data)
