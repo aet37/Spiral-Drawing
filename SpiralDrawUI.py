@@ -473,16 +473,21 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 450, width=300, preserveAspectRatio=True, mask='auto')
 
-		display_stats = np.array(['PSD Peak (G^2/Hz)', 'Peak Frequency (Hz)', 'PSD AUC 4-12Hz (G^2)', 'Peak-Peak Signal Amp. (G*Hz)'])
+		display_stats = np.array(['PSD Peak (G^2/Hz)', 'Tremor Frq. (Hz)', 'PSD AUC (G^2)', 'P-P Amp. (G*Hz)'])
 		with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', newline='') as csvfile:
 			spiral_reader = csv.reader(csvfile, delimiter=',')
 			for row in spiral_reader:
 				display_stats = np.vstack([display_stats, row[0:4]])
 
+		# Add column of improvement
 		improve_add = np.array(['Improvement (%)'] + improve)
 		improve_add = improve_add.reshape(-1, 1)
-
 		display_stats = np.concatenate([improve_add, display_stats], axis=1)
+
+		# Add column of sonication label
+		trials_list = np.array([''] + self.accel_psds)
+		trials_list = trials_list.reshape(-1, 1)
+		display_stats = np.concatenate([trials_list, display_stats], axis=1)
 
 		table_data = display_stats.tolist()
 		disp_table = Table(table_data)
