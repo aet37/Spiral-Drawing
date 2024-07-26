@@ -490,7 +490,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			('BACKGROUND', (0, 1), (-1, -1), colors.beige),
 			('GRID', (0, 0), (-1, -1), 1, colors.black),
 		]))
-		disp_table.wrapOn(c, width, height)
+		#disp_table.wrapOn(c, width, height)
 		disp_table.drawOn(c, 25, height - 600)
 
 
