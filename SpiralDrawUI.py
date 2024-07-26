@@ -457,7 +457,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		x, improve = load_data_accel_psd(self.data_save_path + 'analysis/' + 'improvement_accel.csv')
 
 		for i in range(len(improve)):
-			improve[i] = improve[i] * 100
+			improve[i] = round(improve[i], 2) * 100
 
 		plt.plot(x, improve, marker="s", color='r')
 
