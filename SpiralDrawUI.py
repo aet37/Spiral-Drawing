@@ -4,6 +4,12 @@ from PlotFunctions import *
 import os
 import sys
 import glob
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+import matplotlib.pyplot as plt
 
 if sys.platform == 'win32':
 	import warnings
@@ -131,6 +137,8 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.setBaselineButton.clicked.connect(self.set_accel_baseline)
 		self.analyzeAccelDataButton = self.findChild(QtWidgets.QPushButton, 'analyze_accel_data')
 		self.analyzeAccelDataButton.clicked.connect(self.analyze_data)
+		self.generatePDFButton = self.findChild(QtWidgets.QPushButton, 'generate_pdf_report')
+		self.generatePDFButton.clicked.connect(self.generate_pdf)
 
 
 		# Radio Button
@@ -401,6 +409,166 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		self.plot_improvement()
 		self.FreqAccelPlotRadio.setChecked(True)
 		self.plot_accels()
+
+	# Generate a PDF Report of the
+	def generate_pdf(self):
+
+		# If analysis has not been done, cannot generate PDF report. Exit
+		if not os.path.isfile(self.data_save_path + 'analysis/improvement_accel.csv'):
+			print('Cannot Generate PDF. Must analyze data first.')
+			return
+
+		# Create the PDF
+		c = canvas.Canvas(self.data_save_path + self.pt_id + '_report.pdf', pagesize=letter)
+		width, height = letter
+
+		# Add the patient info
+		c.setFont("Helvetica-Bold", 18)
+		c.drawString(50, height - 40, self.pt_id + ' Spiral Report')
+		c.setFont("Helvetica", 13)
+
+		# Add the date info
+		with open(self.basePath + self.pt_id + '.txt', 'r') as file:
+			lines = file.readlines()
+			date_plus_time = lines[2]
+
+		c.drawString(50, height - 60, date_plus_time)
+
+		# Make directory to save figure if it is not already made
+		if not os.path.isdir(self.data_save_path + 'analysis/pdf_figs/'):
+			os.mkdir(self.data_save_path + 'analysis/pdf_figs/')
+
+		for i in range(len(self.accel_psds)):
+			# Print the trial name on the PDF
+			c.setFont("Helvetica-Bold", 13)
+			c.drawString(50, height - 90, self.accel_psds[i])
+			c.setFont("Helvetica", 12)
+
+			# Save the PSD (will exist for all)
+			f, psd = load_data_accel_psd(self.data_save_path + 'analysis/' + self.accel_psds[i] + '_accel_psd.csv')
+
+			# Save the image to folder
+			plt.figure()
+			plt.plot(f, psd, color='b')
+			plt.title(self.accel_trials[i] + ', Accelerometer PSD', fontsize=18)
+			plt.xlabel('Frequency (Hz)', fontsize=14)
+			plt.ylabel('PSD (G^2/Hz)', fontsize=14)
+			plt.grid(True)
+			plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_psd.png')
+			plt.close()
+
+			# Get the display statistics
+			display_statistics = []
+			with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', newline='') as csvfile:
+				spiral_reader = csv.reader(csvfile, delimiter=',')
+				for row in spiral_reader:
+					if spiral_reader.line_num - 1 == i:
+						display_statistics.append(round(float(row[0]), 3))
+						display_statistics.append(round(float(row[1]), 3))
+						display_statistics.append(round(float(row[3]), 3))
+						display_statistics.append(float(row[4]))
+
+			c.drawString(50, height - 110, 'Tremor (PSD) Peak: ' + str(display_statistics[0]) + ' G^2/Hz')
+			c.drawString(50, height - 130, 'Peak at Frequency: ' + str(display_statistics[3]) + ' Hz')
+			c.drawString(50, height - 150, 'Peak-Peak Amplitude of Accelerometer: ' + str(display_statistics[2]) + ' G')
+			c.drawString(50, height - 170, 'AUC of PSD (4-12Hz): ' + str(display_statistics[1]) + ' G*Hz')
+
+			# Add the PSD figure in
+			c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_psd.png'), 150, height - 525, width=300, preserveAspectRatio=True, mask='auto')
+
+
+			# Plot CCW spiral if it exists
+			if os.path.isfile(self.data_save_path + self.accel_trials[i] + '_ccw_spiral.csv'):
+				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.accel_trials[i] + '_ccw_spiral.csv')
+
+				arr_pts_tmp_x = []
+				arr_pts_tmp_y = []
+
+				# Get the points in the current spiral
+				with open(self.application_path + 'ims/ideal_ccw_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmp_x.append(int(row[1]))
+						arr_pts_tmp_y.append(int(row[2]))
+
+				# Save pngs of spiral
+				plt.figure()
+				plt.plot(arr_pts_tmp_x, arr_pts_tmp_y, color='r')
+				plt.plot(arr_pts_x, arr_pts_y, color='b')
+				plt.title(self.accel_trials[i] + ', CCW Spiral', fontsize=18)
+				plt.grid(True)
+				plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_ccw_spiral.png')
+				plt.close()
+
+				# Add the PSD figure in
+				c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_ccw_spiral.png'), 50, height - 750, width=250, preserveAspectRatio=True, mask='auto')
+
+			# Plot CW spiral if it exists
+			if os.path.isfile(self.data_save_path + self.accel_trials[i] + '_cw_spiral.csv'):
+				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.accel_trials[i] + '_cw_spiral.csv')
+
+				arr_pts_tmp_x = []
+				arr_pts_tmp_y = []
+
+				with open(self.application_path + 'ims/ideal_cw_spiral.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmp_x.append(int(row[1]))
+						arr_pts_tmp_y.append(int(row[2]))
+
+				# Save pngs of spiral
+				plt.figure()
+				plt.plot(arr_pts_tmp_x, arr_pts_tmp_y, color='r')
+				plt.plot(arr_pts_x, arr_pts_y, color='b')
+				plt.title(self.accel_trials[i] + ', CW Spiral', fontsize=18)
+				plt.grid(True)
+				plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_cw_spiral.png')
+				plt.close()
+
+				# Add the PSD figure in
+				c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_cw_spiral.png'), 310, height - 750, width=250, preserveAspectRatio=True, mask='auto')
+
+			# Plot Line if it exists
+			if os.path.isfile(self.data_save_path + self.accel_trials[i] + '_line_spiral.csv'):
+				arr_pts_x, arr_pts_y = load_data_spiral(self.data_save_path + self.accel_trials[i] + '_line_spiral.csv')
+
+				arr_pts_tmpu_x = []
+				arr_pts_tmpu_y = []
+				arr_pts_tmpl_x = []
+				arr_pts_tmpl_y = []
+				# Get the points in the current spiral
+				with open(self.application_path + 'ims/line_ideal_upper.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmpu_x.append(int(row[1]))
+						arr_pts_tmpu_y.append(int(row[2]))
+
+				with open(self.application_path + 'ims/line_ideal_lower.csv', newline='') as csvfile:
+					spiral_reader = csv.reader(csvfile, delimiter=',')
+					for row in spiral_reader:
+						arr_pts_tmpl_x.append(int(row[1]))
+						arr_pts_tmpl_y.append(int(row[2]))
+
+				# Save pngs of spiral
+				plt.figure()
+				plt.plot(arr_pts_tmpu_x, arr_pts_tmpu_y, color='r')
+				plt.plot(arr_pts_tmpl_x, arr_pts_tmpl_y, color='r')
+				plt.plot(arr_pts_x, arr_pts_y, color='b')
+				plt.title(self.accel_trials[i] + ', Line', fontsize=18)
+				plt.ylim(-20, 180)
+				plt.grid(True)
+				plt.savefig(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_line.png')
+				plt.close()
+
+				# Add the PSD figure in
+				c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_line.png'), 150, height - 925, width=250, preserveAspectRatio=True, mask='auto')
+
+			# Print the current page
+			c.showPage()
+
+		# Save the PDF after it has been printed to
+		c.save()
+
 
 	# Plot the acelerometer data
 	def plot_accels(self):

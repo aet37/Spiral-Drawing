@@ -503,6 +503,19 @@
          <string/>
         </property>
        </widget>
+       <widget class="QPushButton" name="generate_pdf_report">
+        <property name="geometry">
+         <rect>
+          <x>1610</x>
+          <y>800</y>
+          <width>141</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Generate PDF</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
