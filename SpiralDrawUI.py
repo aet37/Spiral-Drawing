@@ -501,7 +501,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			('GRID', (0, 0), (-1, -1), 1, colors.black),
 		]))
 		disp_table.wrapOn(c, width, height)
-		disp_table.drawOn(c, 25, height - 600)
+		disp_table.drawOn(c, 50, height - 600)
 
 
 		# Print the current page
