@@ -10,6 +10,7 @@ from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
 import matplotlib.pyplot as plt
 
 if sys.platform == 'win32':
