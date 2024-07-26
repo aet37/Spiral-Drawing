@@ -471,10 +471,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 450, width=300, preserveAspectRatio=True, mask='auto')
 
+		display_stats = np.array(['PSD Peak (G^2/Hz)', 'Peak Frequency (Hz)', 'PSD AUC 4-12Hz (G^2)', 'Peak-Peak Signal Amp. (G*Hz)'])
 		with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', newline='') as csvfile:
 			spiral_reader = csv.reader(csvfile, delimiter=',')
+			for row in spiral_reader:
+				display_stats = np.vstack(display_stats, row)
 
-		print(spiral_reader)
+		print(display_stats)
 
 		# Print the current page
 		c.showPage()
