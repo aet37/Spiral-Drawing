@@ -437,7 +437,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Add the patient info
 		c.setFont("Helvetica-Bold", 18)
-		c.drawString(50, height - 40, self.pt_id + ' Spiral Report')
+		c.drawString(50, height - 40, self.pt_id + ' HIFU Summary')
 		c.setFont("Helvetica", 13)
 
 		# Add the date info
@@ -470,6 +470,11 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		plt.close()
 
 		c.drawImage(ImageReader(self.data_save_path + 'analysis/pdf_figs/' + self.accel_psds[i] + '_improvement.png'), 150, height - 450, width=300, preserveAspectRatio=True, mask='auto')
+
+		with open(self.data_save_path + 'analysis/' + 'accel_analysis.csv', newline='') as csvfile:
+			spiral_reader = csv.reader(csvfile, delimiter=',')
+
+		print(spiral_reader)
 
 		# Print the current page
 		c.showPage()
