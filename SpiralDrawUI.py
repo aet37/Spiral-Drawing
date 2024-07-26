@@ -407,6 +407,21 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Clear all plots
 		self.clear_small_plots()
 
+		plot_ind = []
+		if len(self.accel_trials) > 7:
+			if self.accel_baseline == None:
+				plot_ind.append(len(self.accel_trials) - 1)
+			else:
+				plot_ind.append(self.accel_baseline)
+				plot_ind.append(len(self.accel_trials) - 1)
+				plot_ind.append(len(self.accel_trials) - 2)
+				plot_ind.append(len(self.accel_trials) - 3)
+				plot_ind.append(len(self.accel_trials) - 4)
+				plot_ind.append(len(self.accel_trials) - 5)
+				plot_ind.append(len(self.accel_trials) - 6)
+				plot_ind.append(len(self.accel_trials) - 7)
+
+
 		# Plot the entire timeseries
 		if self.RawAccelPlotRadio.isChecked():
 			# Loop through all spirals drawn so far
@@ -783,17 +798,13 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Make sure intraop variables are reset
 		io_fls_s = glob.glob(self.data_save_path + 'intraop*_ccw_spiral.csv')
 		io_fls_a = glob.glob(self.data_save_path + 'intraop*.csv')
-		print(io_fls_s)
-		print(io_fls_a)
 
 		ii = 0
 		while ii < len(io_fls_a):
-			print(io_fls_a[ii][len(io_fls_a[ii])-10:len(io_fls_a[ii])-4])
 			if io_fls_a[ii][len(io_fls_a[ii])-10:len(io_fls_a[ii])-4] == 'spiral':
 				io_fls_a.pop(ii)
 				continue
 			ii += 1
-		print(io_fls_a)
 
 		self.intraop_current = max([len(io_fls_s), len(io_fls_a)]) + 1
 		if self.intraop_current == 0 or self.intraop_current > 15:
@@ -850,7 +861,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		# Update user thatdevice is being set up
 		if not self.spiralOnlyRadioButton.isChecked():
 			self.accelDeviceUpdates.setText('Connecting to device ...')
-			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+			self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 			# Enable Drawing
 			self.spiralTab.setEnabled(True)
@@ -886,7 +897,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				break
 			else:
 				self.accelDeviceUpdates.setText('Still connecting ...')
-				self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+				self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 				#Force GUI to update (needed due to many sleep() calls associated with BT device)
 				app.processEvents()
@@ -908,7 +919,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 		# Update user that device is being set up
 		self.accelDeviceUpdates.setText('Connected. Setting up device ...')
-		self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+		self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 		#Force GUI to update (needed due to many sleep() calls associated with BT device)
 		app.processEvents()
@@ -994,7 +1005,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Reconnecting ...')
-			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+			self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
@@ -1039,7 +1050,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Done. Reseting BT ...')
-			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+			self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 			#Force GUI to update (needed due to many sleep() calls associated with BT device)
 			app.processEvents()
@@ -1102,7 +1113,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 		if not self.spiralOnlyRadioButton.isChecked():
 			# Signal to UI that the data is being downloaded
 			self.accelDeviceUpdates.setText('Cancel and Reset...')
-			self.accelDeviceUpdates.setStyleSheet('Color: yellow;')
+			self.accelDeviceUpdates.setStyleSheet('Color: black;')
 
 		# Disable Download and cancel buttons
 		self.downloadAccelButton.setEnabled(False)
