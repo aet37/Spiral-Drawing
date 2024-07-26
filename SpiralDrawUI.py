@@ -480,6 +480,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 				display_stats = np.vstack([display_stats, row[0:4]])
 
 		table_data = [display_stats.tolist()]
+		disp(table_data)
 		disp_table = Table(table_data)
 		disp_table.setStyle(TableStyle([
 			('BACKGROUND', (0, 0), (-1, 0), colors.grey),
@@ -490,7 +491,7 @@ class spiralDrawSystem(QtWidgets.QMainWindow):
 			('BACKGROUND', (0, 1), (-1, -1), colors.beige),
 			('GRID', (0, 0), (-1, -1), 1, colors.black),
 		]))
-		#disp_table.wrapOn(c, width, height)
+		disp_table.wrapOn(c, width, height)
 		disp_table.drawOn(c, 25, height - 600)
 
 
