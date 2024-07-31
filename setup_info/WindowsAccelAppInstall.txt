@@ -3,30 +3,47 @@ Password to Microsoft and gmail accounts:
 Email: hifuohsu1@gmail.com
 Pass: h!fu0h5u
 
-1.) Set up windows with account above. Make sure the device is named 'hifu'. This is necessary for the application to work properly. Change user to hifu if it is not in settings.
-2.) Download python from the 'Microsoft Store' application
-3.) Open 'cmd' application (I like to pin this applicaiton in taskbar) and Type 'python'. The command screen should change to the python shell. If it does this, type quit() to exit
+Pin to log into computers: hifu
 
-4.) type pip install --upgrade pip in cmd (not in python shell)
 
-5.) Use browser(I like changing to firefox but optional) to download Git at 'gitforwindows.org'. Open and follow steps to install
+1.) Set up windows with account above. Name the device 'hifu'.
+
+2.) Download python 3 from the 'Microsoft Store' application
+
+3.) Add python to the path of the machine. Go to settings, and search + select 'Edit the system environment variables' Then select the box that says 'Environment variables' at the bottom of the screen. Follow the steps below for both of the boxes that show up on the screen, After finding and copying the python installation location (it should be something like C:\Users\hifuo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\Scripts AND C:\Users\hifuo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\
+	- Click the line labeled 'Path' and select 'Edit'
+	- Select New and copy and paste the first path with 'Scripts' at the end (whatever it is named on the device you are setting up)
+	- Select New and copy and paste the second path (after the AND in the examples of what it is on one device above (whatever it is named on the device you are setting up)
+	- Click 'OK'
+
+	- repeat this for both the User variables and the System variables boxes
+
+4.) Open 'cmd' application (I like to pin this applicaiton in taskbar) and Type 'python'. The command screen should change to the python shell. If it does this, type quit() to exit
+
+5.) type pip install --upgrade pip in cmd (not in python shell. (Ie. Exit out of last step if typed 'python' in shell)
+
+6.) Use browser(I like changing to firefox but optional) to download Git at 'gitforwindows.org'. Open and follow steps to install
 	- Note: Unlink linux platforms, you cannot run python files in 'Git Bash'. You must use Git bash to acess github, but you can only run Python files in 'cmd' application
 
-6.) (Optional) Install text editor like Sublime
+7.) Create a directory called 'C:\hifu\' - either via explorer or command line
 
-7.) Open MinGW-64. type 'cd ~', then 'pwd'. It should say '/c/Users/hifuo'
+8.) Open MinGW-64. type 'cd /c/hifu'
 
-8.) In MinGW-64: type 'git clone https://github.com/aet37/Spiral-Drawing.git'
+9.) After last step(should be in directory /c/hifu, type: 'git clone https://github.com/aet37/Spiral-Drawing.git' This is the HIFU application
+	- Also in /c/hifu/ type: 'git clone https://github.com/aet37/Accel-Clinic.git'
+	- Also type: 'git cone https://github.com/mbientlab/MetaWear-SDK-Python.git'
 
-9.) In MinGW-64: type 'git cone https://github.com/mbientlab/MetaWear-SDK-Python'
+11.) I like to add the following shortcuts to the Desktop screen (right click on file in tis folder -> Show more options -> create shortcut):
+	- scan_connect.py (in C:/hifu/MetaWear-SDK-Python/examples folder) -> used to be more important but I think this bug requiring this file was fixed. Still may be good to have accessible
+	- SpiralDrawUI.py (in C:/hifu/Spiral-Drawing) ====>>> THIS IS THE MAIN HIFU APPLICAITON! <======
+	- SpiralDrawUI.py (in C:/hifu/Accel-Clinic) ====>>> THIS IS THE MAIN CLINIC APPLICAITON! <======
+	- HIFU-Cases filder (May only become available after you do your first case. It is in C:/hifu)
+	- Clinic-Cases filder (May only become available after you do your first case. It is in C:/hifu)
 
-10.) I like to add the following shortcuts to the Desktop screen:
-	- scan_connect.py (in Users/hifuo/MetaWear-SDK-Python/examples folder)
-	- SpiralDrawUI.py (in Users/hifuo/Spiral-Drawing) ====>>> THIS IS THE MAIN APPLICAITON! <======
-	- HIFU-cases filder (May only become available after you do your first case. It is in Users/hifuo)
+12.) It is helpful to to into settings and set "screen lock" on (you can search for this setting).
 
-11.) Install all of the prerequsiste modules below using the command 'pip install <package_name>'
-Pip pagages to install (pip install 'package_name')
+13.) Install all of the prerequsiste modules below using the command 'pip install <package_name>'
+Pip pagages to install (pip install 'package_name'):
 
 metawear
 six
